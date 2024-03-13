@@ -1,0 +1,20 @@
+[33mcommit a770c2063b7ff66d8673bcf1a758a77329419be8[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Merge: 884c57c c49a6bc
+Author: HoDoHoangKhang <117786383+HoDoHoangKhang@users.noreply.github.com>
+Date:   Wed Mar 13 20:46:00 2024 +0700
+
+    Merge pull request #1 from HoDoHoangKhang/HKhang
+    
+    Hiển thị danh sách nghỉ phép
+
+[33mcommit c49a6bcdcd3ccc075d7039c38f365a9d153d99e0[m[33m ([m[1;31morigin/HKhang[m[33m, [m[1;32mHKhang[m[33m)[m
+Author: HoDoHoangKhang <Hohohoangkhang@gmail.com>
+Date:   Wed Mar 13 20:35:42 2024 +0700
+
+    Hiển thị danh sách nghỉ phép
+
+[33mcommit 884c57c7e5e3681ba6373ab75a9770d81840c0c4[m[33m ([m[1;31morigin/MTien[m[33m)[m
+Author: HoDoHoangKhang <Hohohoangkhang@gmail.com>
+Date:   Sat Mar 9 11:52:14 2024 +0700
+
+    first commit

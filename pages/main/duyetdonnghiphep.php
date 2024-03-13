@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php
     $sql= "SELECT * FROM donnghiphep ORDER BY maDon DESC";
     $result=mysqli_query($connect,$sql);
@@ -482,4 +483,3 @@
   }
   gtag('js', new Date());
   gtag('config', 'UA-56159088-1');
-</script>
