@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!doctype html>
 <html lang="en">
   <head>
@@ -41,4 +42,3 @@
     </div> <!-- .wrapper -->
 
   </body>
-</html>
