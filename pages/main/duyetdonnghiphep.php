@@ -1,3 +1,9 @@
+<?php
+    $sql= "SELECT * FROM donnghiphep ORDER BY maDon DESC";
+    $result=mysqli_query($connect,$sql);
+
+?>
+
 <main role="main" class="main-content">
   <div class="container-fluid">
     <div class="row justify-content-center">
@@ -15,7 +21,7 @@
                   <thead>
                     <tr>
                       <th>Mã đơn</th>
-                      <th>Mã nhân viên</th>
+                      <th>Người nộp</th>
                       <th style="width: 100px;">Ngày bắt đầu</th>
                       <th style="width: 100px;">Ngày kết thúc </th>
                       <th>Số ngày nghỉ</th>
@@ -27,23 +33,45 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>1</td>
-                      <td>2</td>
-                      <td>20/03/2023</td>
-                      <td>20/03/2025</td>
-                      <td>10</td>
-                      <td>Đi chơi</td>
-                      <td>Hoài Nam</td>
-                      <td>12-32-2032</td>
-                      <td>Chưa duyệt</td>
-                      <td>
-                        <div style="display: flex; align-items: center; justify-content: start; gap: 10px;">
-                          <button type="button" class="btn mb-2 btn-success">Duyệt</button>
-                          <button type="button" class="btn mb-2 btn-danger">Xóa</button>
-                        </div>
-                      </td>
-                    </tr>
+                    <?php while($row=mysqli_fetch_array($result)){ ?>
+                        <tr>
+                            <td><?php echo $row['maDon'] ?></td>
+                            <td>
+                              <?php 
+                                $sql_nguoiNop= "SELECT * FROM `nhanvien` WHERE maNhanVien=?";
+                                $stmt = mysqli_prepare($connect, $sql_nguoiNop);
+                                mysqli_stmt_bind_param($stmt, "i", $row['maNhanVien']);
+                                mysqli_stmt_execute($stmt);
+                                $result_nguoiNop= mysqli_stmt_get_result($stmt);
+                                $nguoiNop = mysqli_fetch_array($result_nguoiNop);
+                                echo $nguoiNop["maNhanVien"]."-".$nguoiNop["hoTen"];
+                              ?>
+                            </td>
+                            <td><?php echo $row['ngayBatDauNghi'] ?></td>
+                            <td><?php echo $row['ngayKetThucNghi'] ?></td>
+                            <td><?php echo $row['ngayKetThucNghi'] ?></td>
+                            <td><?php echo $row['lyDo'] ?></td>
+                            <td>
+                              <?php
+                                $sql_nguoiDuyet= "SELECT * FROM `nhanvien` WHERE maNhanVien=?";
+                                $stmt = mysqli_prepare($connect, $sql_nguoiDuyet);
+                                mysqli_stmt_bind_param($stmt, "i", $row['nguoiPheDuyet']);
+                                mysqli_stmt_execute($stmt);
+                                $result_nguoiDuyet= mysqli_stmt_get_result($stmt);
+                                $nguoiDuyet = mysqli_fetch_array($result_nguoiDuyet);
+                                echo $nguoiDuyet["maNhanVien"]."-".$nguoiDuyet["hoTen"];
+                              ?>
+                            </td>
+                            <td><?php echo $row['ngayPheDuyet'] ?></td>
+                            <td><?php  echo ($row['trangThai']==1)?"Đã duyệt":"Chưa duyệt" ?></td>
+                            <td>
+                              <div style="display: flex; align-items: center; justify-content: start; gap: 10px; color: white;">
+                                <a href="" class="btn mb-2 btn-success">Duyệt</a>
+                                <a href="" class="btn mb-2 btn-danger">Xóa</a>
+                              </div>
+                            </td>
+                        </tr>
+                    <?php } ?>
                   </tbody>
                 </table>
               </div>

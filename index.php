@@ -32,6 +32,7 @@
     <div class="wrapper">
       
       <?php
+        require_once 'config/config.php';
         include_once 'pages/header.php';
         include_once 'pages/slidebar.php';
         include_once 'pages/main.php';
