@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?php
     $sql= "SELECT * FROM donnghiphep ORDER BY maDon DESC";
     $result=mysqli_query($connect,$sql);
@@ -50,7 +49,7 @@
                             </td>
                             <td><?php echo $row['ngayBatDauNghi'] ?></td>
                             <td><?php echo $row['ngayKetThucNghi'] ?></td>
-                            <td><?php echo $row['ngayKetThucNghi'] ?></td>
+                            <td><?php echo $row['soNgayNghi'] ?></td>
                             <td><?php echo $row['lyDo'] ?></td>
                             <td>
                               <?php
@@ -67,7 +66,7 @@
                             <td><?php  echo ($row['trangThai']==1)?"Đã duyệt":"Chưa duyệt" ?></td>
                             <td>
                               <div style="display: flex; align-items: center; justify-content: start; gap: 10px; color: white;">
-                                <a href="" class="btn mb-2 btn-success">Duyệt</a>
+                                <a href="pages/main/duyetdonnghiphep-duyet.php?maDon=<?php echo $row["maDon"]?>" class="btn mb-2 btn-success">Duyệt</a>
                                 <a href="" class="btn mb-2 btn-danger">Xóa</a>
                               </div>
                             </td>
