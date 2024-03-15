@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <!doctype html>
 <html lang="en">
   <head>
@@ -29,7 +28,7 @@
 
     <link rel="stylesheet" href="css/dataTables.bootstrap4.css">
   </head>
-  <body class="vertical  light  ">
+  <body class="vertical light  ">
     <div class="wrapper">
       
       <?php
