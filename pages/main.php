@@ -1,6 +1,18 @@
 <?php
     if(isset($_GET['page'])){
         switch ($_GET['page']) {
+            case 'logout':
+                require_once 'pages/main/logout.php';
+                break; 
+            case 'forgetPass':
+                require_once 'pages/main/forgetPass.php';
+                break; 
+            case 'signup':
+                require_once 'pages/main/signup.php';
+                break; 
+            case 'login':
+                require_once 'pages/main/login.php';
+                break; 
             case 'nhanvien':
                 require_once 'pages/main/nhanvien.php';
                 break;  
