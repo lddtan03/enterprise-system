@@ -245,8 +245,7 @@
     xml.open("GET", request, true);
     xml.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xml.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-        console.log(this.responseText)
+      if (this.readyState == 4 && this.status == 200) {        
         document.querySelectorAll("#dataTable-1 .chiTietSoLuong")[0].innerHTML = this.responseText;
       }
     };
