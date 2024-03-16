@@ -3,6 +3,7 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/HTTT-DN/object/database.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/HTTT-DN/object/sanpham.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/HTTT-DN/object/size.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/HTTT-DN/object/soluong.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/HTTT-DN/object/nhacungcap.php');
 
 const DA_XOA = 0;
 const CON_HANG = 1;
@@ -84,6 +85,24 @@ function getChiTietSoLuong($maSanPham) {
 	}
 	$db->disconnect();
 	return $soLuongArr;
+}
+
+function getNhaCungCapList() {
+	$db = new Database();
+	$kq = mysqli_query($db->getConnection(), "SELECT * FROM nhacungcap");
+	$nhaCungCapArr = array();
+	while ($row = mysqli_fetch_assoc($kq)) {
+		$nhaCungCap = new NhaCungCap(
+			$row['maNCC'],
+			$row['tenNCC'],
+			$row['diaChiNCC'],
+			$row['sdtNCC'],
+			$row['emailNCC']
+		);
+		$nhaCungCapArr[] = $nhaCungCap;
+	}
+	$db->disconnect();
+	return $nhaCungCapArr;
 }
 
 /*
