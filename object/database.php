@@ -40,7 +40,7 @@ class Database
         if (!($data = mysqli_query($this->connection, $query))) {
             echo "Khong the thuc thi cau truy van";
         }
-        while ($result = mysqli_fetch_array($data)) {
+        while ($result = mysqli_fetch_assoc($data)) {
             $arr[] = $result;
         }
         return $arr;

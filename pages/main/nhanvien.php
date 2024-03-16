@@ -1,3 +1,13 @@
+<?php
+require_once './object/database.php';
+
+$row = new Database;
+$arr = $row->executeQuery('select distinct nv.maNhanVien, avatar, hoTen, gioiTinh, ngaySinh, diaChi, tenPhong, tenChucVu, ngayKetThuc, luongCoBan from chucvu cv join nhanvien nv on cv.maChucVu=nv.maChucVu join phongban pb on pb.maPhong=nv.maPhong join hopdong hd on hd.maNhanVien=nv.maNhanVien order by nv.maNhanVien asc');
+
+
+
+?>
+
 <main role="main" class="main-content">
   <div class="container-fluid">
     <div class="row justify-content-center">
@@ -12,10 +22,10 @@
             <div class="card shadow">
               <div class="card-body">
                 <!-- table -->
-                <table class="table datatables" id="dataTable-1" >
+                <table class="table datatables" id="dataTable-1">
                   <thead>
                     <tr>
-                      <th >Mã</th>
+                      <th>Mã</th>
                       <th>Avatar</th>
                       <th>Tên</th>
                       <th>Giới tính</th>
@@ -23,138 +33,81 @@
                       <th>Địa chỉ</th>
                       <th>Phòng ban</th>
                       <th>Chức vụ</th>
-                      
                       <th>Kết thúc hợp đồng</th>
                       <th>Lương cơ bản</th>
                       <th>Hành động</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>1</td>
-                      <td>
-                          <img src="assets/avatars/face-2.jpg" alt="" style="width: 50px; height: 50px; border-radius: 1000px;">
-                      </td>
-                      <td>Hồ Đỗ Hoàng Khang</td>
-                      <td>Nam</td>
-                      <td>02/03/2003</td>
-                      <td>123 Đường ABC, Quận XYZ, Thành phố HCM</td>
-                      <td>Công nghệ</td>
-                      <td>Nhân viên</td>
-                      <td>20-11-2025</td>
-                      <td>30.000.000</td>
-                      <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <span class="text-muted sr-only">Action</span>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right">
-                          <a class="dropdown-item" href="#">Chi tiết</a>
-                          <a class="dropdown-item" href="#">Chuyển chức vụ</a>
-                          <a class="dropdown-item" href="#">Chuyển phòng</a>
-                          <a class="dropdown-item" href="#">Gia hạn hợp đồng</a>
-                          <a class="dropdown-item" href="#">Xóa</a>
+                    <?php
+                    foreach ($arr as $element) {
+                      $maNV = $element['maNhanVien'];
+                    ?>
+                      <tr>
+                        <td><?php echo $element['maNhanVien'] ?></td>
+                        <td>
+                          <img src="assets/avatars/<?php echo $element['avatar'] ?>" alt="" style="width: 50px; height: 50px; border-radius: 1000px;">
+                        </td>
+                        <td><?php echo $element['hoTen'] ?></td>
+                        <td><?php echo $element['gioiTinh'] ?></td>
+                        <td><?php echo $element['ngaySinh'] ?></td>
+                        <td><?php echo $element['diaChi'] ?></td>
+                        <td><?php echo $element['tenPhong'] ?></td>
+                        <td><?php echo $element['tenChucVu'] ?></td>
+                        <td><?php echo $element['ngayKetThuc'] ?></td>
+                        <td><?php echo $element['luongCoBan'] ?></td>
+                        <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="text-muted sr-only">Action</span>
+                          </button>
+                          <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="">Chi tiết</a>
+                            <a class="dropdown-item" href="">Chuyển chức vụ</a>
+                            <a class="dropdown-item" href="">Chuyển phòng</a>
+                            <a class="dropdown-item giahan" manv="<?php echo $element['maNhanVien'] ?>" hreflang=""href="index.php?page=giahanhopdong&manv=<?php echo $element['maNhanVien'] ?>" >Gia hạn hợp đồng</a>
+                            <a class="dropdown-item" href="">Xóa</a>
                           </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>
-                          <img src="assets/avatars/face-2.jpg" alt="" style="width: 50px; height: 50px; border-radius: 1000px;">
-                      </td>
-                      <td>Hồ Đỗ Hoàng Khang</td>
-                      <td>Nam</td>
-                      <td>02/03/2003</td>
-                      <td>123 Đường ABC, Quận XYZ, Thành phố HCM</td>
-                      <td>Công nghệ</td>
-                      <td>Nhân viên</td>
-                      <td>20-11-2025</td>
-                      <td>30.000.000</td>
-                      <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <span class="text-muted sr-only">Action</span>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right">
-                          <a class="dropdown-item" href="#">Chi tiết</a>
-                          <a class="dropdown-item" href="#">Chuyển chức vụ</a>
-                          <a class="dropdown-item" href="#">Chuyển phòng</a>
-                          <a class="dropdown-item" href="#">Gia hạn hợp đồng</a>
-                          <a class="dropdown-item" href="#">Xóa</a>
+                        </td>
+                      </tr>
+                    <?php
+                    }
+                    ?>
+                    <!-- Modal gia han hop dong-->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Gia hạn hợp đồng</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
                           </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>
-                          <img src="assets/avatars/face-2.jpg" alt="" style="width: 50px; height: 50px; border-radius: 1000px;">
-                      </td>
-                      <td>Hồ Đỗ Hoàng Khang</td>
-                      <td>Nam</td>
-                      <td>02/03/2003</td>
-                      <td>123 Đường ABC, Quận XYZ, Thành phố HCM</td>
-                      <td>Công nghệ</td>
-                      <td>Nhân viên</td>
-                      <td>20-11-2025</td>
-                      <td>30.000.000</td>
-                      <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <span class="text-muted sr-only">Action</span>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right">
-                          <a class="dropdown-item" href="#">Chi tiết</a>
-                          <a class="dropdown-item" href="#">Chuyển chức vụ</a>
-                          <a class="dropdown-item" href="#">Chuyển phòng</a>
-                          <a class="dropdown-item" href="#">Gia hạn hợp đồng</a>
-                          <a class="dropdown-item" href="#">Xóa</a>
+                          <div class="modal-body">
+                            <span class="manv"></span>
+                            <script>
+                              let exampleModal = document.getElementById('exampleModal');
+                              let maNV = document.querySelectorAll('.giahan');
+                              let modal_body = document.querySelector('.modal-body');
+                              let maNV2 = document.querySelector('.manv');
+                              maNV.forEach((currentValue, index, array) => {
+                                currentValue.addEventListener('click', () => {
+                                  let ma = currentValue.getAttribute('manv')
+                                  maNV2.innerHTML = `${ma}`;
+                                  <?php
+                                  // $getNhanVienTheoMa = $row->executeQuery(`select maNhanVien from nhanvien`);
+                                  ?>
+                                })
+                              })
+                            </script>
+
+
                           </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>
-                          <img src="assets/avatars/face-2.jpg" alt="" style="width: 50px; height: 50px; border-radius: 1000px;">
-                      </td>
-                      <td>Hồ Đỗ Hoàng Khang</td>
-                      <td>Nam</td>
-                      <td>02/03/2003</td>
-                      <td>123 Đường ABC, Quận XYZ, Thành phố HCM</td>
-                      <td>Công nghệ</td>
-                      <td>Nhân viên</td>
-                      <td>20-11-2025</td>
-                      <td>30.000.000</td>
-                      <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <span class="text-muted sr-only">Action</span>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right">
-                          <a class="dropdown-item" href="#">Chi tiết</a>
-                          <a class="dropdown-item" href="#">Chuyển chức vụ</a>
-                          <a class="dropdown-item" href="#">Chuyển phòng</a>
-                          <a class="dropdown-item" href="#">Gia hạn hợp đồng</a>
-                          <a class="dropdown-item" href="#">Xóa</a>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                            <button type="button" class="btn btn-primary">Lưu</button>
                           </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>
-                          <img src="assets/avatars/face-2.jpg" alt="" style="width: 50px; height: 50px; border-radius: 1000px;">
-                      </td>
-                      <td>Hồ Đỗ Hoàng Khang</td>
-                      <td>Nam</td>
-                      <td>02/03/2003</td>
-                      <td>123 Đường ABC, Quận XYZ, Thành phố HCM</td>
-                      <td>Công nghệ</td>
-                      <td>Nhân viên</td>
-                      <td>20-11-2025</td>
-                      <td>30.000.000</td>
-                      <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <span class="text-muted sr-only">Action</span>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right">
-                          <a class="dropdown-item" href="#">Chi tiết</a>
-                          <a class="dropdown-item" href="#">Chuyển chức vụ</a>
-                          <a class="dropdown-item" href="#">Chuyển phòng</a>
-                          <a class="dropdown-item" href="#">Gia hạn hợp đồng</a>
-                          <a class="dropdown-item" href="#">Xóa</a>
-                          </div>
-                      </td>
-                    </tr>
+                        </div>
+                      </div>
+                    </div>
                   </tbody>
                 </table>
               </div>
@@ -300,8 +253,7 @@
 <script src='js/jquery.dataTables.min.js'></script>
 <script src='js/dataTables.bootstrap4.min.js'></script>
 <script>
-  $('#dataTable-1').DataTable(
-  {
+  $('#dataTable-1').DataTable({
     autoWidth: true,
     "lengthMenu": [
       [16, 32, 64, -1],
@@ -315,8 +267,7 @@
 <script>
   window.dataLayer = window.dataLayer || [];
 
-  function gtag()
-  {
+  function gtag() {
     dataLayer.push(arguments);
   }
   gtag('js', new Date());
