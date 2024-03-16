@@ -38,8 +38,10 @@ session_start();
 
   <?php
 if (!isset($_GET['page']) || ($_GET['page'] !== 'signup' && $_GET['page'] !== 'forgetPass' && $_GET['page'] !== 'login')) {
+  include_once 'config/config.php';
   include_once 'pages/header.php';
   include_once 'pages/slidebar.php';
+
 }
 
 if (isset($_GET['page'])) {
