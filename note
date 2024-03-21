@@ -1,0 +1,4 @@
+// CSDL
+// Thay đổi thuộc tính nguoiPhepDuyet cho phép NULL trong bảng donnghiphep
+//Xóa bỏ khóa ngoại nguoiPheDuyet(donnghiphep) - maNhanVien(chamcong) 
+//Thêm khóa ngoại nguoiPheDuyet(donnghiphep) - maNhanVien(nhanvien) 

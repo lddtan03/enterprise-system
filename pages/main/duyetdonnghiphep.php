@@ -53,13 +53,19 @@
                             <td><?php echo $row['lyDo'] ?></td>
                             <td>
                               <?php
-                                $sql_nguoiDuyet= "SELECT * FROM `nhanvien` WHERE maNhanVien=?";
-                                $stmt = mysqli_prepare($connect, $sql_nguoiDuyet);
-                                mysqli_stmt_bind_param($stmt, "i", $row['nguoiPheDuyet']);
-                                mysqli_stmt_execute($stmt);
-                                $result_nguoiDuyet= mysqli_stmt_get_result($stmt);
-                                $nguoiDuyet = mysqli_fetch_array($result_nguoiDuyet);
-                                echo $nguoiDuyet["maNhanVien"]."-".$nguoiDuyet["hoTen"];
+                                if($row['nguoiPheDuyet']==null){
+                                  echo "";
+                                }
+                                else{
+                                  $sql_nguoiDuyet= "SELECT * FROM `nhanvien` WHERE maNhanVien=?";
+                                  $stmt = mysqli_prepare($connect, $sql_nguoiDuyet);
+                                  mysqli_stmt_bind_param($stmt, "i", $row['nguoiPheDuyet']);
+                                  mysqli_stmt_execute($stmt);
+                                  $result_nguoiDuyet= mysqli_stmt_get_result($stmt);
+                                  $nguoiDuyet = mysqli_fetch_array($result_nguoiDuyet);
+                                  echo $nguoiDuyet["maNhanVien"]."-".$nguoiDuyet["hoTen"];
+                                }
+
                               ?>
                             </td>
                             <td><?php echo $row['ngayPheDuyet'] ?></td>

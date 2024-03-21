@@ -61,7 +61,6 @@ mysqli_close($conn); // Close the database connection after processing
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Tiny Dashboard - A Bootstrap Dashboard Template</title>
     </head>
-
 <main role="main" class="">
     <div class="wrapper vh-100">
         <div class="row align-items-center h-100">
