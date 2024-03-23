@@ -47,8 +47,8 @@ $getNhanVienTheoMa = $nv->executeQuery("select nv.maNhanVien, avatar, hoTen, gio
                             <div class="card-deck">
                                 <div class="card shadow mb-4">
                                     <div class="card-header">
-                                        <img src="assets/avatars/<?php echo $nhanvien['avatar'] ?>" alt="" style="max-width: 200px">
-                                        <strong class="card-title"><?php echo $nhanvien['hoTen'] . " - Mã nhân viên: " . $nhanvien['maNhanVien'] ?></strong>
+                                    <img src="assets/avatars/<?php echo $nhanvien['avatar'] ?>" alt="" style="max-width: 200px" class="avatar-img rounded-circle mr-3">
+                                        <strong class="card-title" style="font-size: large; font-weight: bold;"><?php echo $nhanvien['hoTen'] . " - Mã nhân viên: " . $nhanvien['maNhanVien'] ?></strong>
                                     </div>
                                     <div class="card-body">
                                         <form action="" method="POST">
@@ -68,11 +68,11 @@ $getNhanVienTheoMa = $nv->executeQuery("select nv.maNhanVien, avatar, hoTen, gio
                                             </div>
                                             <div class="form-row">
                                                 <div class="form-group col-md-6">
-                                                    <label for="inputEmail4">Tên phòng</label>
+                                                    <label for="inputEmail4">Phòng ban</label>
                                                     <input type="email" class="form-control" id="inputEmail4" placeholder="Email" disabled value="<?php echo $nhanvien['tenPhong'] ?>">
                                                 </div>
                                                 <div class="form-group col-md-6">
-                                                    <label for="inputPassword4">Tên chức vụ</label>
+                                                    <label for="inputPassword4">Chức vụ</label>
                                                     <input type="text" class="form-control" id="inputPassword4" placeholder="Password" disabled value="<?php echo $nhanvien['tenChucVu'] ?>">
                                                 </div>
                                             </div>
@@ -146,7 +146,7 @@ $getNhanVienTheoMa = $nv->executeQuery("select nv.maNhanVien, avatar, hoTen, gio
         $ngayKetThuc = $_POST['ngayKetThuc'];
         $nv->insert_update_delete("update hopdong set ngayKetThuc = '$ngayKetThuc' where maNhanVien = $manv");
         echo "<script>
-            window.location.href = 'http://localhost:8888/httt-dn/index.php?page=nhanvien'
+            window.location.href = 'http://localhost/HTTT-DN/index.php?page=nhanvien'
             </script>";
         // header("location:../../index.php?page=nhanvien");
     }
