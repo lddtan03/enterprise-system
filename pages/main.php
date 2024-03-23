@@ -68,7 +68,7 @@
                 else{
                     require_once 'pages/main/danhsachphieunhap.php';
                 }
-                break;       
+                break;      
             default:
                 require_once 'pages/dashboard.php';
                 break;

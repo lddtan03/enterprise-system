@@ -28,23 +28,10 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>1</td>
-                      <td>2</td>
-                      <td>20/03/2023</td>
-                      <td>20/03/2025</td>
-                      <td>10</td>
-                      <td>Đi chơi</td>
-                      <td>Không</td>
-                      <td>Không</td>
-                      <td>Chưa duyệt</td>
-                      <td>
-                        <div style="display: flex; align-items: center; justify-content: start; gap: 10px;">
-                          <button type="button" class="btn mb-2 btn-warning">Sửa</button>
-                          <button type="button" class="btn mb-2 btn-danger">Xóa</button>
-                        </div>
-                      </td>
-                    </tr>
+                    <?php 
+                    require_once($_SERVER['DOCUMENT_ROOT'] . '/HTTT-DN/control/donnghiphep-act.php');
+                    showAllDonNghiPhep();
+                    ?>
                   </tbody>
                 </table>
               </div>
@@ -134,12 +121,12 @@
         <div class="modal-body p-8">
           <div class="card shadow mb-8">
             <div class="card-body">
-              <form class="needs-validation" method="post" action="index.php?page=donnghiphep"  novalidate>
+              <form class="needs-validation" method="POST" action="pages/main/donnghiphep-xuly.php"  novalidate>
                 <div class="form-row">
                   <div class="col-md-6 mb-3">
                     <label for="date-input1">Ngày nghỉ bắt đầu</label>
                     <div class="input-group">
-                      <input type="text" class="form-control drgpicker" id="date-input1" value="04/24/2020" aria-describedby="button-addon2">
+                      <input type="text" class="form-control drgpicker" id="date-input1" name="ngayBatDauNghi" aria-describedby="button-addon2">
                       <div class="input-group-append">
                         <div class="input-group-text" id="button-addon-date"><span class="fe fe-calendar fe-16 mx-2"></span></div>
                       </div>
@@ -148,7 +135,7 @@
                   <div class="col-md-6 mb-3">
                     <label for="date-input1">Ngày nghỉ kết thúc</label>
                     <div class="input-group">
-                      <input type="text" class="form-control drgpicker" id="date-input1" value="04/24/2020" aria-describedby="button-addon2">
+                      <input type="text" class="form-control drgpicker" id="date-input1" name="ngayKetThucNghi" aria-describedby="button-addon2">
                       <div class="input-group-append">
                         <div class="input-group-text" id="button-addon-date"><span class="fe fe-calendar fe-16 mx-2"></span></div>
                       </div>
@@ -157,10 +144,10 @@
                 </div> <!-- /.form-row -->
                 <div class="form-group mb-3">
                   <label for="validationTextarea1">Lý do</label>
-                  <textarea class="form-control" id="validationTextarea1" placeholder="Nhập lý do ở dây" required="" rows="3"></textarea>
+                  <textarea class="form-control" id="validationTextarea1" placeholder="Nhập lý do ở dây" name="lyDo" required="" rows="3"></textarea>
                   <div class="invalid-feedback"> Vui lòng điền lý do. </div>
                 </div>
-                <input class="btn btn-primary" type="submit" value="Nộp"></input>
+                <input class="btn btn-primary" name="NopDonNghiPhep" type="submit" value="Nộp"></input>
               </form>
             </div> <!-- /.card-body -->
           </div> <!-- /.card -->
