@@ -28,7 +28,6 @@
                   </thead>
                   <tbody id="productListBody">
                     <?php
-                    require_once($_SERVER['DOCUMENT_ROOT'] . '/HTTT-DN/object/action.php');
                     hienThiSanPham();
                     ?>
                   </tbody>
@@ -54,8 +53,10 @@
         </div>
         <div class="modal-body p-4">
           <table class="table datatables" id="dataTable-1">
+          <table class="table datatables" id="dataTable-1">
             <thead>
               <tr>
+                <th>Kích thước</th>
                 <th>Kích thước</th>
                 <th>Số lượng</th>
               </tr>
@@ -244,3 +245,39 @@
   }    
 </script>
 
+<?php
+function hienThiSanPham()
+{
+  require_once($_SERVER['DOCUMENT_ROOT'] . '/HTTT-DN/object/action.php');
+  
+  $productList = getProductList();
+  for ($i = 0; $i < count($productList); $i++) {    
+    $product = $productList[$i];
+    if ($product->getTinhTrang() == DA_XOA)
+      continue;
+    echo '
+    <tr>
+      <td>' . $product->getMaSanPham() . '</td>' .
+      '<td>' .
+      '<img src="' . $product->getHinhAnh() . '" alt="" style="width: 50px; height: 50px; border-radius: 1000px;">' .
+      '</td>' .
+      '<td>' . $product->getTenSanPham() . '</td>' .
+      '<td>' . changeMoney($product->getGiaCu()) . '₫</td>' .
+      '<td>' . changeMoney($product->getGiaMoi()) . '₫</td>' .
+      '<td>' . $product->getMaNhanHieu() . '</td>' .
+      '<td>Nam, thể thao</td>' .
+      '<td>' .
+      '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#chitietsoluong" 
+      onclick="getChiTietSoLuong(' . $product->getMaSanPham() . ')"></span>'
+      . getSoLuongSanPham($product->getMaSanPham()) . '</button>' .
+      '</td>' .
+      '<td>
+        <div style="display: flex; align-items: center; justify-content: start; gap: 10px;">
+          <button type="button" class="btn mb-2 btn-warning" onclick="window.location.href = \'index.php?page=sanpham&action=edit&masanpham=' . $product->getMaSanPham() . '\'">Sửa</button>
+          <button type="button" class="btn mb-2 btn-danger" onclick="displayDelete(\'product\', ' . $product->getMaSanPham() . ')">Xóa</button>
+        </div>
+      </td>
+    </tr>';
+  }
+}
+?>
