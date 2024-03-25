@@ -68,54 +68,11 @@ btn.addEventListener("keypress", function (event) {
     }
 });
 
-function displayDelete(type, id) {
-    if (type == "product") { // Xóa product
+function displayDelete(id) {
         var container = document.getElementById("confirm-container");
         container.classList.add("active");
-        container.innerHTML = "\
-                <div class=\"container\">\
-                    <form action=\"/HTTT-DN/pages/main/sanpham-delete.php\" method=\"post\" id=\"delete-product-form\">\
-                        <div class=\"confirm-icon-container\">\
-                            <div class=\"alert-icon\">\
-                                <i class=\"fa-solid fa-exclamation\" style=\"color: #F8BB86;\"></i>\
-                            </div>\
-                        </div>\
-                        <div class=\"message\">Bạn có chắc chắn muốn xóa sản phẩm này không?</div>\
-                        <div class=\"btn-container\">\
-                            <input type=\"text\" name=\"maSanPham\" value=\"" + id + "\">\
-                            <div class=\"left\">\
-                                <input type=\"submit\" name=\"delete-product-submit\" value=\"Xóa\">\
-                            </div>\
-                            <div class=\"right\">\
-                                <input type=\"button\" onclick=\"closeConfirmContainer(event);\" value=\"Trở lại\">\
-                            </div>\
-                        </div>\
-                    </form>\
-                </div>";
-    } else { // Xóa category
-        var container = document.getElementById("confirm-container");
-        container.classList.add("active");
-        container.innerHTML = "\
-            <div class=\"container\">\
-                <form action=\"/faion/action/actionProduct.php\" method=\"post\">\
-                    <div class=\"confirm-icon-container\">\
-                        <div class=\"alert-icon\">\
-                            <i class=\"fa-solid fa-exclamation\" style=\"color: #F8BB86;\"></i>\
-                        </div>\
-                    </div>\
-                    <div class=\"message\">Bạn có chắc chắn muốn xóa thể loại này không?</div>\
-                    <div class=\"btn-container\">\
-                        <input type=\"text\" name=\"categoryId\" value=\"" + id + "\">\
-                        <div class=\"left\">\
-                            <input type=\"submit\" name=\"delete-category-submit\" value=\"Xóa\">\
-                        </div>\
-                        <div class=\"right\">\
-                            <input type=\"button\" onclick=\"closeConfirmContainer(event);\" value=\"Trở lại\">\
-                        </div>\
-                    </div>\
-                </form>\
-            </div>";
-    }
+        var inputAttribute = document.getElementById("inputAttribute");        
+        inputAttribute.value = id;
 }
 
 function closeConfirmContainer(e) {
@@ -137,6 +94,20 @@ function checkAlert() {
         else
             alertMessage('fail', 'Thêm sản phẩm thất bại');
         sessionStorage.removeItem('addProduct');
+    }
+    if (sessionStorage.getItem('deleteNhaCungCap') !== null) {
+        if (sessionStorage.getItem('deleteNhaCungCap') == 'success')
+            alertMessage('success', 'Xóa nhà cung cấp thành công');
+        else
+            alertMessage('fail', 'Xóa nhà cung cấp thất bại');
+        sessionStorage.removeItem('deleteNhaCungCap');
+    }
+    if (sessionStorage.getItem('addNCC') !== null) {
+        if (sessionStorage.getItem('addNCC') == 'success')
+            alertMessage('success', 'Thêm nhà cung cấp thành công');
+        else
+            alertMessage('fail', 'Thêm nhà cung cấp thất bại');
+        sessionStorage.removeItem('addNCC');
     }
 }
 

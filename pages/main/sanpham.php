@@ -37,8 +37,28 @@
           </div> <!-- simple table -->
         </div> <!-- end section -->
       </div> <!-- .col-12 -->
-    </div> <!-- .row -->    
-    <div id="confirm-container"></div>
+    </div> <!-- .row -->
+    <div id="confirm-container">
+      <div class="container">
+        <form action="/HTTT-DN/pages/main/sanpham-delete.php" method="post" id="delete-product-form">
+          <div class="confirm-icon-container">
+            <div class="alert-icon">
+              <i class="fa-solid fa-exclamation" style="color: #F8BB86;"></i>
+            </div>
+          </div>
+          <div class="message">Bạn có chắc chắn muốn xóa sản phẩm này không?</div>
+          <div class="btn-container">
+            <input type="text" id="inputAttribute" name="maSanPham">
+            <div class="left">
+              <input type="submit" name="delete-product-submit" value="Xóa">
+            </div>
+            <div class="right">
+              <input type="button" onclick="closeConfirmContainer(event);" value="Trở lại">
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
   </div> <!-- .container-fluid -->
 
   <!-- new event modal -->
@@ -53,17 +73,17 @@
         </div>
         <div class="modal-body p-4">
           <table class="table datatables" id="dataTable-1">
-          <table class="table datatables" id="dataTable-1">
-            <thead>
-              <tr>
-                <th>Kích thước</th>
-                <th>Kích thước</th>
-                <th>Số lượng</th>
-              </tr>
-            </thead>
-            <tbody class="chiTietSoLuong">
-            </tbody>
-          </table>
+            <table class="table datatables" id="dataTable-1">
+              <thead>
+                <tr>
+                  <th>Kích thước</th>
+                  <th>Kích thước</th>
+                  <th>Số lượng</th>
+                </tr>
+              </thead>
+              <tbody class="chiTietSoLuong">
+              </tbody>
+            </table>
         </div>
       </div>
     </div>
@@ -242,16 +262,16 @@
 
   function openEditProduct(id) {
     window.location.href = 'index.php?page=sanpham&action=edit&masanpham=' + id
-  }    
+  }
 </script>
 
 <?php
 function hienThiSanPham()
 {
   require_once($_SERVER['DOCUMENT_ROOT'] . '/HTTT-DN/object/action.php');
-  
+
   $productList = getProductList();
-  for ($i = 0; $i < count($productList); $i++) {    
+  for ($i = 0; $i < count($productList); $i++) {
     $product = $productList[$i];
     if ($product->getTinhTrang() == DA_XOA)
       continue;
@@ -274,7 +294,7 @@ function hienThiSanPham()
       '<td>
         <div style="display: flex; align-items: center; justify-content: start; gap: 10px;">
           <button type="button" class="btn mb-2 btn-warning" onclick="window.location.href = \'index.php?page=sanpham&action=edit&masanpham=' . $product->getMaSanPham() . '\'">Sửa</button>
-          <button type="button" class="btn mb-2 btn-danger" onclick="displayDelete(\'product\', ' . $product->getMaSanPham() . ')">Xóa</button>
+          <button type="button" class="btn mb-2 btn-danger" onclick="displayDelete(' . $product->getMaSanPham() . ')">Xóa</button>
         </div>
       </td>
     </tr>';

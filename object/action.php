@@ -88,12 +88,33 @@ function getNhaCungCapList()
 			$row['tenNCC'],
 			$row['diaChiNCC'],
 			$row['sdtNCC'],
-			$row['emailNCC']
+			$row['emailNCC'],
+			$row['tinhTrang']
 		);
 		$nhaCungCapArr[] = $nhaCungCap;
 	}
 	$db->disconnect();
 	return $nhaCungCapArr;
+}
+
+function getNhaCungCapById($id) {
+	$db = new Database();
+	$kq = mysqli_query($db->getConnection(), "SELECT * FROM `nhacungcap` WHERE maNCC = '" . $id . "'");
+	$row = mysqli_fetch_assoc($kq);
+	if ($row) {
+		$nhaCungCap = new NhaCungCap(
+			$row['maNCC'],
+			$row['tenNCC'],
+			$row['diaChiNCC'],
+			$row['sdtNCC'],
+			$row['emailNCC'],
+			$row['tinhTrang']
+		);
+		$db->disconnect();
+		return $nhaCungCap;
+	} else {
+		return null;
+	}
 }
 
 function getProductById($id)
@@ -146,6 +167,16 @@ function getNewestMaSanPham() {
 	$maSanPham = $row['maSanPham'];
 	$db->disconnect();
 	return $maSanPham;
+}
+
+function getNewestMaNCC() {
+	$db = new Database();
+	$sql = "SELECT max(maNCC) + 1 as 'maNCC' FROM `nhacungcap`";
+	$kq = mysqli_query($db->getConnection(), $sql);	
+	$row = mysqli_fetch_assoc($kq);
+	$maNCC = $row['maNCC'];
+	$db->disconnect();
+	return $maNCC;
 }
 
 /*

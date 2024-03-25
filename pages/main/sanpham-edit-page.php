@@ -9,7 +9,7 @@ $product = getProductById($maSanPham);
 <main role="main" class="main-content">
 	<div class="container-fluid">
 		<div class="row justify-content-center">
-			<form class="col-12" id="edit-product-form" enctype="multipart/form-data" action="/HTTT-DN/pages/main/sanpham-edit.php" method="post" onsubmit="return checkForm(event)">
+			<form class="col-12" id="edit-product-form" enctype="multipart/form-data" action="/HTTT-DN/pages/main/sanpham-edit.php" method="post">
 				<div id="back-to-prev-page">
 					<a href="index.php?page=sanpham">
 						<div class="icon">
@@ -205,6 +205,8 @@ $product = getProductById($maSanPham);
 	document.getElementById("edit-product-form").addEventListener("submit", function(event) {
 		// Ngăn chặn hành vi mặc định của form
 		event.preventDefault();
+		if (!checkForm(event))
+			return false;
 
 		// Lấy giá trị của form
 		var formData = new FormData(this);
@@ -243,31 +245,32 @@ $product = getProductById($maSanPham);
 		var giaMoi = document.getElementById("giaMoi");
 
 		if (tenSanPham.value == "" || tenSanPham.value == undefined || tenSanPham.value == NaN) {
-			alert("Bạn chưa nhập tên sản phẩm!");
+			alertMessage("warning", "Bạn chưa nhập tên sản phẩm!");
 			tenSanPham.focus();
 			e.preventDefault();
 			return false;
 		} else if (giaCu.value == "" || giaCu.value == undefined || giaCu.value == NaN) {
-			alert("Bạn chưa nhập giá tiền cũ!");
+			alertMessage("warning", "Bạn chưa nhập giá tiền cũ!");
 			giaCu.focus();
 			e.preventDefault();
 			return false;
 		} else if (!numberRegEx.test(giaCu.value) && giaCu.value != "") {
-			alert("Giá tiền không hợp lệ!");
+			alertMessage("warning", "Giá tiền không hợp lệ!");
 			giaCu.focus();
 			e.preventDefault();
 			return false;
 		} else if (giaMoi.value == "" || giaMoi.value == undefined || giaMoi.value == NaN) {
-			alert("Bạn chưa nhập giá tiền mới!");
+			alertMessage("warning", "Bạn chưa nhập giá tiền mới!");
 			giaMoi.focus();
 			e.preventDefault();
 			return false;
 		} else if (!numberRegEx.test(giaMoi.value) && giaMoi.value != "") {
-			alert("Giá tiền không hợp lệ!");
+			alertMessage("warning", "Giá tiền không hợp lệ!");
 			giaMoi.focus();
 			e.preventDefault();
 			return false;
 		}
+		return true;
 	}
 </script>
 

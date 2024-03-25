@@ -28,8 +28,8 @@ $product = getProductById($maSanPham);
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group mb-3">
-                                    <label for="example-readonly">Mã sản phẩm</label>
-                                    <input type="text" id="example-readonly" class="form-control" readonly name="maSanPham" value="" style="cursor:default">
+                                    <label for="maSanPham">Mã sản phẩm</label>
+                                    <input type="text" id="maSanPham" class="form-control" readonly name="maSanPham" value="" style="cursor:default">
                                 </div>
                                 <div class="form-group mb-3">
                                     <label for="tenSanPham">Tên sản phẩm</label>
@@ -102,6 +102,17 @@ $product = getProductById($maSanPham);
     </div> <!-- .container-fluid -->
 </main> <!-- main -->
 
+<script src="js/jquery.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/moment.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/simplebar.min.js"></script>
+<script src='js/daterangepicker.js'></script>
+<script src='js/jquery.stickOnScroll.js'></script>
+<script src="js/tinycolor-min.js"></script>
+<script src="js/config.js"></script>
+<script src='js/jquery.dataTables.min.js'></script>
+<script src='js/dataTables.bootstrap4.min.js'></script>
 <script src='js/quill.min.js'></script>
 
 <script>

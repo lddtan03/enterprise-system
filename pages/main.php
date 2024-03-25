@@ -42,7 +42,14 @@ if (isset($_GET['page'])) {
             }
             break;
         case 'nhacungcap':
-            require_once 'pages/main/nhacungcap.php';
+            if (isset($_GET['action'])) {
+                if ($_GET['action'] == 'add')
+                    require_once 'pages/main/nhacungcap-add-page.php';
+                else
+                    require_once 'pages/main/nhacungcap-edit-page.php';
+            } else {
+                require_once 'pages/main/nhacungcap.php';
+            }            
             break;
         case 'donnghiphep':
             require_once 'pages/main/donnghiphep.php';
