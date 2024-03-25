@@ -258,16 +258,16 @@ function hienThiSanPham()
 {
   require_once($_SERVER['DOCUMENT_ROOT'] . '/HTTT-DN/object/action.php');
   $productList = getProductList();
-  $nameList = getTenProductList();
   for ($i = 0; $i < count($productList); $i++) {
     $product = $productList[$i];
-    $name = $nameList[$i];
+    if ($product->getTinhTrang() == DA_XOA)
+      continue;
     echo '<tr>' .
       '<td>' . $product->getMaSanPham() . '</td>' .
       '<td>' .
       '<img src="' . $product->getHinhAnh() . '" alt="" style="width: 50px; height: 50px; border-radius: 1000px;">' .
       '</td>' .
-      '<td>' . $name . '</td>' .
+      '<td>' . $product->getTenSanPham() . '</td>' .
       '<td>' . changeMoney($product->getGiaCu()) . '₫</td>' .
       '<td>' . changeMoney($product->getGiaMoi()) . '₫</td>' .
       '<td>' . $product->getMaNhanHieu() . '</td>' .

@@ -4,7 +4,7 @@
       <div class="col-12">
         <div class="row" style="justify-content: space-between;">
           <h2 class="mb-2 page-title">Danh sách sản phẩm</h2>
-          <button type="button" class="btn mb-2 btn-primary">Thêm sản phẩm</button>
+          <button type="button" class="btn mb-2 btn-primary" onclick="window.location.href = 'index.php?page=sanpham&action=add'">Thêm sản phẩm</button>
         </div>
         <div class="row my-4">
           <!-- Small table -->
@@ -26,412 +26,11 @@
                       <th>Hành động</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody id="productListBody">
                     <?php
+                    require_once($_SERVER['DOCUMENT_ROOT'] . '/HTTT-DN/object/action.php');
                     hienThiSanPham();
                     ?>
-                    <!-- <tr>
-                      <td>1</td>
-                      <td>
-                          <img src="assets/products/p1.jpg" alt="" style="width: 50px; height: 50px; border-radius: 1000px;">
-                      </td>
-                      <td>Nike Air</td>
-                      <td>900.000</td>
-                      <td>800.000</td>
-                      <td>Nike</td>
-                      <td>Nam, thể thao</td>
-                      <td>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#chitietsoluong"></span>20</button>
-                      </td>
-                      <td>
-                        <div style="display: flex; align-items: center; justify-content: start; gap: 10px;">
-                          <button type="button" class="btn mb-2 btn-warning">Sửa</button>
-                          <button type="button" class="btn mb-2 btn-danger">Xóa</button>
-                         </div>
-                      </td>
-                    </tr> -->
-                    <!-- 
-                    <tr>
-                      <td>1</td>
-                      <td>
-                          <img src="assets/products/p1.jpg" alt="" style="width: 50px; height: 50px; border-radius: 1000px;">
-                      </td>
-                      <td>Nike Air</td>
-                      <td>900.000</td>
-                      <td>800.000</td>
-                      <td>Nike</td>
-                      <td>Nam, thể thao</td>
-                      <td>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#chitietsoluong"></span>20</button>
-                      </td>
-                      <td>
-                        <div style="display: flex; align-items: center; justify-content: start; gap: 10px;">
-                          <button type="button" class="btn mb-2 btn-warning">Sửa</button>
-                          <button type="button" class="btn mb-2 btn-danger">Xóa</button>
-                         </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>
-                          <img src="assets/products/p1.jpg" alt="" style="width: 50px; height: 50px; border-radius: 1000px;">
-                      </td>
-                      <td>Nike Air</td>
-                      <td>900.000</td>
-                      <td>800.000</td>
-                      <td>Nike</td>
-                      <td>Nam, thể thao</td>
-                      <td>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#chitietsoluong"></span>20</button>
-                      </td>
-                      <td>
-                        <div style="display: flex; align-items: center; justify-content: start; gap: 10px;">
-                          <button type="button" class="btn mb-2 btn-warning">Sửa</button>
-                          <button type="button" class="btn mb-2 btn-danger">Xóa</button>
-                         </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>
-                          <img src="assets/products/p1.jpg" alt="" style="width: 50px; height: 50px; border-radius: 1000px;">
-                      </td>
-                      <td>Nike Air</td>
-                      <td>900.000</td>
-                      <td>800.000</td>
-                      <td>Nike</td>
-                      <td>Nam, thể thao</td>
-                      <td>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#chitietsoluong"></span>20</button>
-                      </td>
-                      <td>
-                        <div style="display: flex; align-items: center; justify-content: start; gap: 10px;">
-                          <button type="button" class="btn mb-2 btn-warning">Sửa</button>
-                          <button type="button" class="btn mb-2 btn-danger">Xóa</button>
-                         </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>
-                          <img src="assets/products/p1.jpg" alt="" style="width: 50px; height: 50px; border-radius: 1000px;">
-                      </td>
-                      <td>Nike Air</td>
-                      <td>900.000</td>
-                      <td>800.000</td>
-                      <td>Nike</td>
-                      <td>Nam, thể thao</td>
-                      <td>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#chitietsoluong"></span>20</button>
-                      </td>
-                      <td>
-                        <div style="display: flex; align-items: center; justify-content: start; gap: 10px;">
-                          <button type="button" class="btn mb-2 btn-warning">Sửa</button>
-                          <button type="button" class="btn mb-2 btn-danger">Xóa</button>
-                         </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>
-                          <img src="assets/products/p1.jpg" alt="" style="width: 50px; height: 50px; border-radius: 1000px;">
-                      </td>
-                      <td>Nike Air</td>
-                      <td>900.000</td>
-                      <td>800.000</td>
-                      <td>Nike</td>
-                      <td>Nam, thể thao</td>
-                      <td>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#chitietsoluong"></span>20</button>
-                      </td>
-                      <td>
-                        <div style="display: flex; align-items: center; justify-content: start; gap: 10px;">
-                          <button type="button" class="btn mb-2 btn-warning">Sửa</button>
-                          <button type="button" class="btn mb-2 btn-danger">Xóa</button>
-                         </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>
-                          <img src="assets/products/p1.jpg" alt="" style="width: 50px; height: 50px; border-radius: 1000px;">
-                      </td>
-                      <td>Nike Air</td>
-                      <td>900.000</td>
-                      <td>800.000</td>
-                      <td>Nike</td>
-                      <td>Nam, thể thao</td>
-                      <td>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#chitietsoluong"></span>20</button>
-                      </td>
-                      <td>
-                        <div style="display: flex; align-items: center; justify-content: start; gap: 10px;">
-                          <button type="button" class="btn mb-2 btn-warning">Sửa</button>
-                          <button type="button" class="btn mb-2 btn-danger">Xóa</button>
-                         </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>
-                          <img src="assets/products/p1.jpg" alt="" style="width: 50px; height: 50px; border-radius: 1000px;">
-                      </td>
-                      <td>Nike Air</td>
-                      <td>900.000</td>
-                      <td>800.000</td>
-                      <td>Nike</td>
-                      <td>Nam, thể thao</td>
-                      <td>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#chitietsoluong"></span>20</button>
-                      </td>
-                      <td>
-                        <div style="display: flex; align-items: center; justify-content: start; gap: 10px;">
-                          <button type="button" class="btn mb-2 btn-warning">Sửa</button>
-                          <button type="button" class="btn mb-2 btn-danger">Xóa</button>
-                         </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>
-                          <img src="assets/products/p1.jpg" alt="" style="width: 50px; height: 50px; border-radius: 1000px;">
-                      </td>
-                      <td>Nike Air</td>
-                      <td>900.000</td>
-                      <td>800.000</td>
-                      <td>Nike</td>
-                      <td>Nam, thể thao</td>
-                      <td>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#chitietsoluong"></span>20</button>
-                      </td>
-                      <td>
-                        <div style="display: flex; align-items: center; justify-content: start; gap: 10px;">
-                          <button type="button" class="btn mb-2 btn-warning">Sửa</button>
-                          <button type="button" class="btn mb-2 btn-danger">Xóa</button>
-                         </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>
-                          <img src="assets/products/p1.jpg" alt="" style="width: 50px; height: 50px; border-radius: 1000px;">
-                      </td>
-                      <td>Nike Air</td>
-                      <td>900.000</td>
-                      <td>800.000</td>
-                      <td>Nike</td>
-                      <td>Nam, thể thao</td>
-                      <td>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#chitietsoluong"></span>20</button>
-                      </td>
-                      <td>
-                        <div style="display: flex; align-items: center; justify-content: start; gap: 10px;">
-                          <button type="button" class="btn mb-2 btn-warning">Sửa</button>
-                          <button type="button" class="btn mb-2 btn-danger">Xóa</button>
-                         </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>
-                          <img src="assets/products/p1.jpg" alt="" style="width: 50px; height: 50px; border-radius: 1000px;">
-                      </td>
-                      <td>Nike Air</td>
-                      <td>900.000</td>
-                      <td>800.000</td>
-                      <td>Nike</td>
-                      <td>Nam, thể thao</td>
-                      <td>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#chitietsoluong"></span>20</button>
-                      </td>
-                      <td>
-                        <div style="display: flex; align-items: center; justify-content: start; gap: 10px;">
-                          <button type="button" class="btn mb-2 btn-warning">Sửa</button>
-                          <button type="button" class="btn mb-2 btn-danger">Xóa</button>
-                         </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>
-                          <img src="assets/products/p1.jpg" alt="" style="width: 50px; height: 50px; border-radius: 1000px;">
-                      </td>
-                      <td>Nike Air</td>
-                      <td>900.000</td>
-                      <td>800.000</td>
-                      <td>Nike</td>
-                      <td>Nam, thể thao</td>
-                      <td>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#chitietsoluong"></span>20</button>
-                      </td>
-                      <td>
-                        <div style="display: flex; align-items: center; justify-content: start; gap: 10px;">
-                          <button type="button" class="btn mb-2 btn-warning">Sửa</button>
-                          <button type="button" class="btn mb-2 btn-danger">Xóa</button>
-                         </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>
-                          <img src="assets/products/p1.jpg" alt="" style="width: 50px; height: 50px; border-radius: 1000px;">
-                      </td>
-                      <td>Nike Air</td>
-                      <td>900.000</td>
-                      <td>800.000</td>
-                      <td>Nike</td>
-                      <td>Nam, thể thao</td>
-                      <td>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#chitietsoluong"></span>20</button>
-                      </td>
-                      <td>
-                        <div style="display: flex; align-items: center; justify-content: start; gap: 10px;">
-                          <button type="button" class="btn mb-2 btn-warning">Sửa</button>
-                          <button type="button" class="btn mb-2 btn-danger">Xóa</button>
-                         </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>
-                          <img src="assets/products/p1.jpg" alt="" style="width: 50px; height: 50px; border-radius: 1000px;">
-                      </td>
-                      <td>Nike Air</td>
-                      <td>900.000</td>
-                      <td>800.000</td>
-                      <td>Nike</td>
-                      <td>Nam, thể thao</td>
-                      <td>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#chitietsoluong"></span>20</button>
-                      </td>
-                      <td>
-                        <div style="display: flex; align-items: center; justify-content: start; gap: 10px;">
-                          <button type="button" class="btn mb-2 btn-warning">Sửa</button>
-                          <button type="button" class="btn mb-2 btn-danger">Xóa</button>
-                         </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>
-                          <img src="assets/products/p1.jpg" alt="" style="width: 50px; height: 50px; border-radius: 1000px;">
-                      </td>
-                      <td>Nike Air</td>
-                      <td>900.000</td>
-                      <td>800.000</td>
-                      <td>Nike</td>
-                      <td>Nam, thể thao</td>
-                      <td>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#chitietsoluong"></span>20</button>
-                      </td>
-                      <td>
-                        <div style="display: flex; align-items: center; justify-content: start; gap: 10px;">
-                          <button type="button" class="btn mb-2 btn-warning">Sửa</button>
-                          <button type="button" class="btn mb-2 btn-danger">Xóa</button>
-                         </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>
-                          <img src="assets/products/p1.jpg" alt="" style="width: 50px; height: 50px; border-radius: 1000px;">
-                      </td>
-                      <td>Nike Air</td>
-                      <td>900.000</td>
-                      <td>800.000</td>
-                      <td>Nike</td>
-                      <td>Nam, thể thao</td>
-                      <td>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#chitietsoluong"></span>20</button>
-                      </td>
-                      <td>
-                        <div style="display: flex; align-items: center; justify-content: start; gap: 10px;">
-                          <button type="button" class="btn mb-2 btn-warning">Sửa</button>
-                          <button type="button" class="btn mb-2 btn-danger">Xóa</button>
-                         </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>
-                          <img src="assets/products/p1.jpg" alt="" style="width: 50px; height: 50px; border-radius: 1000px;">
-                      </td>
-                      <td>Nike Air</td>
-                      <td>900.000</td>
-                      <td>800.000</td>
-                      <td>Nike</td>
-                      <td>Nam, thể thao</td>
-                      <td>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#chitietsoluong"></span>20</button>
-                      </td>
-                      <td>
-                        <div style="display: flex; align-items: center; justify-content: start; gap: 10px;">
-                          <button type="button" class="btn mb-2 btn-warning">Sửa</button>
-                          <button type="button" class="btn mb-2 btn-danger">Xóa</button>
-                         </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>
-                          <img src="assets/products/p1.jpg" alt="" style="width: 50px; height: 50px; border-radius: 1000px;">
-                      </td>
-                      <td>Nike Air</td>
-                      <td>900.000</td>
-                      <td>800.000</td>
-                      <td>Nike</td>
-                      <td>Nam, thể thao</td>
-                      <td>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#chitietsoluong"></span>20</button>
-                      </td>
-                      <td>
-                        <div style="display: flex; align-items: center; justify-content: start; gap: 10px;">
-                          <button type="button" class="btn mb-2 btn-warning">Sửa</button>
-                          <button type="button" class="btn mb-2 btn-danger">Xóa</button>
-                         </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>
-                          <img src="assets/products/p1.jpg" alt="" style="width: 50px; height: 50px; border-radius: 1000px;">
-                      </td>
-                      <td>Nike Air</td>
-                      <td>900.000</td>
-                      <td>800.000</td>
-                      <td>Nike</td>
-                      <td>Nam, thể thao</td>
-                      <td>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#chitietsoluong"></span>20</button>
-                      </td>
-                      <td>
-                        <div style="display: flex; align-items: center; justify-content: start; gap: 10px;">
-                          <button type="button" class="btn mb-2 btn-warning">Sửa</button>
-                          <button type="button" class="btn mb-2 btn-danger">Xóa</button>
-                         </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>
-                          <img src="assets/products/p1.jpg" alt="" style="width: 50px; height: 50px; border-radius: 1000px;">
-                      </td>
-                      <td>Nike Air</td>
-                      <td>900.000</td>
-                      <td>800.000</td>
-                      <td>Nike</td>
-                      <td>Nam, thể thao</td>
-                      <td>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#chitietsoluong"></span>20</button>
-                      </td>
-                      <td>
-                        <div style="display: flex; align-items: center; justify-content: start; gap: 10px;">
-                          <button type="button" class="btn mb-2 btn-warning">Sửa</button>
-                          <button type="button" class="btn mb-2 btn-danger">Xóa</button>
-                         </div>
-                      </td>
-                    </tr> 
-                  -->
                   </tbody>
                 </table>
               </div>
@@ -439,7 +38,8 @@
           </div> <!-- simple table -->
         </div> <!-- end section -->
       </div> <!-- .col-12 -->
-    </div> <!-- .row -->
+    </div> <!-- .row -->    
+    <div id="confirm-container"></div>
   </div> <!-- .container-fluid -->
 
   <!-- new event modal -->
@@ -460,7 +60,7 @@
                 <th>Số lượng</th>
               </tr>
             </thead>
-            <tbody class="chiTietSoLuong">              
+            <tbody class="chiTietSoLuong">
             </tbody>
           </table>
         </div>
@@ -602,6 +202,7 @@
 <script src="js/config.js"></script>
 <script src='js/jquery.dataTables.min.js'></script>
 <script src='js/dataTables.bootstrap4.min.js'></script>
+<script src="js/HNam.js"></script>
 <script>
   $('#dataTable-1').DataTable({
     autoWidth: true,
@@ -631,46 +232,15 @@
     xml.open("GET", request, true);
     xml.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xml.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {        
+      if (this.readyState == 4 && this.status == 200) {
         document.querySelectorAll("#dataTable-1 .chiTietSoLuong")[0].innerHTML = this.responseText;
       }
     };
     xml.send();
   }
+
+  function openEditProduct(id) {
+    window.location.href = 'index.php?page=sanpham&action=edit&masanpham=' + id
+  }    
 </script>
 
-<?php
-function hienThiSanPham()
-{
-  require_once($_SERVER['DOCUMENT_ROOT'] . '/HTTT-DN/object/action.php');
-  $productList = getProductList();
-  $nameList = getTenProductList();
-  for ($i = 0; $i < count($productList); $i++) {
-    $product = $productList[$i];
-    $name = $nameList[$i];    
-    echo '
-    <tr>
-      <td>' . $product->getMaSanPham() . '</td>' .
-      '<td>' .
-      '<img src="' . $product->getHinhAnh() . '" alt="" style="width: 50px; height: 50px; border-radius: 1000px;">' .
-      '</td>' .
-      '<td>' . $name . '</td>' .
-      '<td>' . changeMoney($product->getGiaCu()) . '₫</td>' .
-      '<td>' . changeMoney($product->getGiaMoi()) . '₫</td>' .
-      '<td>' . $product->getMaNhanHieu() . '</td>' .
-      '<td>Nam, thể thao</td>' .
-      '<td>' .
-      '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#chitietsoluong" 
-      onclick="getChiTietSoLuong(' . $product->getMaSanPham() . ')"></span>'
-      . getSoLuongSanPham($product->getMaSanPham()) . '</button>' .
-      '</td>' .
-      '<td>
-        <div style="display: flex; align-items: center; justify-content: start; gap: 10px;">
-          <button type="button" class="btn mb-2 btn-warning">Sửa</button>
-          <button type="button" class="btn mb-2 btn-danger">Xóa</button>
-        </div>
-      </td>
-    </tr>';
-  }
-}
-?>
