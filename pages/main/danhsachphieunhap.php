@@ -313,8 +313,10 @@ function hienThiDanhSachPhieuNhap()
         $trangThai = "";
         if ($phieuNhap->getTrangThai() == DA_NHAN)
             $trangThai = "Đã nhận";
+        else if ($phieuNhap->getTrangThai() == DANG_XU_LY)
+            $trangThai = "Đang xử lý";
         else
-            $trangThai = "Chưa nhận";
+            $trangThai = "Đã hủy";
         echo '
         <tr>
             <td>' . $phieuNhap->getMaPhieuNhap() . '</td>
@@ -334,7 +336,7 @@ function hienThiDanhSachPhieuNhap()
                         data-target="#chitietphieunhap" href="#" onclick="getChiTietPhieuNhap(' . $phieuNhap->getMaPhieuNhap() . ')">Chi tiết
                     </a>
                     <a class="dropdown-item" href="/HTTT-DN/pages/main/danhsachphieunhap-edittrangthai.php?maPhieuNhap=' . $phieuNhap->getMaPhieuNhap() . '&trangThai=1">Đã nhận hàng</a>
-                    <a class="dropdown-item" href="/HTTT-DN/pages/main/danhsachphieunhap-edittrangthai.php?maPhieuNhap=' . $phieuNhap->getMaPhieuNhap() . '&trangThai=0">Hủy nhận hàng</a>
+                    <a class="dropdown-item" href="/HTTT-DN/pages/main/danhsachphieunhap-edittrangthai.php?maPhieuNhap=' . $phieuNhap->getMaPhieuNhap() . '&trangThai=2">Hủy nhận hàng</a>
                 </div>
             </td>
         </tr>';

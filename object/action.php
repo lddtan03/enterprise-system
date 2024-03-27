@@ -10,6 +10,8 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/HTTT-DN/object/nhanvien.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/HTTT-DN/object/chucvu.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/HTTT-DN/object/phieunhap.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/HTTT-DN/object/chitietphieunhap.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/HTTT-DN/object/phieuxuat.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/HTTT-DN/object/chitietphieuxuat.php');
 
 const DA_XOA = 0;
 const CON_HANG = 1;
@@ -20,7 +22,9 @@ const QUAN_LY_KHO = 'quanlykho';
 const QUAN_LY_NHAN_SU = 'quanlynhansu';
 const QUAN_LY_KINH_DOANH = 'quanlykinhdoanh';
 const DA_NHAN = 1;
-const CHUA_NHAN = 0;
+const DA_HUY = 2;
+const DA_XAC_NHAN = 1;
+const DANG_XU_LY = 0;
 
 // Lấy mảng tất cả sản phẩm
 function getProductList()
@@ -420,6 +424,108 @@ function getChiTietPhieuNhapByMaChiTietPhieuNhap($maChiTietPhieuNhap)
 		return $chiTiet;
 	} else
 		return null;
+}
+
+function getPhieuXuatById($id)
+{
+	$db = new Database();
+	$kq = mysqli_query($db->getConnection(), "SELECT * FROM `phieuxuat` WHERE maPhieuXuat = $id");
+	$row = mysqli_fetch_assoc($kq);
+	if ($row) {
+		$phieuXuat = new PhieuXuat(
+			$row['maPhieuXuat'],
+			$row['maKhachHang'],
+			$row['maNhanVien'],
+			$row['tongTien'],
+			$row['ngayXuat'],
+			$row['tongSoLuong'],
+			$row['trangThai']
+		);
+		$db->disconnect();
+		return $phieuXuat;
+	} else {
+		$db->disconnect();
+		return null;
+	}
+}
+
+function getPhieuXuatList()
+{
+	$db = new Database();
+	$kq = mysqli_query($db->getConnection(), "SELECT * FROM `phieuxuat`");
+	$phieuXuatList = array();
+	while($row = mysqli_fetch_assoc($kq)){	
+		$phieuXuat = new PhieuXuat(
+			$row['maPhieuXuat'],
+			$row['maKhachHang'],
+			$row['maNhanVien'],
+			$row['tongTien'],
+			$row['ngayXuat'],
+			$row['tongSoLuong'],
+			$row['trangThai']
+		);
+		$phieuXuatList[] = $phieuXuat;
+	} 
+	$db->disconnect();
+	return $phieuXuatList;
+}
+
+function getChiTietPhieuXuatListByMaPhieuXuat($maPhieuXuat)
+{
+	$db = new Database();
+	$kq = mysqli_query($db->getConnection(), "SELECT * FROM `chitietphieuxuat` WHERE maPhieuXuat = '$maPhieuXuat'");
+	$chiTietList = array();
+	while ($row = mysqli_fetch_assoc($kq)) {
+		$chiTiet = new ChiTietPhieuXuat(
+			$row['maChiTietPhieuXuat'],
+			$row['maPhieuXuat'],
+			$row['maSanPham'],
+			$row['maSize'],
+			$row['soLuong'],
+			$row['giaBan']
+		);
+		$chiTietList[] = $chiTiet;
+	}
+	$db->disconnect();
+	return $chiTietList;
+}
+
+function getChiTietPhieuXuatByMaChiTietPhieuXuat($maChiTietPhieuXuat)
+{
+	$db = new Database();
+	$kq = mysqli_query($db->getConnection(), "SELECT * FROM `chitietphieuxuat` WHERE maChiTietPhieuXuat = '$maChiTietPhieuXuat'");
+	$row = mysqli_fetch_assoc($kq);
+	if ($row) {
+		$chiTiet = new ChiTietPhieuXuat(
+			$row['maChiTietPhieuXuat'],
+			$row['maPhieuXuat'],
+			$row['maSanPham'],
+			$row['maSize'],
+			$row['soLuong'],
+			$row['giaBan']
+		);
+		$db->disconnect();
+		return $chiTiet;
+	} else
+		return null;
+}
+
+function getNhanHieuById($id)
+{
+	$db = new Database();
+	$kq = mysqli_query($db->getConnection(), "SELECT * FROM `nhanhieu` WHERE maNhanHieu = '$id'");
+	$row = mysqli_fetch_assoc($kq);
+	if ($row) {
+		$nhanHieu = new NhanHieu(
+			$row['maNhanHieu'],
+			$row['tenNhanHieu']
+		);
+		$db->disconnect();
+		return $nhanHieu;
+	} else {
+		$db->disconnect();
+		return null;
+	}
 }
 
 /*

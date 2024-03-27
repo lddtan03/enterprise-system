@@ -284,7 +284,7 @@ function hienThiSanPham()
       '<td>' . $product->getTenSanPham() . '</td>' .
       '<td>' . changeMoney($product->getGiaCu()) . '₫</td>' .
       '<td>' . changeMoney($product->getGiaMoi()) . '₫</td>' .
-      '<td>' . $product->getMaNhanHieu() . '</td>' .
+      '<td>' . getNhanHieuById($product->getMaNhanHieu())->getTenNhanHieu() . '</td>' .
       '<td>Nam, thể thao</td>' .
       '<td>' .
       '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#chitietsoluong" 

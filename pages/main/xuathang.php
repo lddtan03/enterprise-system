@@ -3,7 +3,7 @@
     <div class="row justify-content-center">
       <div class="col-12">
         <div class="row" style="justify-content: space-between;">
-          <h2 class="mb-2 page-title">Danh sách nhân viên</h2>
+          <h2 class="mb-2 page-title">Danh sách phiếu xuất</h2>
         </div>
         <div class="row my-4">
           <!-- Small table -->
@@ -11,10 +11,10 @@
             <div class="card shadow">
               <div class="card-body">
                 <!-- table -->
-                <table class="table datatables" id="dataTable-1" >
+                <table class="table datatables" id="dataTable-1">
                   <thead>
                     <tr>
-                      <th >Mã đơn hàng</th>
+                      <th>Mã đơn hàng</th>
                       <th>Mã khách hàng</th>
                       <th>Mã nhân viên</th>
                       <th>Ngày đặt</th>
@@ -25,7 +25,10 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
+                    <?php
+                    hienThiDanhSachPhieuXuat();
+                    ?>
+                    <!-- <tr>
                       <td>1</td>
                       <td>
                           23
@@ -46,95 +49,7 @@
                           <a class="dropdown-item" href="#">Hủy đơn</a>
                           </div>
                       </td>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>
-                          23
-                      </td>
-                      <td>43</td>
-                      <td>02/03/2003</td>
-                      <td>123</td>
-                      <td>30.000.000</td>
-                      <td>Đang xử lý</td>
-                      <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <span class="text-muted sr-only">Action</span>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" data-toggle="modal"
-                                                        data-target="#chitietphieunhap" href="#">
-                                                        Chi tiết
-                                                    </a>                          <a class="dropdown-item" href="#">Đã xác nhận</a>
-                          <a class="dropdown-item" href="#">Hủy đơn</a>
-                          </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>
-                          23
-                      </td>
-                      <td>43</td>
-                      <td>02/03/2003</td>
-                      <td>123</td>
-                      <td>30.000.000</td>
-                      <td>Đang xử lý</td>
-                      <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <span class="text-muted sr-only">Action</span>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" data-toggle="modal"
-                                                        data-target="#chitietphieunhap" href="#">
-                                                        Chi tiết
-                                                    </a>                          <a class="dropdown-item" href="#">Đã xác nhận</a>
-                          <a class="dropdown-item" href="#">Hủy đơn</a>
-                          </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>
-                          23
-                      </td>
-                      <td>43</td>
-                      <td>02/03/2003</td>
-                      <td>123</td>
-                      <td>30.000.000</td>
-                      <td>Đang xử lý</td>
-                      <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <span class="text-muted sr-only">Action</span>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" data-toggle="modal"
-                                                        data-target="#chitietphieunhap" href="#">
-                                                        Chi tiết
-                                                    </a>                          <a class="dropdown-item" href="#">Đã xác nhận</a>
-                          <a class="dropdown-item" href="#">Hủy đơn</a>
-                          </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td>
-                          23
-                      </td>
-                      <td>43</td>
-                      <td>02/03/2003</td>
-                      <td>123</td>
-                      <td>30.000.000</td>
-                      <td>Đang xử lý</td>
-                      <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <span class="text-muted sr-only">Action</span>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" data-toggle="modal"
-                                                        data-target="#chitietphieunhap" href="#">
-                                                        Chi tiết
-                                                    </a>                          <a class="dropdown-item" href="#">Đã xác nhận</a>
-                          <a class="dropdown-item" href="#">Hủy đơn</a>
-                          </div>
-                      </td>
-                    </tr>
+                    </tr> -->
                   </tbody>
                 </table>
               </div>
@@ -267,21 +182,20 @@
       </div>
     </div>
   </div>
-  <div class="modal fade" id="chitietphieunhap" tabindex="-1" role="dialog" aria-labelledby="eventModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content" style="width: 800px;">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="varyModalLabel">Chi tiết phiếu nhập</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body p-8">
-                    <div class="card shadow mb-8">
-                        <form class="needs-validation" novalidate>
-                            <div class="card shadow">
-                            <table class="table datatables" id="dataTable-1" >
+  <div class="modal fade" id="chitietphieuxuat" tabindex="-1" role="dialog" aria-labelledby="eventModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content" style="width: 800px;">
+        <div class="modal-header">
+          <h5 class="modal-title" id="varyModalLabel">Chi tiết phiếu xuất</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body p-8">
+          <div class="card shadow mb-8">
+            <form class="needs-validation" novalidate>
+              <div class="card shadow">
+                <table class="table datatables" id="dataTable-1">
                   <thead>
                     <tr>
                       <th style="width: 300px;">Tên SP</th>
@@ -291,54 +205,15 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>Nike</td>
-                      <td>
-                          23
-                      </td>
-                      <td>43</td>
-                      <td>30.000.000</td>
-                    </tr>
-                    <tr>
-                      <td>Nike</td>
-                      <td>
-                          23
-                      </td>
-                      <td>43</td>
-                      <td>30.000.000</td>
-                    </tr>
-                    <tr>
-                      <td>Nike</td>
-                      <td>
-                          23
-                      </td>
-                      <td>43</td>
-                      <td>30.000.000</td>
-                    </tr>
-                    <tr>
-                      <td>Nike</td>
-                      <td>
-                          23
-                      </td>
-                      <td>43</td>
-                      <td>30.000.000</td>
-                    </tr>
-                    <tr>
-                      <td>Nike</td>
-                      <td>
-                          23
-                      </td>
-                      <td>43</td>
-                      <td>30.000.000</td>
-                    </tr>
                   </tbody>
                 </table>
-                            </div> <!-- /.card -->
-                        </form>
-                    </div> <!-- /.card -->
-                </div>
-            </div>
-        </div> <!-- new event modal -->
+              </div> <!-- /.card -->
+            </form>
+          </div> <!-- /.card -->
+        </div>
+      </div>
+    </div> <!-- new event modal -->
+  </div>
 </main> <!-- main -->
 <script src="js/jquery.min.js"></script>
 <script src="js/popper.min.js"></script>
@@ -352,8 +227,7 @@
 <script src='js/jquery.dataTables.min.js'></script>
 <script src='js/dataTables.bootstrap4.min.js'></script>
 <script>
-  $('#dataTable-1').DataTable(
-  {
+  $('#dataTable-1').DataTable({
     autoWidth: true,
     "lengthMenu": [
       [16, 32, 64, -1],
@@ -367,10 +241,66 @@
 <script>
   window.dataLayer = window.dataLayer || [];
 
-  function gtag()
-  {
+  function gtag() {
     dataLayer.push(arguments);
   }
   gtag('js', new Date());
   gtag('config', 'UA-56159088-1');
 </script>
+
+<script>
+  function getChiTietPhieuXuat(maPhieuXuat) {
+    var xml = new XMLHttpRequest();
+    var request = "/HTTT-DN/pages/main/xuathang-list.php?maPhieuXuat=" + maPhieuXuat;
+    xml.open("GET", request, true);
+    xml.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xml.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("chitietphieuxuat").innerHTML = this.responseText;
+      }
+    };
+    xml.send();
+  }
+</script>
+
+<?php
+function hienThiDanhSachPhieuXuat()
+{
+  require_once($_SERVER['DOCUMENT_ROOT'] . '/HTTT-DN/object/action.php');
+
+  $phieuXuatList = getPhieuXuatList();
+  for ($i = 0; $i < count($phieuXuatList); $i++) {
+    $phieuXuat = $phieuXuatList[$i];
+    $nhanVien = getNhanVienById($phieuXuat->getMaNhanVien());
+    $trangThai = "";
+    if ($phieuXuat->getTrangThai() == DA_XAC_NHAN)
+      $trangThai = "Đã xác nhận";
+    else if ($phieuXuat->getTrangThai() == DANG_XU_LY)
+      $trangThai = "Đang xử lý";
+    else
+      $trangThai = "Đã hủy";
+    echo '
+        <tr>
+          <td>' . $phieuXuat->getMaPhieuXuat() . '</td>
+          <td>' . $phieuXuat->getMaKhachHang() . '</td>
+          <td>' . $nhanVien->getMaNhanVien() . '</td>
+          <td>' . $phieuXuat->getNgayXuat() . '</td>
+          <td>' . $phieuXuat->getTongSoLuong() . '</td>
+          <td>' . changeMoney($phieuXuat->getTongTien()) . '₫</td>
+          <td>' . $trangThai . '</td>
+          <td>
+            <button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" 
+            aria-haspopup="true" aria-expanded="false">
+              <span class="text-muted sr-only">Action</span>
+            </button>
+            <div class="dropdown-menu dropdown-menu-right">
+              <a class="dropdown-item" data-toggle="modal"
+                data-target="#chitietphieuxuat" href="#" onclick="getChiTietPhieuXuat(' . $phieuXuat->getMaPhieuXuat() . ')">Chi tiết</a>                          
+              <a class="dropdown-item"  href="/HTTT-DN/pages/main/xuathang-edittrangthai.php?maPhieuXuat=' . $phieuXuat->getMaPhieuXuat() . '&trangThai=1">Đã xác nhận</a>
+              <a class="dropdown-item" href="/HTTT-DN/pages/main/xuathang-edittrangthai.php?maPhieuXuat=' . $phieuXuat->getMaPhieuXuat() . '&trangThai=2">Hủy đơn</a>
+            </div>
+          </td>
+        </tr>';
+  }
+}
+?>

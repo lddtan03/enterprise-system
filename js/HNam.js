@@ -120,6 +120,17 @@ function checkAlert() {
             alertMessage('fail', 'Đổi trạng thái phiếu nhập thất bại');
         sessionStorage.removeItem('editTrangThaiPhieuNhap');
     }
+    if (sessionStorage.getItem('editTrangThaiPhieuXuat') !== null) {
+        if (sessionStorage.getItem('editTrangThaiPhieuXuat') == 'success')
+            alertMessage('success', 'Đổi trạng thái phiếu xuất thành công');
+        else if (sessionStorage.getItem('editTrangThaiPhieuXuat') == 'same1')
+            alertMessage('info', 'Phiếu xuất đã ở trạng thái đã xác nhận!');
+        else if (sessionStorage.getItem('editTrangThaiPhieuXuat') == 'same0')
+            alertMessage('info', 'Phiếu xuất đã ở trạng thái hủy đơn!');
+        else
+            alertMessage('fail', 'Đổi trạng thái phiếu xuất thất bại');
+        sessionStorage.removeItem('editTrangThaiPhieuXuat');
+    }
 }
 
 // TEST ĐỪNG XÓA
