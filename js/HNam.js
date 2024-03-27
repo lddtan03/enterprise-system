@@ -69,10 +69,10 @@ btn.addEventListener("keypress", function (event) {
 });
 
 function displayDelete(id) {
-        var container = document.getElementById("confirm-container");
-        container.classList.add("active");
-        var inputAttribute = document.getElementById("inputAttribute");        
-        inputAttribute.value = id;
+    var container = document.getElementById("confirm-container");
+    container.classList.add("active");
+    var inputAttribute = document.getElementById("inputAttribute");
+    inputAttribute.value = id;
 }
 
 function closeConfirmContainer(e) {
@@ -108,6 +108,17 @@ function checkAlert() {
         else
             alertMessage('fail', 'Thêm nhà cung cấp thất bại');
         sessionStorage.removeItem('addNCC');
+    }
+    if (sessionStorage.getItem('editTrangThaiPhieuNhap') !== null) {
+        if (sessionStorage.getItem('editTrangThaiPhieuNhap') == 'success')
+            alertMessage('success', 'Đổi trạng thái phiếu nhập thành công');
+        else if (sessionStorage.getItem('editTrangThaiPhieuNhap') == 'same1')
+            alertMessage('info', 'Phiếu nhập đã ở trạng thái đã nhận hàng!');
+        else if (sessionStorage.getItem('editTrangThaiPhieuNhap') == 'same0')
+            alertMessage('info', 'Phiếu nhập đã ở trạng thái chưa nhận hàng!');
+        else
+            alertMessage('fail', 'Đổi trạng thái phiếu nhập thất bại');
+        sessionStorage.removeItem('editTrangThaiPhieuNhap');
     }
 }
 

@@ -1,3 +1,18 @@
+<?php
+require_once($_SERVER['DOCUMENT_ROOT'] . '/HTTT-DN/object/action.php');
+
+$taiKhoan = null;
+if (isset($_SESSION['taiKhoan'])) {
+    $taiKhoan = getTaiKhoanBy($_SESSION['taiKhoan']);
+    if (strcmp($taiKhoan->getMaNhomQuyen(), QUAN_LY_KHO) != 0) {
+        header('location:../HTTT-DN/index.php');
+        echo "<script>alert('Bạn không có quyền vào trang này')</script>";
+    }
+} else {
+    header('location:../HTTT-DN/index.php');
+    echo "<cript>alert('Bạn không có quyền vào trang này')</script>";
+}
+?>
 <main role="main" class="main-content">
     <div class="container-fluid">
         <div class="row justify-content-center">
@@ -25,50 +40,9 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>NCC 1</td>
-                                            <td>Lê Đức Duy Tân</td>
-                                            <td>23/1/2323</td>
-                                            <td>19.000.000</td>
-                                            <td>19</td>
-                                            <td>Đã nhận</td>
-                                            <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button"
-                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <span class="text-muted sr-only">Action</span>
-                                                </button>
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                    <a class="dropdown-item" data-toggle="modal"
-                                                        data-target="#chitietphieuxuat" href="#">
-                                                        Chi tiết
-                                                    </a>
-                                                    <a class="dropdown-item" href="#">Đã nhận hàng</a>
-                                                    <a class="dropdown-item" href="#">Hủy nhận hàng</a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>NCC 1</td>
-                                            <td>Lê Đức Duy Tân</td>
-                                            <td>23/1/2323</td>
-                                            <td>19.000.000</td>
-                                            <td>19</td>
-                                            <td>Chưa nhận</td>
-                                            <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button"
-                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <span class="text-muted sr-only">Action</span>
-                                                </button>
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                    <a class="dropdown-item" data-toggle="modal"
-                                                        data-target="#chitietphieuxuat" href="#">
-                                                        Chi tiết
-                                                    </a>
-                                                    <a class="dropdown-item" href="#">Đã nhận hàng</a>
-                                                    <a class="dropdown-item" href="#">Hủy nhận hàng</a>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                        <?php
+                                        echo hienThiDanhSachPhieuNhap();
+                                        ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -78,8 +52,7 @@
             </div> <!-- .col-12 -->
         </div> <!-- .row -->
     </div> <!-- .container-fluid -->
-    <div class="modal fade modal-notif modal-slide" tabindex="-1" role="dialog" aria-labelledby="defaultModalLabel"
-        aria-hidden="true">
+    <div class="modal fade modal-notif modal-slide" tabindex="-1" role="dialog" aria-labelledby="defaultModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-sm" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -146,8 +119,7 @@
             </div>
         </div>
     </div>
-    <div class="modal fade modal-shortcut modal-slide" tabindex="-1" role="dialog" aria-labelledby="defaultModalLabel"
-        aria-hidden="true">
+    <div class="modal fade modal-shortcut modal-slide" tabindex="-1" role="dialog" aria-labelledby="defaultModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -204,8 +176,7 @@
         </div>
     </div>
     <!-- new event modal -->
-    <div class="modal fade" id="chitietphieuxuat" tabindex="-1" role="dialog" aria-labelledby="eventModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="chitietphieunhap" tabindex="-1" role="dialog" aria-labelledby="eventModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content" style="width: 800px;">
                 <div class="modal-header">
@@ -221,8 +192,7 @@
                                 <div class="card-body p-5">
                                     <div class="row mb-5">
                                         <div class="col-12 text-center mb-4">
-                                            <img src="./assets/images/logo.svg"
-                                                class="navbar-brand-img brand-sm mx-auto mb-4" alt="...">
+                                            <img src="./assets/images/logo.svg" class="navbar-brand-img brand-sm mx-auto mb-4" alt="...">
                                             <h2 class="mb-0 text-uppercase">Phiếu nhập</h2>
                                         </div>
                                         <div class="col-md-7">
@@ -248,7 +218,7 @@
                                                 <strong>12/21/2021</strong>
                                             </p>
                                         </div>
-                                    </div> <!-- /.row -->
+                                    </div>
                                     <table class="table table-borderless table-striped">
                                         <thead>
                                             <tr>
@@ -260,39 +230,7 @@
                                                 <th scope="col" class="text-right">Thành tiền</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <th scope="row">1</th>
-                                                <td> Creative Design</td>
-                                                <td>42</td>
-                                                <td class="text-right">$15.00</td>
-                                                <td class="text-right">2</td>
-                                                <td class="text-right">$30.00</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">1</th>
-                                                <td> Creative Design</td>
-                                                <td>42</td>
-                                                <td class="text-right">$15.00</td>
-                                                <td class="text-right">2</td>
-                                                <td class="text-right">$30.00</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">1</th>
-                                                <td> Creative Design</td>
-                                                <td>42</td>
-                                                <td class="text-right">$15.00</td>
-                                                <td class="text-right">2</td>
-                                                <td class="text-right">$30.00</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">1</th>
-                                                <td> Creative Design</td>
-                                                <td>42</td>
-                                                <td class="text-right">$15.00</td>
-                                                <td class="text-right">2</td>
-                                                <td class="text-right">$30.00</td>
-                                            </tr>
+                                        <tbody>                                            
                                         </tbody>
                                     </table>
                                     <div class="row mt-5">
@@ -300,26 +238,19 @@
                                             <div class="text-right mr-2">
                                                 <p class="mb-2 h6">
                                                     <span class="text-muted">Thành tiền : </span>
-                                                    <strong>$285.00</strong>
-                                                </p>
-                                                <p class="mb-2 h6">
-                                                    <span class="text-muted">Thuế : </span>
-                                                    <strong>$28.50</strong>
-                                                </p>
-                                                <p class="mb-2 h6">
-                                                    <span class="text-muted">Tiền cần trả : </span>
-                                                    <span>$313.50</span>
-                                                </p>
+                                                    <strong></strong>
+                                                </p>                                                
                                             </div>
                                         </div>
-                                    </div> <!-- /.row -->
-                                </div> <!-- /.card-body -->
-                            </div> <!-- /.card -->
+                                    </div> 
+                                </div>
+                            </div>
                         </form>
-                    </div> <!-- /.card -->
+                    </div>
                 </div>
             </div>
-        </div> <!-- new event modal -->
+        </div> 
+    </div>
 </main> <!-- main -->
 <script src="js/jquery.min.js"></script>
 <script src="js/popper.min.js"></script>
@@ -333,23 +264,80 @@
 <script src='js/jquery.dataTables.min.js'></script>
 <script src='js/dataTables.bootstrap4.min.js'></script>
 <script>
-$('#dataTable-1').DataTable({
-    autoWidth: true,
-    "lengthMenu": [
-        [16, 32, 64, -1],
-        [16, 32, 64, "All"]
-    ]
-});
+    $('#dataTable-1').DataTable({
+        autoWidth: true,
+        "lengthMenu": [
+            [16, 32, 64, -1],
+            [16, 32, 64, "All"]
+        ]
+    });
 </script>
 <script src="js/apps.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-56159088-1"></script>
 <script>
-window.dataLayer = window.dataLayer || [];
+    window.dataLayer = window.dataLayer || [];
 
-function gtag() {
-    dataLayer.push(arguments);
-}
-gtag('js', new Date());
-gtag('config', 'UA-56159088-1');
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+    gtag('config', 'UA-56159088-1');
 </script>
+
+<script>
+    function getChiTietPhieuNhap(maPhieuNhap) {
+        var xml = new XMLHttpRequest();
+        var request = "/HTTT-DN/pages/main/danhsachphieunhap-list.php?maPhieuNhap=" + maPhieuNhap;
+        xml.open("GET", request, true);
+        xml.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xml.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("chitietphieunhap").innerHTML = this.responseText;
+            }
+        };
+        xml.send();
+    }
+</script>
+
+<?php
+function hienThiDanhSachPhieuNhap()
+{
+    require_once($_SERVER['DOCUMENT_ROOT'] . '/HTTT-DN/object/action.php');
+
+    $phieuNhapList = getPhieuNhapList();
+    for ($i = 0; $i < count($phieuNhapList); $i++) {
+        $phieuNhap = $phieuNhapList[$i];
+        $nhaCungCap = getNhaCungCapById($phieuNhap->getMaNhaCungCap());
+        $nhanVien = getNhanVienById($phieuNhap->getMaNhanVien());
+        $trangThai = "";
+        if ($phieuNhap->getTrangThai() == DA_NHAN)
+            $trangThai = "Đã nhận";
+        else
+            $trangThai = "Chưa nhận";
+        echo '
+        <tr>
+            <td>' . $phieuNhap->getMaPhieuNhap() . '</td>
+            <td>' . $nhaCungCap->getTen() . '</td>
+            <td>' . $nhanVien->getHoTen() . '</td>
+            <td>' . $phieuNhap->getNgayNhap() . '</td>
+            <td>' . changeMoney($phieuNhap->getTongTien()) . '₫</td>
+            <td>' . $phieuNhap->getTongSoLuong() . '</td>
+            <td>' . $trangThai . '</td>
+            <td>
+                <button class="btn btn-sm dropdown-toggle more-horizontal" type="button"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="text-muted sr-only">Action</span>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" data-toggle="modal"
+                        data-target="#chitietphieunhap" href="#" onclick="getChiTietPhieuNhap(' . $phieuNhap->getMaPhieuNhap() . ')">Chi tiết
+                    </a>
+                    <a class="dropdown-item" href="/HTTT-DN/pages/main/danhsachphieunhap-edittrangthai.php?maPhieuNhap=' . $phieuNhap->getMaPhieuNhap() . '&trangThai=1">Đã nhận hàng</a>
+                    <a class="dropdown-item" href="/HTTT-DN/pages/main/danhsachphieunhap-edittrangthai.php?maPhieuNhap=' . $phieuNhap->getMaPhieuNhap() . '&trangThai=0">Hủy nhận hàng</a>
+                </div>
+            </td>
+        </tr>';
+    }
+}
+?>
