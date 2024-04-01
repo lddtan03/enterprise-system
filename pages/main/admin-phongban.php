@@ -1,4 +1,90 @@
+<?php
+// Kết nối đến cơ sở dữ liệu
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "htttdn";
+
+// Tạo kết nối
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Kiểm tra kết nối
+if ($conn->connect_error) {
+	die("Connection failed: " . $conn->connect_error);
+}
+
+
+
+if (isset($_SESSION['taiKhoan'])) {
+    $loggedInUser = $_SESSION['taiKhoan'];
+}
+
+
+
+
+?>
+
+
+
 <main role="main" class="main-content">
+	<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+
+				<div class="card-body">
+					<p class="mb-2"><strong>Chỉnh sửa phòng ban</strong></p>
+					<div class="form-group mb-3">
+						<label for="custom-placeholder">Mã phòng</label>
+						<input class="form-control "  type="text" name="placeholder">
+					</div>
+					<div class="form-group mb-3">
+						<label for="custom-zip">Tên phòng</label>
+						<input class="form-control "  type="text">
+					</div>
+					<div class="form-group mb-3">
+						<label for="custom-money">Tên trưởng phòng</label>
+						<input class="form-control"  type="text" name="money">
+					</div>
+					<div class="form-group mb-3">
+						<label for="custom-phone">Số lượng nhân viên</label>
+						<input class="form-control"  placeholder="" type="text">
+					</div>
+					<div class="form-group mb-3">
+						<label for="custom-mixed">Lương trung bình</label>
+						<input class="form-control"  type="text" placeholder="">
+					</div>
+					<div class="form-group mb-3">
+
+						<p class="mb-2"><strong>Ngày nhận chức</strong></p>
+						<div class="form-row">
+							<div class="form-group col-md-8">
+
+								<div class="input-group">
+									<input type="text" class="form-control drgpicker" id="date-input1" value="04/24/2020" aria-describedby="button-addon2">
+									<div class="input-group-append">
+										<div class="input-group-text" id="button-addon-date"><span class="fe fe-calendar fe-16"></span></div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+					<td>
+						<div style="display: flex; align-items: center; justify-content: start; gap: 10px;">
+							<button type="button" class="btn mb-2 btn-success">Lưu</button>
+							<button type="button" class="btn mb-2 btn-danger">Quay lại</button>
+						</div>
+					</td>
+
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+
+
 	<div class="container-fluid">
 		<div class="row justify-content-center">
 			<div class="col-12">
@@ -16,7 +102,7 @@
 									<thead>
 										<tr>
 											<th>STT</th>
-											<th>Mã</th>
+											<th>Mã phòng</th>
 											<th>Tên</th>
 											<th>Tên TP</th>
 											<th>Số lượng NV</th>
@@ -26,7 +112,36 @@
 										</tr>
 									</thead>
 									<tbody>
-										<tr>
+										<?php
+										// Thực hiện truy vấn để lấy dữ liệu từ bảng phongban
+										$sql = "SELECT * FROM phongban";
+										$result = $conn->query($sql);
+
+										// Kiểm tra xem có dữ liệu được trả về không
+										if ($result->num_rows > 0) {
+											// Duyệt qua từng dòng dữ liệu và đổ vào bảng HTML
+											while ($row = $result->fetch_assoc()) {
+												echo "<tr>";
+
+												echo "<td>" . $row["maPhong"] . "</td>"; // Tương tự với các cột khác
+												echo "<td>" . $row["tenPhong"] . "</td>";
+												// echo "<td>" . $row["maTruongphong"] . "</td>";
+												// echo "<td>" . $row["soLuongNV"] . "</td>";
+												// echo "<td>" . $row["luongTB"] . "</td>";
+												echo "<td>" . date("d-m-Y", strtotime($row["ngayNhanChuc"])) . "</td>"; // Định dạng ngày tháng
+												echo "<td>";
+												echo "<div style='display: flex; align-items: center; justify-content: start; gap: 10px;'>";
+												echo "<button type='button' class='btn mb-2 btn-warning'>Sửa</button>";
+												echo "<button type='button' class='btn mb-2 btn-danger'>Xóa</button>";
+												echo "</div>";
+												echo "</td>";
+												echo "</tr>";
+											}
+										} else {
+											echo "Không có dữ liệu";
+										}
+										?>
+										<!-- <tr>
 											<td>1</td>
 											<td>IT</td>
 											<td>Công nghệ</td>
@@ -85,22 +200,7 @@
 													<button type="button" class="btn mb-2 btn-danger">Xóa</button>
 												</div>
 											</td>
-										</tr>
-										<tr>
-											<td>1</td>
-											<td>IT</td>
-											<td>Công nghệ</td>
-											<td>Hoàng Khang</td>
-											<td>23</td>
-											<td>10.000.000</td>
-											<td>20-02-2020</td>
-											<td>
-												<div style="display: flex; align-items: center; justify-content: start; gap: 10px;">
-													<button type="button" class="btn mb-2 btn-warning">Sửa</button>
-													<button type="button" class="btn mb-2 btn-danger">Xóa</button>
-												</div>
-											</td>
-										</tr>
+										</tr> -->
 
 
 									</tbody>
@@ -264,14 +364,14 @@
 								<div class="form-group mb-3">
 									<label for="example-select">Trưởng phòng</label>
 									<select class="form-control" id="example-select">
-										<option>Hiểu thị toàn bộ danh sách nhân viên ở đây, trừ trưởng phòng</option>
+										<option>Hiển thị toàn bộ danh sách nhân viên ở đây, trừ trưởng phòng</option>
 										<option>22 - Duy Tân</option>
 										<option>23 - Hoài Nam</option>
 										<option>...</option>
 									</select>
 								</div>
 								<div style="display: flex; justify-content: end;">
-								<input class="btn btn-primary" type="submit" value="Thêm"></input>
+									<input class="btn btn-primary" type="submit" value="Thêm"></input>
 								</div>
 							</form>
 						</div> <!-- /.card-body -->
@@ -513,4 +613,25 @@
 	}
 	gtag('js', new Date());
 	gtag('config', 'UA-56159088-1');
+</script>
+
+
+
+<style>
+	.card.shadow.mb-4 {
+		display: none;
+	}
+</style>
+
+<script>
+	// Lắng nghe sự kiện khi nút "Sửa" được nhấn
+	$('.btn-warning').click(function() {
+		// Hiển thị modal và làm mờ trang hiện tại
+		$('#editModal').modal('show');
+	});
+
+	$('.btn-danger').click(function() {
+		// Đóng modal
+		$('#editModal').modal('hide');
+	});
 </script>
