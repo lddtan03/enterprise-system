@@ -17,4 +17,4 @@
         mysqli_query($connect,$query_duyet);
     }
     header('location:../../index.php?page=duyetdonnghiphep');
-// ?>
+// ?>   
