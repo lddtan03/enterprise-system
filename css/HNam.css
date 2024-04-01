@@ -1,0 +1,301 @@
+#back-to-prev-page {
+    width: 100%;
+    height: auto;
+    padding-left: 2px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#back-to-prev-page a {
+    text-decoration: none;
+    color: black;
+    display: flex;
+    flex-direction: row;
+    font-size: 18px;
+}
+
+#back-to-prev-page .icon {
+    margin-right: 10px;
+}
+
+#back-to-prev-page #submit-form-btn {
+    outline: none;
+    border: none;
+    background-color: #1B68FF;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 30px;
+    border-radius: 10px;
+}
+
+#back-to-prev-page #submit-form-btn:hover {
+    background-color: #0055fffa;
+    transition: .15s;
+}
+
+#product-img-container {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+#product-img-container .image-container {
+    padding: 10px 0 20px;
+}
+
+#product-img-container .image-container img {
+    width: 100%;
+    height: 100%;
+    max-height: 300px;
+    object-fit: contain;
+}
+
+#product-img-container .change-image-container {
+    width: 100%;
+    height: auto;
+}
+
+#product-img-container .change-image-container .change-btn {
+    width: 100%;
+    padding: 15px;
+    background-color: #1B68FF;
+    color: white;
+    border: none;
+    outline: none;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#product-img-container .change-image-container .change-btn:hover {
+    background-color: #1b67fff1;
+    transition: .15s;
+}
+
+/* -------------------------- Alert ----------------------------- */
+#alert-theme {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.2);
+    z-index: 1001;
+    position: fixed;
+    top: 0;
+    right: 0;
+    display: none;
+}
+
+#alert-theme.alertActive {
+    display: flex;
+    justify-content: center;
+    padding-top: 50px;
+}
+
+#btn {
+    width: 50px;
+    height: 30px;
+}
+
+#alert-container {
+    width: 400px;
+    border: none;
+    border-radius: 7px;
+    height: 260px;
+    padding: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+    display: none;
+    animation-name: alertAppear;
+    animation-duration: .8s;
+    z-index: 11;
+    background-color: white;
+}
+
+#alert-container.active {
+    display: block !important;
+}
+
+#alert-container .alert-icon-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: auto;
+    padding-bottom: 20px;
+}
+
+#alert-container .alert-icon-container .alert-icon {
+    /* border: 3px solid #EDF8E7; */
+    /* border: 3px solid #F27474; */
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#alert-container .alert-icon-container .alert-icon i {
+    /* color: #A5DC86; */
+    /* color: #F37777; */
+    font-size: 40px;
+}
+
+#alert-container .type-message {
+    width: 100%;
+    height: auto;
+    text-align: center;
+    font-weight: bold;
+    font-size: 24px;
+    color: #595959;
+    padding-bottom: 10px;
+}
+
+#alert-container .message {
+    font-size: 15px;
+    padding-bottom: 15px;
+    display: flex;
+    justify-content: center;
+}
+
+#alert-container .confirm-container {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+}
+
+#alert-container .confirm-container #confirm-btn {
+    width: 70px;
+    height: 35px;
+    background-color: #0099FF;
+    color: white;
+    outline: none;
+    border: 4px double white;
+    border-radius: 3px;
+    cursor: pointer;
+
+}
+
+#alert-container .confirm-container #confirm-btn:hover {
+    background-color: #3085D6;
+    transition: .8s;
+}
+
+/* ------------------- DELETE PRODUCT CONTAINER ------------------ */
+#confirm-container {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 9999;
+    display: none;
+}
+
+#confirm-container.active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#confirm-container .container {
+    width: 40%;
+    height: auto;
+    padding: 40px 20px 20px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    animation-name: upper;
+    animation-duration: 1s;
+}
+
+#confirm-container div.container>form .confirm-icon-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: auto;
+    padding-bottom: 20px;
+}
+
+#confirm-container div.container>form .confirm-icon-container .alert-icon {
+    border: 3px solid #FACEA8;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#confirm-container div.container>form .confirm-icon-container .alert-icon i {
+    font-size: 40px;
+}
+
+#confirm-container div.container>form .message {
+    width: 100%;
+    text-align: center;
+    height: auto;
+    font-size: 18px;
+    padding-top: 5px;
+}
+
+#confirm-container div.container>form .btn-container {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    padding: 30px 0 40px;
+}
+
+#confirm-container div.container>form .btn-container input[type='text'] {
+    display: none;
+}
+
+#confirm-container div.container>form .btn-container .left,
+#confirm-container div.container>form .btn-container .right {
+    width: 40%;
+    padding: 0 10px;
+    display: flex;
+    justify-content: center;
+}
+
+#confirm-container div.container>form .btn-container .left input,
+#confirm-container div.container>form .btn-container .right input {
+    width: 100px;
+    height: 50px;
+    background-color: #0099FF;
+    font-size: 16px;
+    color: white;
+    outline: none;
+    border: 4px double white;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+#confirm-container div.container>form .btn-container .left input:hover,
+#confirm-container div.container>form .btn-container .right input:hover {
+    background-color: #3085D6;
+    transition: .8s;
+}
+
+/* ----------------------- Animation ---------------------- */
+@keyframes upper {
+    0% {
+        transform: translateY(1000px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes alertAppear {
+    0% {
+        transform: translateY(-1000px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}

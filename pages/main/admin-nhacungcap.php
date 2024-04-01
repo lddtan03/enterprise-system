@@ -20,48 +20,16 @@
 										</tr>
 									</thead>
 									<tbody>
-										<tr>
+										<?php
+										showNhaCungCapTable();
+										?>
+										<!-- <tr>
 											<td>1</td>
 											<td>NCC 1</td>
 											<td>123 Đường ABC, Quận XYZ, Thành phố HCM</td>
 											<td>029283223</td>
 											<td>ncc1@gmail.com</td>
-										</tr>
-										<tr>
-											<td>1</td>
-											<td>NCC 1</td>
-											<td>123 Đường ABC, Quận XYZ, Thành phố HCM</td>
-											<td>029283223</td>
-											<td>ncc1@gmail.com</td>
-										</tr>
-										<tr>
-											<td>1</td>
-											<td>NCC 1</td>
-											<td>123 Đường ABC, Quận XYZ, Thành phố HCM</td>
-											<td>029283223</td>
-											<td>ncc1@gmail.com</td>
-										</tr>
-										<tr>
-											<td>1</td>
-											<td>NCC 1</td>
-											<td>123 Đường ABC, Quận XYZ, Thành phố HCM</td>
-											<td>029283223</td>
-											<td>ncc1@gmail.com</td>
-										</tr>
-										<tr>
-											<td>1</td>
-											<td>NCC 1</td>
-											<td>123 Đường ABC, Quận XYZ, Thành phố HCM</td>
-											<td>029283223</td>
-											<td>ncc1@gmail.com</td>
-										</tr>
-										<tr>
-											<td>1</td>
-											<td>NCC 1</td>
-											<td>123 Đường ABC, Quận XYZ, Thành phố HCM</td>
-											<td>029283223</td>
-											<td>ncc1@gmail.com</td>
-										</tr>
+										</tr> -->
 									</tbody>
 								</table>
 							</div>
@@ -227,3 +195,23 @@
 	gtag('js', new Date());
 	gtag('config', 'UA-56159088-1');
 </script>
+
+<?php
+function showNhaCungCapTable()
+{
+	require_once($_SERVER['DOCUMENT_ROOT'] . '/HTTT-DN/object/action.php');
+	$nccList = getNhaCungCapList();
+	for ($i = 0; $i < count($nccList); $i++) {
+		$ncc = $nccList[$i];
+		echo '
+		<tr>
+			<td>' . $ncc->getId() . '</td>
+			<td>' . $ncc->getTen() . '</td>
+			<td>' . $ncc->getDiaChi() . '</td>
+			<td>' . $ncc->getSDT() .'</td>
+			<td>' . $ncc->getEmail() . '</td>
+		</tr>';
+	}
+}
+
+?>

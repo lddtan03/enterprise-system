@@ -2,9 +2,9 @@
   <div class="container-fluid">
     <div class="row justify-content-center">
       <div class="col-12">
-      <div class="row" style="justify-content: space-between;">
+        <div class="row" style="justify-content: space-between;">
           <h2 class="mb-2 page-title">Danh sách nhà cung cấp</h2>
-          <button type="button" class="btn mb-2 btn-primary">Thêm Nhà cung cấp</button>
+          <button type="button" class="btn mb-2 btn-primary"  onclick="window.location.href = 'index.php?page=nhacungcap&action=add'">Thêm Nhà cung cấp</button>
         </div>
         <div class="row my-4">
           <!-- Small table -->
@@ -12,10 +12,10 @@
             <div class="card shadow">
               <div class="card-body">
                 <!-- table -->
-                <table class="table datatables" id="dataTable-1" >
+                <table class="table datatables" id="dataTable-1">
                   <thead>
                     <tr>
-                      <th >Mã</th>
+                      <th>Mã</th>
                       <th>Tên</th>
                       <th>Địa chỉ</th>
                       <th>Số điện thoại</th>
@@ -24,7 +24,10 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
+                    <?php
+                    showNhaCungCapTable();
+                    ?>
+                    <!-- <tr>
                       <td>1</td>
                       <td>NCC 1</td>
                       <td>123 Đường ABC, Quận XYZ, Thành phố HCM</td>
@@ -36,7 +39,7 @@
                           <button type="button" class="btn mb-2 btn-danger">Xóa</button>
                          </div>
                       </td>
-                    </tr>
+                    </tr> -->
                   </tbody>
                 </table>
               </div>
@@ -45,6 +48,27 @@
         </div> <!-- end section -->
       </div> <!-- .col-12 -->
     </div> <!-- .row -->
+    <div id="confirm-container">
+      <div class="container">
+        <form action="/HTTT-DN/pages/main/nhacungcap-delete.php" method="post" id="delete-nhacungcap-form">
+          <div class="confirm-icon-container">
+            <div class="alert-icon">
+              <i class="fa-solid fa-exclamation" style="color: #F8BB86;"></i>
+            </div>
+          </div>
+          <div class="message">Bạn có chắc chắn muốn xóa nhà cung cấp này không?</div>
+          <div class="btn-container">
+            <input type="text" id="inputAttribute" name="id" >
+            <div class="left">
+              <input type="submit" name="delete-product-submit" value="Xóa">
+            </div>
+            <div class="right">
+              <input type="button" onclick="closeConfirmContainer(event);" value="Trở lại">
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
   </div> <!-- .container-fluid -->
   <div class="modal fade modal-notif modal-slide" tabindex="-1" role="dialog" aria-labelledby="defaultModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm" role="document">
@@ -181,9 +205,9 @@
 <script src="js/config.js"></script>
 <script src='js/jquery.dataTables.min.js'></script>
 <script src='js/dataTables.bootstrap4.min.js'></script>
+<script src="js/HNam.js"></script>
 <script>
-  $('#dataTable-1').DataTable(
-  {
+  $('#dataTable-1').DataTable({
     autoWidth: true,
     "lengthMenu": [
       [16, 32, 64, -1],
@@ -197,10 +221,37 @@
 <script>
   window.dataLayer = window.dataLayer || [];
 
-  function gtag()
-  {
+  function gtag() {
     dataLayer.push(arguments);
   }
   gtag('js', new Date());
   gtag('config', 'UA-56159088-1');
 </script>
+
+<?php
+function showNhaCungCapTable()
+{
+  require_once($_SERVER['DOCUMENT_ROOT'] . '/HTTT-DN/object/action.php');
+  $nccList = getNhaCungCapList();
+  for ($i = 0; $i < count($nccList); $i++) {
+    $ncc = $nccList[$i];
+    if ($ncc->getTinhTrang() != 1)
+      continue;
+    echo '
+    <tr>
+      <td>' . $ncc->getId() . '</td>
+      <td>' . $ncc->getTen() . '</td>
+			<td>' . $ncc->getDiaChi() . '</td>
+			<td>' . $ncc->getSDT() . '</td>
+			<td>' . $ncc->getEmail() . '</td>
+      <td>
+        <div style="display: flex; align-items: center; justify-content: start; gap: 10px;">
+          <button type="button" class="btn mb-2 btn-warning" onclick="window.location.href = \'index.php?page=nhacungcap&action=edit&id=' . $ncc->getId() . '\'">Sửa</button>
+          <button type="button" class="btn mb-2 btn-danger" onclick="displayDelete(' . $ncc->getId() . ')">Xóa</button>
+        </div>
+      </td>
+    </tr>';
+  }
+}
+
+?>
