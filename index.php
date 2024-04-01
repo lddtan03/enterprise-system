@@ -2,7 +2,7 @@
 session_start();
 ob_start();
 ?>
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -32,8 +32,9 @@ ob_start();
   <!-- App CSS -->
   <link rel="stylesheet" href="css/app-light.css" id="lightTheme">
   <link rel="stylesheet" href="css/app-dark.css" id="darkTheme" disabled>
-
   <link rel="stylesheet" href="css/dataTables.bootstrap4.css">
+  <script src="js/jquery-3.7.1.min.js"></script>
+  <!-- <base href="http://localhost/HTTT-DN/index.php?"> -->
   <!-- HNam CSS -->
   <link rel="stylesheet" href="css/HNam.css">
 </head>

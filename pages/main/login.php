@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = mysqli_real_escape_string($conn, $_POST['inputPassword']);
 
     // Construct a secure prepared statement (security)
-    $sql = "SELECT * FROM taikhoan WHERE taiKhoan = ? AND matKhau = ?";
+    $sql = "SELECT * FROM taikhoan tk join nhanvien nv on tk.taiKhoan = nv.maNhanVien WHERE taiKhoan = ? AND matKhau = ? and nv.trangthai = '1'";
     $stmt = mysqli_prepare($conn, $sql);
 
     if ($stmt) {
