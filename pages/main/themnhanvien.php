@@ -46,7 +46,7 @@ $nv = new Database;
                 <div class="my-4">
                     <form enctype="multipart/form-data" class="mb-5" method="POST" action="">
                         <?php
-                        foreach ($result as $nhanvien) {
+                        // foreach ($result as $nhanvien) {
                         ?>
                             <hr class="my-4">
                             <div class="form-group">
@@ -171,7 +171,7 @@ $nv = new Database;
 
                             <input type="submit" class="btn btn-primary" value="Lưu thay đổi" name="btn_submit"></input>
                         <?php
-                        }
+                        // }
                         ?>
                     </form>
                 </div>

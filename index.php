@@ -1,7 +1,7 @@
 <?php
 session_start();
 ?>
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -29,11 +29,12 @@ session_start();
   <!-- App CSS -->
   <link rel="stylesheet" href="css/app-light.css" id="lightTheme">
   <link rel="stylesheet" href="css/app-dark.css" id="darkTheme" disabled>
-
   <link rel="stylesheet" href="css/dataTables.bootstrap4.css">
+  <script src="js/jquery-3.7.1.min.js"></script>
+  <!-- <base href="http://localhost/HTTT-DN/index.php?"> -->
 </head>
 
-<body class="vertical  light  ">
+<body class="vertical light">
   <div class="wrapper">
 
   <?php
@@ -41,7 +42,6 @@ if (!isset($_GET['page']) || ($_GET['page'] !== 'signup' && $_GET['page'] !== 'f
   include_once 'config/config.php';
   include_once 'pages/header.php';
   include_once 'pages/slidebar.php';
-
 }
 
 if (isset($_GET['page'])) {

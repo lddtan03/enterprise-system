@@ -79,8 +79,14 @@ if (isset($_GET['page'])) {
         case 'suathongtincanhan':
             require_once 'pages/main/suathongtincanhan.php';
             break;
-        case 'xuly_chuyenphongbanvachucvu':
-            require_once 'pages/main/xuly_chuyenphongbanvachucvu.php';
+        case 'xulychuyenphongbanvachucvu':
+            require_once 'pages/main/xulychuyenphongbanvachucvu.php';
+            break;
+        case 'chamcongnhanvien':
+            require_once 'pages/main/chamcongnhanvien.php';
+            break;
+        case 'chamcongdanhsach':
+            require_once 'pages/main/chamcongdanhsach.php';
             break;
         case 'nhaphang':
             if ($_GET['id'] == 'taophieunhap') {

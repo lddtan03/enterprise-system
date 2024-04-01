@@ -125,6 +125,12 @@
                     <span class="ml-3 item-text">Chấm công</span>
                 </a>
             </li>
+            <li class="nav-item w-100">
+                <a class="nav-link" href="index.php?page=chamcongdanhsach">
+                    <i class="fe fe-calendar fe-16"></i>
+                    <span class="ml-3 item-text">Danh sách chấm công</span>
+                </a>
+            </li>
         </ul>
 
         <!-- Quản lý kho hàng -->
@@ -176,7 +182,7 @@
             <li class="nav-item w-100">
                 <a class="nav-link" href="index.php?page=thongkekinhdoanh">
                     <i class="fe fe-calendar fe-16"></i>
-                    <span class="ml-3 item-text">Thống kê kinhdoanh</span>
+                    <span class="ml-3 item-text">Thống kê kinh doanh</span>
                 </a>
             </li>
             <li class="nav-item w-100">

@@ -1,36 +1,14 @@
-<!doctype html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="favicon.ico">
-    <title>Tiny Dashboard - A Bootstrap Dashboard Template</title>
-    <!-- Simple bar CSS -->
-    <link rel="stylesheet" href="css/simplebar.css">
-    <!-- Fonts CSS -->
-    <link href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    <!-- Icons CSS -->
-    <link rel="stylesheet" href="css/feather.css">
-    <!-- Date Range Picker CSS -->
-    <link rel="stylesheet" href="css/daterangepicker.css">
-    <!-- App CSS -->
-    <link rel="stylesheet" href="css/app-light.css" id="lightTheme">
-    <link rel="stylesheet" href="css/app-dark.css" id="darkTheme" disabled>
-</head>
-
-
 <?php
 require_once './object/database.php';
-$manv = $_GET['manv'];
 $nv = new Database;
-$getNhanVienTheoMa = $nv->executeQuery("select nv.maNhanVien, avatar, hoTen, gioiTinh, ngaySinh, diaChi, tenPhong, tenChucVu, ngayKetThuc, luongCoBan from chucvu cv join nhanvien nv on cv.maChucVu=nv.maChucVu join phongban pb on pb.maPhong=nv.maPhong join hopdong hd on hd.maNhanVien=nv.maNhanVien where nv.maNhanVien = $manv");
+$manv = $_GET['manv'];
+$getNhanVienTheoMa = $nv->executeQuery("select nv.maNhanVien, avatar, hoTen, gioiTinh, ngaySinh, diaChi, tenPhong, tenChucVu, nv.maPhong, ngayKetThuc, luongCoBan from chucvu cv join nhanvien nv on cv.maChucVu=nv.maChucVu join phongban pb on pb.maPhong=nv.maPhong join hopdong hd on hd.maNhanVien=nv.maNhanVien where nv.maNhanVien = $manv");
+
 
 ?>
+<!-- <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script> -->
 
-<body class="vertical  light  ">
+<body class="vertical light">
     <div class="wrapper">
         <main role="main" class="main-content">
             <div class="container-fluid">
@@ -38,6 +16,7 @@ $getNhanVienTheoMa = $nv->executeQuery("select nv.maNhanVien, avatar, hoTen, gio
                     <div class="col-12">
                         <h2 class="page-title">Chuyển phòng ban</h2>
                         <?php
+
                         foreach ($getNhanVienTheoMa as $nhanvien) {
                         ?>
                             <div class="card-deck">
@@ -47,55 +26,47 @@ $getNhanVienTheoMa = $nv->executeQuery("select nv.maNhanVien, avatar, hoTen, gio
                                         <strong class="card-title" style="font-size: large; font-weight: bold;"><?php echo $nhanvien['hoTen'] . " - Mã nhân viên: " . $nhanvien['maNhanVien'] ?></strong>
                                     </div>
                                     <div class="card-body">
-                                        <form action="" method="POST">
+                                        <form method="POST">
                                             <div class="form-row">
                                                 <div class="form-group col-md-6">
-                                                    <label for="inputEmail4">Ngày sinh</label>
-                                                    <input type="text" class="form-control" id="inputEmail4" placeholder="Email" disabled value="<?php echo $nhanvien['ngaySinh'] ?>">
+                                                    <label>Ngày sinh</label>
+                                                    <input type="text" class="form-control" placeholder="Email" disabled value="<?php echo $nhanvien['ngaySinh'] ?>">
                                                 </div>
                                                 <div class="form-group col-md-6">
-                                                    <label for="inputPassword4">Giới tính</label>
-                                                    <input type="text" class="form-control" id="inputPassword4" placeholder="Password" disabled value="<?php echo $nhanvien['gioiTinh'] ?>">
+                                                    <label>Giới tính</label>
+                                                    <input type="text" class="form-control" placeholder="Password" disabled value="<?php echo $nhanvien['gioiTinh'] ?>">
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="inputAddress">Địa chỉ</label>
-                                                <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" disabled value="<?php echo $nhanvien['diaChi'] ?>">
+                                                <label>Địa chỉ</label>
+                                                <input type="text" class="form-control" placeholder="1234 Main St" disabled value="<?php echo $nhanvien['diaChi'] ?>">
                                             </div>
                                             <div class="form-row">
                                                 <div class="form-group col-md-6">
-                                                    <label for="inputEmail4">Ngày kết thúc hợp đồng</label>
-                                                    <input type="text" class="form-control" id="ngayKetThuc" name="ngayKetThuc" placeholder="Email" readonly="true" value="<?php echo $nhanvien['ngayKetThuc'] ?>">
+                                                    <label>Ngày kết thúc hợp đồng</label>
+                                                    <input type="text" class="form-control" name="cpb_ngayKetThuc" placeholder="Email" readonly="true" value="<?php echo $nhanvien['ngayKetThuc'] ?>">
                                                 </div>
                                                 <div class="form-group col-md-6">
-                                                    <label for="inputPassword4">Lương cơ bản</label>
-                                                    <input type="text" class="form-control" id="inputPassword4" placeholder="Password" disabled value="<?php echo $nhanvien['luongCoBan'] ?>">
+                                                    <label>Lương cơ bản</label>
+                                                    <input type="text" class="form-control" placeholder="Password" disabled value="<?php echo $nhanvien['luongCoBan'] ?>">
                                                 </div>
                                             </div>
                                             <div class="form-row">
                                                 <div class="form-group col-md-6">
-                                                    <label for="inputEmail4">Phòng ban hiện tại</label>
-                                                    <input type="email" class="form-control" id="inputEmail4" placeholder="Email" disabled value="<?php echo $nhanvien['tenPhong'] ?>">
+                                                    <label>Phòng ban hiện tại</label>
+                                                    <input type="email" class="form-control" placeholder="Email" disabled value="<?php echo $nhanvien['tenPhong'] ?>">
                                                 </div>
                                                 <div class="form-group col-md-6">
-                                                    <label for="inputPassword4">Tên chức vụ</label>
-                                                    <input type="text" class="form-control" id="inputPassword4" placeholder="Password" disabled value="<?php echo $nhanvien['tenChucVu'] ?>">
+                                                    <label>Tên chức vụ</label>
+                                                    <input type="text" class="form-control" placeholder="Password" disabled value="<?php echo $nhanvien['tenChucVu'] ?>">
                                                 </div>
                                             </div>
                                             <div class="form-row">
-                                                <div id="weather-temp">
-
-                                                </div>
                                                 <div class="form-group col-md-6">
-                                                    <label for="inputAddress">Phòng ban chuyển đến</label>
-                                                    <?php
-                                                    $result = $nv->select("select tenPhong, maPhong from phongban");
-                                                    ?>
+                                                    <label>Phòng ban chuyển đến</label>
                                                     <div>
                                                         <select id="tenphong" name="tenphong" class="form-control">
-
                                                             <?php
-                                                            $tp = $nhanvien['tenPhong'];
 
                                                             $result = $nv->select("select tenPhong, maPhong from phongban");
 
@@ -118,15 +89,14 @@ $getNhanVienTheoMa = $nv->executeQuery("select nv.maNhanVien, avatar, hoTen, gio
                                                 </div>
 
                                                 <div class="form-group col-md-6">
-                                                    <label for="inputAddress">Chức vụ sau khi chuyển</label>
-                                                    <?php
-                                                    $result = $nv->select("select tenChucVu, maChucVu from chucvu");
-                                                    ?>
+                                                    <label>Chức vụ sau khi chuyển</label>
+                                                        
                                                     <div>
                                                         <select id="chucvu" name="chucvu" class="form-control">
 
                                                             <?php
-                                                            $result = $nv->select("select tenChucVu, maChucVu from chucvu");
+                                                            $maPhong = $nhanvien['maPhong'];
+                                                            $result = $nv->select("SELECT cv.maChucVu, cv.tenChucVu FROM chucvu cv WHERE cv.maChucVu not in (select nv.maChucVu from nhanvien nv join phongban pb on nv.maPhong = pb.maPhong WHERE nv.maPhong = '$maPhong' and nv.maChucVu = 'TP')");
 
                                                             if (mysqli_num_rows($result) > 0) {
                                                                 // Duyệt qua từng hàng kết quả
@@ -134,9 +104,9 @@ $getNhanVienTheoMa = $nv->executeQuery("select nv.maNhanVien, avatar, hoTen, gio
                                                                     $maChucVu = $row['maChucVu'];
                                                                     $tenChucVu = $row["tenChucVu"];
                                                                     if ($nhanvien['tenChucVu'] === $tenChucVu)
-                                                                        echo "<option value='$maChucVu' selected>$tenChucVu</option>";
+                                                                        echo "<option class='chucvu' value='$maChucVu' selected>$tenChucVu</option>";
                                                                     else
-                                                                        echo "<option value='$maChucVu'>$tenChucVu</option>";
+                                                                        echo "<option class='chucvu' value='$maChucVu'>$tenChucVu</option>";
                                                                 }
                                                             }
 
@@ -149,54 +119,39 @@ $getNhanVienTheoMa = $nv->executeQuery("select nv.maNhanVien, avatar, hoTen, gio
                                             </div>
                                             <input type="submit" class="btn btn-primary" name="btn_submit" value="Lưu"></input>
                                         </form>
-
-                                        <!-- <script>
-                                            $(document).ready(function() {
-                                                $("#chucvu").change(() => {
-                                                    let chucvu = $('#chucvu').val();
-                                                    var data = {
-                                                        chucvu: chucvu
-                                                    }
-                                                    $.ajax({
-                                                        url: "",
-                                                        method: "GET",
-                                                        data: data,
-                                                        dataType: "json",
-                                                        success: function(result) {
-                                                            console.log(result);
-                                                            $("#weather-temp").html("<strong>" + result.chucvu + "</strong>");
-                                                        },
-                                                        error: function(xhr, ajaxOptions, thrownError) {
-                                                            alert(xhr.status);
-                                                            alert(thrownError);
-                                                        },
-                                                    });
-                                                })
-                                                $("#tenphong").change(() => {
-                                                    let tenphong = $('#tenphong').val();
-                                                    var data = {
-                                                        tenphong: tenphong
-                                                    }
-                                                    $.ajax({
-                                                        url: "",
-                                                        method: "GET",
-                                                        data: data,
-                                                        dataType: "text",
-                                                        success: function(result) {
-                                                            console.log(result);
-                                                            $("#weather-temp").html("<strong>" + result + "</strong>");
-                                                        },
-                                                        error: function(xhr, ajaxOptions, thrownError) {
-                                                            alert(xhr.status);
-                                                            alert(thrownError);
-                                                        },
-                                                    });
-                                                })
-                                            })
-                                        </script> -->
                                     </div>
                                 </div>
                             </div>
+
+                            <script>
+                                $(document).ready(function() {
+                                    $("#tenphong").change(function() {
+                                        let tenphong = $('#tenphong').val();
+                                        var data = {
+                                            tenphong: tenphong
+                                        }
+                                        $.ajax({
+                                            url: '/HTTT-DN/pages/main/xulychuyenphongbanvachucvu.php',
+                                            method: 'POST',
+                                            data: data,
+                                            dataType: 'json',
+                                            success: function(result) {
+                                                // alert(result)
+                                                var str = "";
+                                                result.resultChucVu.forEach(element => {
+                                                    str += `<option value='${element.maChucVu}'>${element.tenChucVu}</option>`;
+                                                })
+                                                $('#chucvu').html(str);
+                                            },
+                                            error: function(xhr, ajaxOptions, thrownError) {
+                                                alert(xhr.status);
+                                                alert(thrownError);
+                                            },
+                                        });
+                                    })
+
+                                })
+                            </script>
                             <?php
                             ob_start();
 
