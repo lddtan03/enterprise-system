@@ -2,10 +2,12 @@
 require_once './object/database.php';
 
 $row = new Database;
-$arr = $row->executeQuery('select distinct nv.maNhanVien, avatar, hoTen, gioiTinh, ngaySinh, diaChi, tenPhong, tenChucVu, ngayKetThuc, luongCoBan from chucvu cv join nhanvien nv on cv.maChucVu=nv.maChucVu join phongban pb on pb.maPhong=nv.maPhong join hopdong hd on hd.maNhanVien=nv.maNhanVien order by nv.maNhanVien asc');
+$arr = $row->executeQuery('select distinct nv.maNhanVien, trangthai, avatar, hoTen, gioiTinh, ngaySinh, diaChi, tenPhong, tenChucVu, ngayKetThuc, luongCoBan from chucvu cv join nhanvien nv on cv.maChucVu=nv.maChucVu join phongban pb on pb.maPhong=nv.maPhong join hopdong hd on hd.maNhanVien=nv.maNhanVien order by nv.maNhanVien asc');
 
-
-
+$getPhongBanKoCoTruongPhong = $row->executeQuery("select distinct tenPhong from nhanvien nv join phongban pb on nv.maPhong = pb.maPhong where nv.maPhong not in (SELECT maPhong FROM `nhanvien` WHERE maChucVu = 'TP') group by tenPhong");
+if(isset($getPhongBanKoCoTruongPhong)){
+  $soLuong = count($getPhongBanKoCoTruongPhong); 
+}
 ?>
 
 <main role="main" class="main-content">
@@ -14,7 +16,7 @@ $arr = $row->executeQuery('select distinct nv.maNhanVien, avatar, hoTen, gioiTin
       <div class="col-12">
         <div class="row" style="justify-content: space-between;">
           <h2 class="mb-2 page-title">Danh sách nhân viên</h2>
-          <button type="button" class="btn mb-2 btn-primary">Thêm nhân viên</button>
+          <a type="button" class="btn mb-2 btn-primary" href="index.php?page=themnhanvien">Thêm nhân viên</a>
         </div>
         <div class="row my-4">
           <!-- Small table -->
@@ -23,6 +25,22 @@ $arr = $row->executeQuery('select distinct nv.maNhanVien, avatar, hoTen, gioiTin
               <div class="card-body">
                 <!-- table -->
                 <table class="table datatables" id="dataTable-1">
+                  <?php  
+                    if(isset($soLuong)){
+                      ?>
+                  <p style="color: red; font-size:large; font-weight:bold;">Phòng <?php foreach($getPhongBanKoCoTruongPhong as $key => $phong){
+                    if($soLuong == 1){
+                      echo $phong['tenPhong']." ";   
+                    }else{
+                      echo $phong['tenPhong'].", ";   
+                    }
+                    $soLuong--;
+                  }
+                  echo "hiện tại chưa có trưởng phòng";
+                  ?>
+                   <?php
+                    }
+                  ?></p>
                   <thead>
                     <tr>
                       <th>Mã</th>
@@ -42,33 +60,34 @@ $arr = $row->executeQuery('select distinct nv.maNhanVien, avatar, hoTen, gioiTin
                     <?php
                     foreach ($arr as $element) {
                       $maNV = $element['maNhanVien'];
+                      if ($element['trangthai'] == '1') {
                     ?>
-                      <tr>
-                        <td><?php echo $element['maNhanVien'] ?></td>
-                        <td>
-                          <img src="assets/avatars/<?php echo $element['avatar'] ?>" alt="" style="width: 50px; height: 50px; border-radius: 1000px;">
-                        </td>
-                        <td><?php echo $element['hoTen'] ?></td>
-                        <td><?php echo $element['gioiTinh'] ?></td>
-                        <td><?php echo $element['ngaySinh'] ?></td>
-                        <td><?php echo $element['diaChi'] ?></td>
-                        <td><?php echo $element['tenPhong'] ?></td>
-                        <td><?php echo $element['tenChucVu'] ?></td>
-                        <td><?php echo $element['ngayKetThuc'] ?></td>
-                        <td><?php echo $element['luongCoBan'] ?></td>
-                        <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="text-muted sr-only">Action</span>
-                          </button>
-                          <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="">Chi tiết</a>
-                            <a class="dropdown-item" href="">Chuyển chức vụ</a>
-                            <a class="dropdown-item" href="">Chuyển phòng</a>
-                            <a class="dropdown-item giahan" manv="<?php echo $element['maNhanVien'] ?>" hreflang=""href="index.php?page=giahanhopdong&manv=<?php echo $element['maNhanVien'] ?>" >Gia hạn hợp đồng</a>
-                            <a class="dropdown-item" href="">Xóa</a>
-                          </div>
-                        </td>
-                      </tr>
+                        <tr>
+                          <td><?php echo $element['maNhanVien'] ?></td>
+                          <td>
+                            <img src="assets/avatars/<?php echo $element['avatar'] ?>" alt="" style="width: 50px; height: 50px; border-radius: 1000px;">
+                          </td>
+                          <td><?php echo $element['hoTen'] ?></td>
+                          <td><?php echo $element['gioiTinh'] ?></td>
+                          <td><?php echo $element['ngaySinh'] ?></td>
+                          <td><?php echo $element['diaChi'] ?></td>
+                          <td><?php echo $element['tenPhong'] ?></td>
+                          <td><?php echo $element['tenChucVu'] ?></td>
+                          <td><?php echo $element['ngayKetThuc'] ?></td>
+                          <td><?php echo $element['luongCoBan'] ?></td>
+                          <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <span class="text-muted sr-only">Action</span>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right">
+                              <a class="dropdown-item" href="index.php?page=chitiet&manv=<?php echo $element['maNhanVien'] ?>">Chi tiết</a>
+                              <a class="dropdown-item" href="index.php?page=chuyenphongbanvachucvu&manv=<?php echo $element['maNhanVien'] ?>">Chuyển phòng ban</a>
+                              <a class="dropdown-item giahan" manv="<?php echo $element['maNhanVien'] ?>" hreflang="" href="index.php?page=giahanhopdong&manv=<?php echo $element['maNhanVien'] ?>">Gia hạn hợp đồng</a>
+                              <a class="dropdown-item" href="index.php?page=xoanhanvien&manv=<?php echo $element['maNhanVien'] ?>">Xóa</a>
+                            </div>
+                          </td>
+                        </tr>
                     <?php
+                      }
                     }
                     ?>
                     <!-- Modal gia han hop dong-->

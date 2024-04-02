@@ -30,7 +30,8 @@ class Database
         mysqli_close($this->connection);
     }
 
-    public function getConnection() {
+    public function getConnection()
+    {
         return $this->connection;
     }
 
@@ -43,12 +44,15 @@ class Database
         while ($result = mysqli_fetch_assoc($data)) {
             $arr[] = $result;
         }
-        return $arr;
+        if(!empty($arr)){
+            return $arr;
+        }
+        return null;
     }
 
     public function query($sql = '', $return = true)
     {
-        mysqli_query($this->connection, "set names 'utf8");
+        mysqli_query($this->connection, "set names 'utf8'");
         if ($result = mysqli_query($this->connection, $sql)) {
             if ($return === true) {
                 while ($row = mysqli_fetch_array($result)) {
@@ -62,12 +66,17 @@ class Database
             return false;
     }
 
-    public function insert_update_delete($sql) {
+    public function select($sql)
+    {
+        return mysqli_query($this->connection, $sql);
+    }
+
+    public function insert_update_delete($sql)
+    {
         if (!mysqli_query($this->connection, $sql)) {
             echo "<br>" . mysqli_error($this->connection) . "<br>";
             return false;
         }
         return true;
     }
-
 }

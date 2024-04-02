@@ -1,3 +1,14 @@
+<?php
+require_once 'object/database.php';
+
+if (isset($_SESSION['taiKhoan'])) {
+  $username = $_SESSION['taiKhoan'];
+  $nv = new Database;
+  $result = $nv->executeQuery("select avatar from nhanvien where maNhanVien = '$username'");
+}
+
+?>
+
 <nav class="topnav navbar navbar-light">
   <button type="button" class="navbar-toggler text-muted mt-2 p-0 mr-3 collapseSidebar">
     <i class="fe fe-menu navbar-toggler-icon"></i>
@@ -17,12 +28,12 @@
     <li class="nav-item dropdown">
       <a class="nav-link dropdown-toggle text-muted pr-0" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <span class="avatar avatar-sm mt-2">
-          <img src="./assets/avatars/face-1.jpg" alt="..." class="avatar-img rounded-circle">
+          <img src="./assets/avatars/<?php echo $result[0]['avatar'] ?>" alt="..." class="avatar-img rounded-circle">
         </span>
       </a>
       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
         <a class="dropdown-item" href="index.php?page=profile-settings">Thông tin</a>
-        <a class="dropdown-item" style="color: red;" href="index.php?page=login">Đăng xuất</a>
+        <a class="dropdown-item" style="color: red;" href="logout.php">Đăng xuất</a>
       </div>
     </li>
   </ul>
