@@ -33,7 +33,7 @@ if (isset($_SESSION['taiKhoan'])) {
       </a>
       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
         <a class="dropdown-item" href="index.php?page=profile-settings">Thông tin</a>
-        <a class="dropdown-item" style="color: red;" href="index.php?page=login">Đăng xuất</a>
+        <a class="dropdown-item" style="color: red;" href="logout.php">Đăng xuất</a>
       </div>
     </li>
   </ul>

@@ -130,43 +130,6 @@ if (isset($_SESSION['taiKhoan'])) {
                 </li>
             </ul>
         <?php endif; ?>
-
-        <!-- Quản lý nhân sự -->
-        <p class="text-muted nav-heading mt-4 mb-1">
-            <span>Quản lý nhân sự</span>
-        </p>
-        <ul class="navbar-nav flex-fill w-100 mb-2">
-            <li class="nav-item w-100">
-                <a class="nav-link" href="index.php?page=thongkenhansu">
-                    <i class="fe fe-calendar fe-16"></i>
-                    <span class="ml-3 item-text">Thống kê nhân sự</span>
-                </a>
-            </li>
-            <li class="nav-item w-100">
-                <a class="nav-link" href="index.php?page=nhanvien">
-                    <i class="fe fe-calendar fe-16"></i>
-                    <span class="ml-3 item-text">Nhân viên</span>
-                </a>
-            </li>
-            <li class="nav-item w-100">
-                <a class="nav-link" href="index.php?page=duyetdonnghiphep">
-                    <i class="fe fe-calendar fe-16"></i>
-                    <span class="ml-3 item-text">Duyệt đơn nghỉ phép</span>
-                </a>
-            </li>
-            <li class="nav-item w-100">
-                <a class="nav-link" href="index.php?page=chamcong">
-                    <i class="fe fe-calendar fe-16"></i>
-                    <span class="ml-3 item-text">Chấm công</span>
-                </a>
-            </li>
-            <li class="nav-item w-100">
-                <a class="nav-link" href="index.php?page=chamcongdanhsach">
-                    <i class="fe fe-calendar fe-16"></i>
-                    <span class="ml-3 item-text">Danh sách chấm công</span>
-                </a>
-            </li>
-        </ul>
         <?php if ($maNhomQuyen === 'quanlynhansu'): ?>
            
             <p class="text-muted nav-heading mt-4 mb-1">

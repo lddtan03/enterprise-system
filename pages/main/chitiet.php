@@ -6,11 +6,6 @@ $nv = new Database;
 $getNhanVienTheoMa = $nv->executeQuery("select nv.maNhanVien, avatar, hoTen, gioiTinh, ngaySinh, diaChi, tenPhong, tenChucVu, ngayKetThuc, luongCoBan, cmnd, sdt, danToc, email from chucvu cv join nhanvien nv on cv.maChucVu=nv.maChucVu join phongban pb on pb.maPhong=nv.maPhong join hopdong hd on hd.maNhanVien=nv.maNhanVien where nv.maNhanVien = $manv");
 
 ?>
-
-
-
-
-
 <body class="vertical  light  ">
     <div class="wrapper">
         <main role="main" class="main-content">

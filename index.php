@@ -1,6 +1,8 @@
 <?php
 session_start();
-ob_start();
+if(!isset($_SESSION['taiKhoan'])){
+    header('Location: login.php');
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,7 +36,6 @@ ob_start();
   <link rel="stylesheet" href="css/app-dark.css" id="darkTheme" disabled>
   <link rel="stylesheet" href="css/dataTables.bootstrap4.css">
   <script src="js/jquery-3.7.1.min.js"></script>
-  <!-- <base href="http://localhost/HTTT-DN/index.php?"> -->
   <!-- HNam CSS -->
   <link rel="stylesheet" href="css/HNam.css">
 </head>

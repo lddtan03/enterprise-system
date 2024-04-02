@@ -10,9 +10,6 @@ if (isset($_GET['page'])) {
         case 'signup':
             require_once 'pages/main/signup.php';
             break;
-        case 'login':
-            require_once 'pages/main/login.php';
-            break;
         case 'nhanvien':
             require_once 'pages/main/nhanvien.php';
             break;
@@ -74,6 +71,33 @@ if (isset($_GET['page'])) {
             break;
         case 'chamcong':
             require_once 'pages/main/chamcong.php';
+            break;
+        case 'chuyenphongbanvachucvu':
+            require_once 'pages/main/chuyenphongbanvachucvu.php';
+            break;
+        case 'chitiet':
+            require_once 'pages/main/chitiet.php';
+            break;
+        case 'xoanhanvien':
+            require_once 'pages/main/xoanhanvien.php';
+            break;
+        case 'xoanhanvien2':
+            require_once 'pages/main/xoanhanvien2.php';
+            break;
+        case 'themnhanvien':
+            require_once 'pages/main/themnhanvien.php';
+            break;
+        case 'suathongtincanhan':
+            require_once 'pages/main/suathongtincanhan.php';
+            break;
+        case 'xulychuyenphongbanvachucvu':
+            require_once 'pages/main/xulychuyenphongbanvachucvu.php';
+            break;
+        case 'chamcongnhanvien':
+            require_once 'pages/main/chamcongnhanvien.php';
+            break;
+        case 'chamcongdanhsach':
+            require_once 'pages/main/chamcongdanhsach.php';
             break;
         case 'nhaphang':
             if ($_GET['id'] == 'taophieunhap') {
