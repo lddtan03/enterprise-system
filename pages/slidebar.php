@@ -10,17 +10,17 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 
 // Kiểm tra kết nối
 if ($conn->connect_error) {
-	die("Connection failed: " . $conn->connect_error);
+    die("Connection failed: " . $conn->connect_error);
 }
 
 // Kiểm tra nếu người dùng đã đăng nhập
 if (isset($_SESSION['taiKhoan'])) {
     $loggedInUser = $_SESSION['taiKhoan'];
-    
+
     // Lấy maNhomQuyen từ cơ sở dữ liệu dựa trên taiKhoan
     $sql = "SELECT maNhomQuyen FROM taikhoan WHERE taiKhoan = '$loggedInUser'";
     $result = $conn->query($sql);
-    
+
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
         $maNhomQuyen = $row['maNhomQuyen'];
@@ -36,9 +36,7 @@ if (isset($_SESSION['taiKhoan'])) {
         <!-- nav bar -->
         <div class="w-100 mb-4 d-flex">
             <a class="navbar-brand mx-auto mt-2 flex-fill text-center" href="./index.html">
-                <svg version="1.1" id="logo" class="navbar-brand-img brand-sm" xmlns="http://www.w3.org/2000/svg"
-                    xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 120 120"
-                    xml:space="preserve">
+                <svg version="1.1" id="logo" class="navbar-brand-img brand-sm" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 120 120" xml:space="preserve">
                     <g>
                         <polygon class="st0" points="78,105 15,105 24,87 87,87 	" />
                         <polygon class="st0" points="96,69 33,69 42,51 105,51 	" />
@@ -115,16 +113,13 @@ if (isset($_SESSION['taiKhoan'])) {
                     </a>
                     <ul class="collapse list-unstyled pl-4 w-100" id="luong">
                         <li class="nav-item">
-                            <a class="nav-link pl-3" href="index.php?page=luong&id=chitietchamcong"><span
-                                    class="ml-1 item-text">Chi tiết chấm công</span></a>
+                            <a class="nav-link pl-3" href="index.php?page=luong_danhsachchamcongcuanhanvien"><span class="ml-1 item-text">Danh sách chấm công</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link pl-3" href="index.php?page=luong&id=luongtheothang"><span
-                                    class="ml-1 item-text">Lương theo tháng</span></a>
+                            <a class="nav-link pl-3" href="index.php?page=luong_theothang"><span class="ml-1 item-text">Lương theo tháng</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link pl-3" href="index.php?page=luong&id=luongtheonam"><span
-                                    class="ml-1 item-text">Lương theo năm</span></a>
+                            <a class="nav-link pl-3" href="index.php?page=luong_theonam"><span class="ml-1 item-text">Lương theo năm</span></a>
                         </li>
                     </ul>
                 </li>
@@ -215,12 +210,10 @@ if (isset($_SESSION['taiKhoan'])) {
                     </a>
                     <ul class="collapse list-unstyled pl-4 w-100" id="nhaphang">
                         <li class="nav-item">
-                            <a class="nav-link pl-3" href="index.php?page=nhaphang&id=taophieunhap"><span
-                                    class="ml-1 item-text">Tạo phiếu nhập</span></a>
+                            <a class="nav-link pl-3" href="index.php?page=nhaphang&id=taophieunhap"><span class="ml-1 item-text">Tạo phiếu nhập</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link pl-3" href="index.php?page=nhaphang&id=danhsachphieunhap"><span
-                                    class="ml-1 item-text">Danh sách phiếu nhập</span></a>
+                            <a class="nav-link pl-3" href="index.php?page=nhaphang&id=danhsachphieunhap"><span class="ml-1 item-text">Danh sách phiếu nhập</span></a>
                         </li>
                     </ul>
                 </li>

@@ -1,9 +1,12 @@
 <?php
 require_once './object/database.php';
 
+$manv = $_SESSION['taiKhoan'];
 $row = new Database;
-$arr = $row->executeQuery('select * from chamcong where thangChamCong = 3');
+$arr = $row->executeQuery("select * from chamcong cc join nhanvien nv on cc.maNhanVien = nv.maNhanVien join hopdong hd on hd.maNhanVien = nv.maNhanVien where nv.maNhanVien = $manv and thangChamCong = 3 and namChamCong = 2024");
+$getNgayNghiTheoMa = $row->executeQuery("select nv.maNhanVien, SUM(soNgayNghi) soNgayNghiCoPhep from nhanvien nv join donnghiphep dnp on nv.maNhanVien = dnp.maNhanVien where nv.maNhanVien = $manv and MONTH(ngayBatDauNghi) = 3  group by nv.maNhanVien");
 
+print_r($getNgayNghiTheoMa)
 ?>
 
 <main role="main" class="main-content">
@@ -11,7 +14,7 @@ $arr = $row->executeQuery('select * from chamcong where thangChamCong = 3');
         <div class="row justify-content-center">
             <div class="col-12">
                 <div class="row" style="justify-content: space-between;">
-                    <h2 class="mb-2 page-title">Danh sách chấm công</h2>
+                    <h2 class="mb-2 page-title">Bảng lương tháng</h2>
                     <div>
                         <label for="thang">Tháng</label>
                         <select name="thang" id="thang">
@@ -33,12 +36,12 @@ $arr = $row->executeQuery('select * from chamcong where thangChamCong = 3');
                                 <table class="table datatables" id="dataTable-1">
                                     <thead>
                                         <tr>
-                                            <th>Mã chấm công</th>
                                             <th>Mã nhân viên</th>
-                                            <th>Tháng chấm công</th>
-                                            <th>Năm chấm công</th>
-                                            <th>Số ngày làm việc</th>
+                                            <th>Tên nhân viên</th>
+                                            <th>Số ngày công</th>
+                                            <th>Lương cơ bản/ngày</th>
                                             <th>Số ngày nghỉ không phép</th>
+                                            <th>Số ngày nghỉ có phép</th>
                                             <th>Số ngày trễ</th>
                                             <th>Số giờ tăng ca</th>
                                             <th>Lương thưởng</th>
@@ -46,38 +49,33 @@ $arr = $row->executeQuery('select * from chamcong where thangChamCong = 3');
                                             <th>Khoản trừ bảo hiểm</th>
                                             <th>Khoản trừ khác</th>
                                             <th>Thuế</th>
-                                            <th>Thực lãnh</th>
+                                            <th>Lương tháng</th>
                                         </tr>
                                     </thead>
                                     <tbody id="body_table">
                                         <?php
-                                        foreach ($arr as $element) {
+                                        if (!empty($arr))
+                                            foreach ($arr as $element) {
                                         ?>
                                             <tr>
-                                                <td><?php echo $element['maChamCong'] ?></td>
                                                 <td><?php echo $element['maNhanVien'] ?></td>
-                                                <td><?php echo $element['thangChamCong'] ?></td>
-                                                <td><?php echo $element['namChamCong'] ?></td>
+                                                <td><?php echo $element['hoTen'] ?></td>
                                                 <td><?php echo $element['soNgayLamViec'] ?></td>
+                                                <td><?php echo ceil($element['luongCoBan'] / 26) ?></td>
                                                 <td><?php echo $element['soNgayNghiKhongPhep'] ?></td>
-                                                <td><?php echo $element['soNgayTre'] ?></td>
-                                                <td><?php echo $element['soGioTangCa'] ?></td>
+                                                <th><?php if (isset($getNgayNghiTheoMa[0]['soNgayNghiCoPhep'])) echo $getNgayNghiTheoMa[0]['soNgayNghiCoPhep'];
+                                                    else echo 0 ?></th>
+                                                <th><?php echo $element['soNgayTre'] ?></th>
+                                                <th><?php echo $element['soGioTangCa'] ?></th>
                                                 <td><?php echo $element['luongThuong'] ?></td>
                                                 <td><?php echo $element['phuCap'] ?></td>
                                                 <td><?php echo $element['khoanTruBaoHiem'] ?></td>
                                                 <td><?php echo $element['khoanTruKhac'] ?></td>
                                                 <td><?php echo $element['thue'] ?></td>
                                                 <td><?php echo $element['thucLanh'] ?></td>
-                                                <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                        <span class="text-muted sr-only">Action</span>
-                                                    </button>
-                                                    <div class="dropdown-menu dropdown-menu-right">
-                                                        <a class="dropdown-item" href="index.php?page=chamcong-update&manv=<?php echo $element['maNhanVien'] ?>&thang=<?php echo $element['thangChamCong'] ?>&nam=<?php echo $element['namChamCong'] ?>">Chi tiết</a>
-                                                    </div>
-                                                </td>
                                             </tr>
                                         <?php
-                                        }
+                                            }
                                         ?>
                                         <!-- Modal gia han hop dong-->
                                         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -117,7 +115,37 @@ $arr = $row->executeQuery('select * from chamcong where thangChamCong = 3');
                                             </div>
                                         </div>
                                     </tbody>
+
                                 </table>
+                                <hr>
+                                <?php
+                                if (!empty($arr))
+                                    foreach ($arr as $element) {
+                                ?>
+                                    <div class="mt-5 pt-5">
+                                        <div class="d-flex justify-space-between mb-5">
+                                            <span style="min-width: 170px; font-weight: 900; font-size: 22px; color:crimson; margin-top: 3px">Lương tháng </span>
+                                            <div>
+                                                <div class="mb-4">
+                                                    <span class="mr-3">=</span><span style="font-size: 18px; color:darkslategrey"><span style="color:green; font-size: 25px; font-weight: bold">[ </span>Lương cơ bản / 26 * số ngày làm việc + phụ cấp + lương thưởng + số giờ tăng ca * 100.000đ<span style="color:green; font-size: 25px; font-weight: bold"> ]</span> - <span style="color:orange; font-size: 25px; font-weight: bold">[ </span>khoản trừ bảo hiểm + khoản trừ khác + thuế * lương cơ bản + số ngày trễ * 100.000đ + số ngày nghỉ có phép (nếu lớn hơn 3) * lương cơ bản / 26<span style="color:orange; font-size: 25px; font-weight: bold"> ]</span>
+                                                </div>
+                                                <div> <span class="mr-3">=</span><span id="value_luong" style="font-size: 18px; color:darkslategrey"> <span style="color:green; font-size: 25px; font-weight: bold">[ </span><?php echo $element['luongCoBan'] ?> / 26 * <?php echo $element['soNgayLamViec'] ?> + <?php echo $element['phuCap'] ?> + <?php echo $element['luongThuong'] ?> + <?php echo $element['soGioTangCa'] ?> * 100.000đ<span style="color:green; font-size: 25px; font-weight: bold"> ]</span> - <span style="color:orange; font-size: 25px; font-weight: bold">[ </span><?php echo $element['khoanTruBaoHiem'] ?> + <?php echo $element['khoanTruKhac'] ?> + <?php echo $element['thue'] ?> * <?php echo $element['luongCoBan'] ?> + <?php echo $element['soNgayTre'] ?> * 100.000đ + <?php if (isset($getNgayNghiTheoMa[0]['soNgayNghiCoPhep']) && $getNgayNghiTheoMa[0]['soNgayNghiCoPhep'] > 3) echo "(" . $getNgayNghiTheoMa[0]['soNgayNghiCoPhep'] . "- 3)";
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            else echo 0 ?> * <?php echo $element['luongCoBan'] ?> / 26<span style="color:orange; font-size: 25px; font-weight: bold"> ]</span></span>
+                                                </div>
+                                                <div class="mt-3">
+                                                    <span class="mr-3">=</span>
+                                                    <span id="luong_thang" style="color:crimson; font-size: 25px;"><?php echo number_format($element['thucLanh']) ?>đ</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <h5>Ghi chú: </h5>
+                                            <p> .. Số ngày làm việc = 26 - số ngày nghỉ không phép</p>
+                                            <p> .. Nếu số ngày nghỉ có phép lớn hơn 3, thì từ ngày nghỉ thứ 4 trở đi, mỗi ngày nghỉ sẽ bị trừ vào 1 ngày công</p>
+                                        </div>
+                                    </div>
+                                <?php }
+                                ?>
                             </div>
                         </div>
                     </div> <!-- simple table -->
@@ -292,87 +320,53 @@ $arr = $row->executeQuery('select * from chamcong where thangChamCong = 3');
                 nam: nam
             }
             $.ajax({
-                url: '/HTTT-DN/pages/main/chamcong_ajax.php',
+                url: '/HTTT-DN/pages/main/luong_theothangajax.php',
                 method: 'POST',
                 data: data,
                 dataType: 'json',
                 success: function(result) {
                     console.log(result);
                     let str = '';
+                    let str2 = '';
+                    let soNgayNghiCoPhep
+                    if (result.result2 == '') {
+                        soNgayNghiCoPhep = 0
+                    } else {
+                        soNgayNghiCoPhep = result.result2[0].soNgayNghiCoPhep
+                    }
+
+                    if (soNgayNghiCoPhep > 3) {
+                        soNgayNghiCoPhepLonHon3 = `(${soNgayNghiCoPhep} - 3)`
+                    } else {
+                        soNgayNghiCoPhepLonHon3 = 0
+                    }
+                    let str3 = ''
                     result.result.forEach(element => {
                         str += `<tr>
-                                    <td>${element['maChamCong']}</td>
                                                 <td>${element['maNhanVien']}</td>
-                                                <td>${element['thangChamCong']}</td>
-                                                <td>${element['namChamCong']}</td>
+                                                <td>${element['hoTen']}</td>
                                                 <td>${element['soNgayLamViec']}</td>
+                                                <td>${Math.ceil(element['luongCoBan']/26)}</td>
                                                 <td>${element['soNgayNghiKhongPhep']}</td>
-                                                <td>${element['soNgayTre']}</td>
-                                                <td>${element['soGioTangCa']}</td>
+                                                <th>${soNgayNghiCoPhep}</th>
+                                                <th>${element['soNgayTre']}</th>
+                                                <th>${element['soGioTangCa']}</th>
                                                 <td>${element['luongThuong']}</td>
                                                 <td>${element['phuCap']}</td>
                                                 <td>${element['khoanTruBaoHiem']}</td>
                                                 <td>${element['khoanTruKhac']}</td>
                                                 <td>${element['thue']}</td>
                                                 <td>${element['thucLanh']}</td>
-                                                <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                        <span class="text-muted sr-only">Action</span>
-                                                    </button>
-                                                    <div class="dropdown-menu dropdown-menu-right">
-                                                        <a class="dropdown-item" href="index.php?page=chamcong-update&manv=${element['maNhanVien']}&thang=${element['thangChamCong']}&nam=${element['namChamCong']}">Chi tiết</a>
-                                                    </div>
-                                                </td>
                                             </tr>`
+                        str2 += `
+                        <span style="color:green; font-size: 25px; font-weight: bold">[ </span>${element['luongCoBan']} / 26 * ${element['soNgayLamViec']} + ${element['phuCap']} + ${element['luongThuong']} + ${element['soGioTangCa']} * 100.000đ<span style="color:green; font-size: 25px; font-weight: bold"> ]</span> - <span style="color:orange; font-size: 25px; font-weight: bold">[ </span>${element['khoanTruBaoHiem']} + ${element['khoanTruKhac']} + ${element['thue']} * ${element['luongCoBan']} + ${element['soNgayTre']} * 100.000đ + ${soNgayNghiCoPhepLonHon3} * ${element['luongCoBan']} / 26<span style="color:orange; font-size: 25px; font-weight: bold"> ]</span>`
+                        str3 += `
+                        ${element['thucLanh']}
+                        `
                     });
-                    $('#body_table').html(str)
 
-                },
-                error: function(xhr, ajaxOptions, thrownError) {
-                    alert(xhr.status);
-                    alert(thrownError);
-                },
-            });
-        })
-        $('#nam').change(function() {
-            var thang = $('#thang').val();
-            var nam = $('#nam').val();
-            var data = {
-                thang: thang,
-                nam: nam
-            }
-            $.ajax({
-                url: '/HTTT-DN/pages/main/chamcong_ajax.php',
-                method: 'POST',
-                data: data,
-                dataType: 'json',
-                success: function(result) {
-                    console.log(result);
-                    let str = '';
-                    result.result.forEach(element => {
-                        str += `<tr>
-                                    <td><?php echo $element['maChamCong'] ?></td>
-                                                <td><?php echo $element['maNhanVien'] ?></td>
-                                                <td><?php echo $element['thangChamCong'] ?></td>
-                                                <td><?php echo $element['namChamCong'] ?></td>
-                                                <td><?php echo $element['soNgayLamViec'] ?></td>
-                                                <td><?php echo $element['soNgayNghiKhongPhep'] ?></td>
-                                                <td><?php echo $element['soNgayTre'] ?></td>
-                                                <td><?php echo $element['soGioTangCa'] ?></td>
-                                                <td><?php echo $element['luongThuong'] ?></td>
-                                                <td><?php echo $element['phuCap'] ?></td>
-                                                <td><?php echo $element['khoanTruBaoHiem'] ?></td>
-                                                <td><?php echo $element['khoanTruKhac'] ?></td>
-                                                <td><?php echo $element['thue'] ?></td>
-                                                <td><?php echo $element['thucLanh'] ?></td>
-                                                <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                        <span class="text-muted sr-only">Action</span>
-                                                    </button>
-                                                    <div class="dropdown-menu dropdown-menu-right">
-                                                        <a class="dropdown-item" href="index.php?page=chamcong-update&manv=<?php echo $element['maNhanVien'] ?>&thang=<?php echo $element['thangChamCong'] ?>&nam=<?php echo $element['namChamCong'] ?>">Chi tiết</a>
-                                                    </div>
-                                                </td>
-                                            </tr>`
-                    });
+                    $('#value_luong').html(str2)
+                    $('#luong_thang').html(str3)
                     $('#body_table').html(str)
 
                 },

@@ -46,7 +46,7 @@ if (isset($_GET['page'])) {
                     require_once 'pages/main/nhacungcap-edit-page.php';
             } else {
                 require_once 'pages/main/nhacungcap.php';
-            }            
+            }
             break;
         case 'donnghiphep':
             require_once 'pages/main/donnghiphep.php';
@@ -98,6 +98,24 @@ if (isset($_GET['page'])) {
             break;
         case 'chamcongdanhsach':
             require_once 'pages/main/chamcongdanhsach.php';
+            break;
+        case 'chamcong-update':
+            require_once 'pages/main/chamcong-update.php';
+            break;
+        case 'luong_danhsachchamcongcuanhanvien':
+            require_once 'pages/main/luong_danhsachchamcongcuanhanvien.php';
+            break;
+        case 'luong_chitietchamcong':
+            require_once 'pages/main/luong_chitietchamcong.php';
+            break;
+        case 'luong_theothang':
+            require_once 'pages/main/luong_theothang.php';
+            break;
+        case 'luong_theonam':
+            require_once 'pages/main/luong_theonam.php';
+            break;
+        case 'luong_cachtinh':
+            require_once 'pages/main/luong_cachtinh.php';
             break;
         case 'nhaphang':
             if ($_GET['id'] == 'taophieunhap') {

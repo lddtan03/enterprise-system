@@ -3,7 +3,7 @@ require_once './object/database.php';
 
 $row = new Database;
 $arr = $row->executeQuery('select distinct nv.maNhanVien, trangthai, avatar, hoTen, gioiTinh, ngaySinh, diaChi, tenPhong, tenChucVu, ngayKetThuc, luongCoBan from chucvu cv join nhanvien nv on cv.maChucVu=nv.maChucVu join phongban pb on pb.maPhong=nv.maPhong join hopdong hd on hd.maNhanVien=nv.maNhanVien order by nv.maNhanVien asc');
-
+$getNhanVienChamCong = $row->executeQuery("SELECT c.maNhanVien  FROM `chamcong` c JOIN nhanvien nv on c.maNhanVien = nv.maNhanVien WHERE thangChamCong = 3 and namChamCong = 2024");
 ?>
 
 <main role="main" class="main-content">
@@ -11,8 +11,8 @@ $arr = $row->executeQuery('select distinct nv.maNhanVien, trangthai, avatar, hoT
     <div class="row justify-content-center">
       <div class="col-12">
         <div class="row" style="justify-content: space-between;">
-          <h2 class="mb-2 page-title">Danh sách nhân viên</h2>
-          <a type="button" class="btn mb-2 btn-primary" href="index.php?page=themnhanvien">Thêm nhân viên</a>
+          <h2 class="mb-2 page-title">Chấm công</h2>
+
         </div>
         <div class="row my-4">
           <!-- Small table -->
@@ -44,7 +44,7 @@ $arr = $row->executeQuery('select distinct nv.maNhanVien, trangthai, avatar, hoT
                       if ($element['trangthai'] == '1') {
                     ?>
                         <tr>
-                          <td><?php echo $element['maNhanVien'] ?></td>
+                          <td class="manv" manv="<?php echo $maNV ?>"><?php echo $maNV ?></td>
                           <td>
                             <img src="assets/avatars/<?php echo $element['avatar'] ?>" alt="" style="width: 50px; height: 50px; border-radius: 1000px;">
                           </td>
@@ -56,56 +56,41 @@ $arr = $row->executeQuery('select distinct nv.maNhanVien, trangthai, avatar, hoT
                           <td><?php echo $element['tenChucVu'] ?></td>
                           <td><?php echo $element['ngayKetThuc'] ?></td>
                           <td><?php echo $element['luongCoBan'] ?></td>
-                          <td>Chưa chấm công</td>
-                          <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              <span class="text-muted sr-only">Action</span>
-                            </button>
-                            <div class="dropdown-menu dropdown-menu-right">
-                              <a class="dropdown-item" href="index.php?page=chamcongnhanvien&manv=<?php echo $element['maNhanVien'] ?>">Chấm công</a>
-                            </div>
+                          <td>
+                            <?php
+                            $str = "<span style='color: red;'>Chưa chấm công</span>";
+                            foreach ($getNhanVienChamCong as $nvcc) {
+                            ?>
+                              <?php if ($nvcc['maNhanVien'] == $element['maNhanVien']) $str = "<span style='color: green; font-weight: 900;'>Đã chấm công</span>";
+                              ?>
+                            <?php
+                            }
+                            echo $str
+                            ?>
+                          </td>
+                          <td>
+                            <?php
+                            $str = "<button class='btn btn-sm dropdown-toggle more-horizontal' type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+                            <span class='text-muted sr-only'>Action</span>
+                          </button>
+                          <div class='dropdown-menu dropdown-menu-right'>
+                            <a class='dropdown-item' href='index.php?page=chamcongnhanvien&manv=$maNV'>Chấm công</a>
+                          </div>";
+                            foreach ($getNhanVienChamCong as $nvcc) {
+                            ?>
+                              <?php if ($nvcc['maNhanVien'] == $element['maNhanVien']) $str = "";
+                              ?>
+                            <?php
+                            }
+                            echo $str
+                            ?>
                           </td>
                         </tr>
                     <?php
                       }
                     }
                     ?>
-                    <!-- Modal gia han hop dong-->
-                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                      <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Gia hạn hợp đồng</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                          </div>
-                          <div class="modal-body">
-                            <span class="manv"></span>
-                            <script>
-                              let exampleModal = document.getElementById('exampleModal');
-                              let maNV = document.querySelectorAll('.giahan');
-                              let modal_body = document.querySelector('.modal-body');
-                              let maNV2 = document.querySelector('.manv');
-                              maNV.forEach((currentValue, index, array) => {
-                                currentValue.addEventListener('click', () => {
-                                  let ma = currentValue.getAttribute('manv')
-                                  maNV2.innerHTML = `${ma}`;
-                                  <?php
-                                  // $getNhanVienTheoMa = $row->executeQuery(`select maNhanVien from nhanvien`);
-                                  ?>
-                                })
-                              })
-                            </script>
 
-
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                            <button type="button" class="btn btn-primary">Lưu</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
                   </tbody>
                 </table>
               </div>

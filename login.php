@@ -116,6 +116,9 @@ mysqli_close($conn); // Close the database connection after processing
                     <a class="navbar-brand mx-auto mt-2 flex-fill text-center" href="./index.html">
                         </a>
                     <h1 class="h6 mb-3">Sign in</h1>
+                    <?php
+                        echo "Nhân viên: 21".'<br>'."Admin: 25".'<br>'."Quản lý kinh doanh: 29".'<br>'."Quản lý nhân sự: 37".'<br>'."Quản lý kho: 43".'<br>';
+                    ?>
                     <div class="form-group">
                         <label for="inputEmail" class="sr-only">Email address</label>
                         <input type="text" name="inputEmail" id="inputEmail" class="form-control form-control-lg"
@@ -140,7 +143,9 @@ mysqli_close($conn); // Close the database connection after processing
                     </div>
                     <p class="mt-5 mb-3 text-muted">© 2024</p>
         </form>
+
         </div>
+
     </div>
     </main>
     <?php

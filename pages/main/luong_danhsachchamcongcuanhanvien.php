@@ -1,8 +1,9 @@
 <?php
 require_once './object/database.php';
 
+$manv = $_SESSION['taiKhoan'];
 $row = new Database;
-$arr = $row->executeQuery('select * from chamcong where thangChamCong = 3');
+$arr = $row->executeQuery("select * from chamcong where maNhanVien = $manv");
 
 ?>
 
@@ -12,17 +13,6 @@ $arr = $row->executeQuery('select * from chamcong where thangChamCong = 3');
             <div class="col-12">
                 <div class="row" style="justify-content: space-between;">
                     <h2 class="mb-2 page-title">Danh sách chấm công</h2>
-                    <div>
-                        <label for="thang">Tháng</label>
-                        <select name="thang" id="thang">
-                            <option value="2">2</option>
-                            <option value="3" selected>3</option>
-                        </select>
-                        <label for="nam">Năm</label>
-                        <select name="nam" id="nam">
-                            <option value="2024">2024</option>
-                        </select>
-                    </div>
                 </div>
                 <div class="row my-4">
                     <!-- Small table -->
@@ -51,6 +41,7 @@ $arr = $row->executeQuery('select * from chamcong where thangChamCong = 3');
                                     </thead>
                                     <tbody id="body_table">
                                         <?php
+                                        if(!empty($arr))
                                         foreach ($arr as $element) {
                                         ?>
                                             <tr>
@@ -72,7 +63,7 @@ $arr = $row->executeQuery('select * from chamcong where thangChamCong = 3');
                                                         <span class="text-muted sr-only">Action</span>
                                                     </button>
                                                     <div class="dropdown-menu dropdown-menu-right">
-                                                        <a class="dropdown-item" href="index.php?page=chamcong-update&manv=<?php echo $element['maNhanVien'] ?>&thang=<?php echo $element['thangChamCong'] ?>&nam=<?php echo $element['namChamCong'] ?>">Chi tiết</a>
+                                                        <a class="dropdown-item" href="index.php?page=luong_chitietchamcong&manv=<?php echo $element['maNhanVien'] ?>&thang=<?php echo $element['thangChamCong'] ?>&nam=<?php echo $element['namChamCong'] ?>">Chi tiết</a>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -309,6 +300,7 @@ $arr = $row->executeQuery('select * from chamcong where thangChamCong = 3');
                                                 <td>${element['soNgayNghiKhongPhep']}</td>
                                                 <td>${element['soNgayTre']}</td>
                                                 <td>${element['soGioTangCa']}</td>
+                                                <td>${element['maDon']}</td>
                                                 <td>${element['luongThuong']}</td>
                                                 <td>${element['phuCap']}</td>
                                                 <td>${element['khoanTruBaoHiem']}</td>
@@ -358,6 +350,7 @@ $arr = $row->executeQuery('select * from chamcong where thangChamCong = 3');
                                                 <td><?php echo $element['soNgayNghiKhongPhep'] ?></td>
                                                 <td><?php echo $element['soNgayTre'] ?></td>
                                                 <td><?php echo $element['soGioTangCa'] ?></td>
+                                                <td><?php echo $element['maDon'] ?></td>
                                                 <td><?php echo $element['luongThuong'] ?></td>
                                                 <td><?php echo $element['phuCap'] ?></td>
                                                 <td><?php echo $element['khoanTruBaoHiem'] ?></td>
