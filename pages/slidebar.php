@@ -57,7 +57,9 @@ if (isset($_SESSION['taiKhoan'])) {
         </ul>
 
         <!-- Admin -->
-        <?php if ($maNhomQuyen === 'admin'): ?>
+        <?php 
+            // if ($maNhomQuyen === 'admin'):
+        ?>
             
             <p class="text-muted nav-heading mt-4 mb-1">
                 <span>Admin</span>
@@ -94,10 +96,14 @@ if (isset($_SESSION['taiKhoan'])) {
                     </a>
                 </li>
             </ul>
-        <?php endif; ?>
+        <?php
+            //  endif; 
+        ?>
 
         <!-- Nhân viên -->
-        <?php if ($maNhomQuyen === 'nhanvien'): ?>
+        <?php 
+            // if ($maNhomQuyen === 'nhanvien'):
+        ?>
             <p class="text-muted nav-heading mt-4 mb-1">
                 <span>Nhân viên</span>
             </p>
@@ -129,8 +135,12 @@ if (isset($_SESSION['taiKhoan'])) {
                     </a>
                 </li>
             </ul>
-        <?php endif; ?>
-        <?php if ($maNhomQuyen === 'quanlynhansu'): ?>
+        <?php 
+            // endif; 
+        ?>
+        <?php 
+            // if ($maNhomQuyen === 'quanlynhansu'):
+        ?>
            
             <p class="text-muted nav-heading mt-4 mb-1">
                 <span>Quản lý nhân sự</span>
@@ -167,10 +177,14 @@ if (isset($_SESSION['taiKhoan'])) {
                     </a>
                 </li>
             </ul>
-        <?php endif; ?>
+        <?php 
+            // endif; 
+        ?>
 
         <!-- Quản lý kho hàng -->
-        <?php if ($maNhomQuyen === 'quanlykho'): ?>
+        <?php 
+            // if ($maNhomQuyen === 'quanlykho'):
+        ?>
             
             <p class="text-muted nav-heading mt-4 mb-1">
                 <span>Quản lý kho hàng</span>
@@ -211,10 +225,14 @@ if (isset($_SESSION['taiKhoan'])) {
                     </ul>
                 </li>
             </ul>
-        <?php endif; ?>
+        <?php 
+        // endif;
+         ?>
 
         <!-- Quản lý kinh doanh-->
-        <?php if ($maNhomQuyen === 'quanlykinhdoanh'): ?>
+        <?php 
+            // if ($maNhomQuyen === 'quanlykinhdoanh'):
+        ?>
            
             <p class="text-muted nav-heading mt-4 mb-1">
                 <span>Quản lý kinh doanh</span>
@@ -233,7 +251,9 @@ if (isset($_SESSION['taiKhoan'])) {
                     </a>
                 </li>
             </ul>
-        <?php endif; ?>
+        <?php 
+            // endif; 
+            ?>
 
 
     </nav>
