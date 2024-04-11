@@ -3,7 +3,7 @@ require_once './object/database.php';
 $manv = $_GET['manv'];
 $nv = new Database;
 $getNhanVienTheoMa = $nv->executeQuery("select nv.maNhanVien, avatar, hoTen, gioiTinh, ngaySinh, diaChi, tenPhong, tenChucVu, ngayKetThuc, luongCoBan from chucvu cv join nhanvien nv on cv.maChucVu=nv.maChucVu join phongban pb on pb.maPhong=nv.maPhong join hopdong hd on hd.maNhanVien=nv.maNhanVien where nv.maNhanVien = $manv");
-
+$getNgayNghiTheoMa = $nv->executeQuery("select nv.maNhanVien, SUM(soNgayNghi) soNgayNghiCoPhep from nhanvien nv join donnghiphep dnp on nv.maNhanVien = dnp.maNhanVien where nv.maNhanVien = $manv and MONTH(ngayBatDauNghi) = 3  group by nv.maNhanVien");
 ?>
 
 
@@ -31,72 +31,78 @@ $getNhanVienTheoMa = $nv->executeQuery("select nv.maNhanVien, avatar, hoTen, gio
                                             <div class="form-row">
                                                 <div class="form-group col-md-6">
                                                     <label for="inputEmail4">Tháng chấm công</label>
-                                                    <input type="text" class="form-control" id="inputEmail4" name="thang" placeholder="Email" readonly value="3">
+                                                    <input type="text" class="form-control" id="thang" name="thang" placeholder="Email" readonly value="3">
                                                 </div>
 
                                                 <div class="form-group col-md-6">
                                                     <label for="inputPassword4">Năm chấm công</label>
-                                                    <input type="text" class="form-control" id="inputPassword4" name="nam" placeholder="Password" readonly value="2024">
+                                                    <input type="text" class="form-control" id="nam" name="nam" placeholder="Password" readonly value="2024">
                                                 </div>
                                             </div>
-                                            <div class="form-group">
+                                            <div class="form-group col-md-6">
                                                 <label for="inputAddress">Số ngày làm việc</label>
-                                                <input type="number" class="form-control" id="inputAddress" name="songaylamviec" value="22" min="1" max="31">
+                                                <input type="number" class="form-control" id="songaylamviec" name="songaylamviec" value="26" min="1" max="26">
                                             </div>
                                             <div class="form-row">
                                                 <div class="form-group col-md-6">
                                                     <label for="inputEmail4">Số ngày nghỉ không phép</label>
-                                                    <input type="number" class="form-control" id="inputAddress" name="songaynghikhongphep" value="0" min="0" max="31">
+                                                    <input type="number" class="form-control" id="songaynghikhongphep" name="songaynghikhongphep" value="0" min="0" max="25">
                                                 </div>
+
                                                 <div class="form-group col-md-6">
-                                                    <label for="inputPassword4">Số ngày trễ</label>
-                                                    <input type="number" class="form-control" id="inputAddress" name="songaytre" value="0" min="0" max="31">
+                                                    <label for="songaynghicophep">Số ngày nghỉ có phép</label>
+                                                    <input type="text" class="form-control" id="songaynghicophep" name="songaynghicophep" readonly value="<?php if (isset($getNgayNghiTheoMa[0]['soNgayNghiCoPhep'])) echo $getNgayNghiTheoMa[0]['soNgayNghiCoPhep'];
+                                                                                                                                                            else echo 0 ?>" min="0" max="31">
                                                 </div>
                                             </div>
                                             <div class="form-row">
                                                 <div class="form-group col-md-6">
-                                                    <label for="inputEmail4">Số giờ tăng ca</label>
-                                                    <input type="number" class="form-control" id="inputAddress" name="sogiotangca" value="0" min="0" max="31">
+                                                    <label for="inputPassword4">Số ngày trễ</label>
+                                                    <input type="number" class="form-control" id="songaytre" name="songaytre" value="0" min="0" max="31">
                                                 </div>
                                                 <div class="form-group col-md-6">
-                                                    <label for="inputAddress">Mã đơn</label>
-                                                    <select id="cars" name="madon" class="form-control">
-                                                        <option value="No">Không</option>
-                                                        <option value="Yes">Có</option>
-                                                    </select>
+                                                    <label for="inputEmail4">Số giờ tăng ca</label>
+                                                    <input type="number" class="form-control" id="sogiotangca" name="sogiotangca" value="0" min="0" max="31">
                                                 </div>
                                             </div>
                                             <div class="form-row">
                                                 <div class="form-group col-md-6">
                                                     <label for="inputEmail4">Lương thưởng</label>
-                                                    <input type="text" class="form-control" name="luongthuong" id="inputAddress" value="0">
+                                                    <input type="text" class="form-control" name="luongthuong" id="luongthuong" value="0">
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label for="inputPassword4">Phụ cấp</label>
-                                                    <input type="text" class="form-control" name="phucap" id="inputAddress" value="0">
+                                                    <input type="text" class="form-control" name="phucap" id="phucap" value="0">
                                                 </div>
                                             </div>
                                             <div class="form-row">
                                                 <div class="form-group col-md-6">
                                                     <label for="inputEmail4">Khoản trừ bảo hiểm</label>
-                                                    <input type="text" class="form-control" name="khoantrubaohiem" id="inputAddress" value="0">
+                                                    <input type="text" class="form-control" name="khoantrubaohiem" id="khoantrubaohiem" value="0">
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label for="inputPassword4">Khoản trừ khác</label>
-                                                    <input type="text" class="form-control" name="khoantrukhac" id="inputAddress" value="0">
+                                                    <input type="text" class="form-control" name="khoantrukhac" id="khoantrukhac" value="0">
                                                 </div>
                                             </div>
                                             <div class="form-row">
                                                 <div class="form-group col-md-6">
-                                                    <label for="inputEmail4">Thuế</label>
-                                                    <input type="text" class="form-control" name="thue" id="inputAddress" readonly value="10%">
+                                                    <label for="inputEmail4">Thuế (phần trăm)</label>
+                                                    <input type="text" class="form-control" name="thue" id="thue" readonly value="<?php if ($nhanvien['luongCoBan'] >= 11000000) echo 10;
+                                                                                                                                    else echo 0  ?>">
                                                 </div>
                                                 <div class="form-group col-md-6">
-                                                    <label for="inputPassword4">Thực lãnh</label>
-                                                    <input type="text" class="form-control" name="thuclanh" id="inputAddress" readonly value="0">
+                                                    <label for="inputPassword4">Lương cơ bản</label>
+                                                    <input type="text" class="form-control" name="luongcoban" id="luongcoban" readonly value="<?php echo $nhanvien['luongCoBan'] ?>">
                                                 </div>
                                             </div>
-                                            <input type="submit" class="btn btn-primary" name="btn_submit" value="Lưu"></input>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-6">
+                                                    <label for="inputPassword4">Thực lãnh</label>
+                                                    <input type="text" class="form-control" name="thuclanh" id="thuclanh" readonly value="">
+                                                </div>
+                                            </div>
+                                            <input type="submit" class="btn btn-primary" name="btn_submit" id="btn_submit" value="Lưu"></input>
                                         </form>
                                     </div>
                                 </div>
@@ -112,7 +118,6 @@ $getNhanVienTheoMa = $nv->executeQuery("select nv.maNhanVien, avatar, hoTen, gio
                             $songaynghikhongphep = $_POST['songaynghikhongphep'];
                             $songaytre = $_POST['songaytre'];
                             $sogiotangca = $_POST['sogiotangca'];
-                            $madon = 1;
                             $luongthuong = $_POST['luongthuong'];
                             $phucap = $_POST['phucap'];
                             $khoantrubaohiem = $_POST['khoantrubaohiem'];
@@ -120,10 +125,10 @@ $getNhanVienTheoMa = $nv->executeQuery("select nv.maNhanVien, avatar, hoTen, gio
                             $thue = $_POST['thue'];
                             $thuclanh = $_POST['thuclanh'];
 
-                            $result = $nv->insert_update_delete("INSERT INTO `chamcong`(`maNhanVien`, `thangChamCong`, `namChamCong`, `soNgayLamViec`, `soNgayNghiKhongPhep`, `soNgayTre`, `soGioTangCa`, `maDon`, `luongThuong`, `phuCap`, `khoanTruBaoHiem`, `khoanTruKhac`, `thue`, `thucLanh`) VALUES ('$manv','$thang','$nam','$songaylamviec','$songaynghikhongphep','$songaytre','$sogiotangca','$madon','$luongthuong','$phucap','$khoantrubaohiem','$khoantrukhac','$thue','$thuclanh')");
+                            $result = $nv->insert_update_delete("INSERT INTO `chamcong`(`maNhanVien`, `thangChamCong`, `namChamCong`, `soNgayLamViec`, `soNgayNghiKhongPhep`, `soNgayTre`, `soGioTangCa`, `luongThuong`, `phuCap`, `khoanTruBaoHiem`, `khoanTruKhac`, `thue`, `thucLanh`) VALUES ('$manv','$thang','$nam','$songaylamviec','$songaynghikhongphep','$songaytre','$sogiotangca','$luongthuong','$phucap','$khoantrubaohiem','$khoantrukhac','$thue','$thuclanh')");
                             if ($result) {
                                 echo "<script>
-                                window.location.href = 'http://localhost/HTTT-DN/index.php?page=nhanvien'
+                                window.location.href = 'http://localhost/HTTT-DN/index.php?page=chamcong'
                                 </script>";
                             }
                         }
@@ -165,6 +170,52 @@ $getNhanVienTheoMa = $nv->executeQuery("select nv.maNhanVien, avatar, hoTen, gio
         }
         gtag('js', new Date());
         gtag('config', 'UA-56159088-1');
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            var songaylamviec = $('#songaylamviec').val();
+            var songaynghikhongphep;
+            songaynghikhongphep = 26 - songaylamviec;
+            var songaynghicophep = $('#songaynghicophep').val();
+            if (songaynghicophep > 3) {
+                var songaynghicophep_sau = songaynghicophep - 3
+            }else{
+                var songaynghicophep_sau = 0
+            }
+            var songaytre = $('#songaytre').val()
+            var sogiotangca = $('#sogiotangca').val()
+            var luongthuong = parseInt($('#luongthuong').val());
+            var phucap = parseInt($('#phucap').val());
+            var khoantrubaohiem = parseInt($('#khoantrubaohiem').val())
+            var khoantrukhac = parseInt($('#khoantrukhac').val())
+            var thue = parseInt($('#thue').val())
+            var luongcoban = parseInt($('#luongcoban').val())
+            var thuclanh = $('#thuclanh')
+            var val_thuclanh = Math.ceil((luongcoban / 26 * songaylamviec + phucap + luongthuong + sogiotangca * 100000) - (khoantrubaohiem + khoantrukhac + thue / 100 * luongcoban + songaytre * 100000 + songaynghicophep_sau * luongcoban / 26))
+
+            console.log(val_thuclanh);
+            thuclanh.attr('value', val_thuclanh)
+            console.log();
+
+            $('input').not('#thang').not('#nam').not('#thue').not('#luongcoban').not('#thuclanh').not('#btn_submit').change(() => {
+                songaylamviec = $('#songaylamviec').val();
+                songaynghikhongphep = 26 - songaylamviec;
+                $('#songaynghikhongphep').attr('value', songaynghikhongphep);
+                songaytre = $('#songaytre').val()
+                sogiotangca = $('#sogiotangca').val()
+                luongthuong = parseInt($('#luongthuong').val());
+                phucap = parseInt($('#phucap').val());
+                khoantrubaohiem = parseInt($('#khoantrubaohiem').val())
+                khoantrukhac = parseInt($('#khoantrukhac').val())
+                thue = parseInt($('#thue').val())
+                luongcoban = parseInt($('#luongcoban').val())
+                thuclanh = $('#thuclanh')
+                val_thuclanh = Math.ceil((luongcoban / 26 * songaylamviec + phucap + luongthuong + sogiotangca * 100000) - (khoantrubaohiem + khoantrukhac + thue / 100 * luongcoban + songaytre * 100000 + songaynghicophep_sau * luongcoban / 26))
+                thuclanh.attr('value', val_thuclanh)
+                console.log(val_thuclanh);
+            })
+        })
     </script>
 </body>
 
