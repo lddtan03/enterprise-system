@@ -17,6 +17,7 @@ $arr = $row->executeQuery('select * from chamcong where thangChamCong = 3');
                         <select name="thang" id="thang">
                             <option value="2">2</option>
                             <option value="3" selected>3</option>
+
                         </select>
                         <label for="nam">Năm</label>
                         <select name="nam" id="nam">
@@ -51,32 +52,34 @@ $arr = $row->executeQuery('select * from chamcong where thangChamCong = 3');
                                     </thead>
                                     <tbody id="body_table">
                                         <?php
-                                        foreach ($arr as $element) {
-                                        ?>
-                                            <tr>
-                                                <td><?php echo $element['maChamCong'] ?></td>
-                                                <td><?php echo $element['maNhanVien'] ?></td>
-                                                <td><?php echo $element['thangChamCong'] ?></td>
-                                                <td><?php echo $element['namChamCong'] ?></td>
-                                                <td><?php echo $element['soNgayLamViec'] ?></td>
-                                                <td><?php echo $element['soNgayNghiKhongPhep'] ?></td>
-                                                <td><?php echo $element['soNgayTre'] ?></td>
-                                                <td><?php echo $element['soGioTangCa'] ?></td>
-                                                <td><?php echo $element['luongThuong'] ?></td>
-                                                <td><?php echo $element['phuCap'] ?></td>
-                                                <td><?php echo $element['khoanTruBaoHiem'] ?></td>
-                                                <td><?php echo $element['khoanTruKhac'] ?></td>
-                                                <td><?php echo $element['thue'] ?></td>
-                                                <td><?php echo $element['thucLanh'] ?></td>
-                                                <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                        <span class="text-muted sr-only">Action</span>
-                                                    </button>
-                                                    <div class="dropdown-menu dropdown-menu-right">
-                                                        <a class="dropdown-item" href="index.php?page=chamcong-update&manv=<?php echo $element['maNhanVien'] ?>&thang=<?php echo $element['thangChamCong'] ?>&nam=<?php echo $element['namChamCong'] ?>">Chi tiết</a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        <?php
+                                        if(isset($arr) && is_array($arr)) {
+                                            foreach ($arr as $element) {
+                                            ?>
+                                                <tr>
+                                                    <td><?php echo $element['maChamCong'] ?></td>
+                                                    <td><?php echo $element['maNhanVien'] ?></td>
+                                                    <td><?php echo $element['thangChamCong'] ?></td>
+                                                    <td><?php echo $element['namChamCong'] ?></td>
+                                                    <td><?php echo $element['soNgayLamViec'] ?></td>
+                                                    <td><?php echo $element['soNgayNghiKhongPhep'] ?></td>
+                                                    <td><?php echo $element['soNgayTre'] ?></td>
+                                                    <td><?php echo $element['soGioTangCa'] ?></td>
+                                                    <td><?php echo $element['luongThuong'] ?></td>
+                                                    <td><?php echo $element['phuCap'] ?></td>
+                                                    <td><?php echo $element['khoanTruBaoHiem'] ?></td>
+                                                    <td><?php echo $element['khoanTruKhac'] ?></td>
+                                                    <td><?php echo $element['thue'] ?></td>
+                                                    <td><?php echo $element['thucLanh'] ?></td>
+                                                    <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            <span class="text-muted sr-only">Action</span>
+                                                        </button>
+                                                        <div class="dropdown-menu dropdown-menu-right">
+                                                            <a class="dropdown-item" href="index.php?page=chamcong-update&manv=<?php echo $element['maNhanVien'] ?>&thang=<?php echo $element['thangChamCong'] ?>&nam=<?php echo $element['namChamCong'] ?>">Chi tiết</a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            <?php
+                                            }
                                         }
                                         ?>
                                         <!-- Modal gia han hop dong-->

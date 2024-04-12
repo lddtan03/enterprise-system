@@ -212,7 +212,7 @@ $nv = new Database;
                     // $maNV = $result[0]['maNhanVien'];
                     // $nv->insert_update_delete("INSERT INTO `hopdong`(`ngayBatDau`, `ngayKetThuc`, `loaiHopDong`, `luongCoBan`, `maNhanVien`) VALUES ('$ngaybatdau','$ngayketthuc','$loaihopdong','$luongcoban','$maNV')");
                     // echo "<script>
-                    //           window.location.href = 'http://localhost/HTTT-DN/index.php?page=nhanvien';
+                    //           window.location.href = 'http://localhost:8888/HTTT-DN/index.php?page=nhanvien';
                     //           </script>";
                 }
                 ?>

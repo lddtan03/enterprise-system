@@ -128,7 +128,7 @@ $getNgayNghiTheoMa = $nv->executeQuery("select nv.maNhanVien, SUM(soNgayNghi) so
                             $result = $nv->insert_update_delete("INSERT INTO `chamcong`(`maNhanVien`, `thangChamCong`, `namChamCong`, `soNgayLamViec`, `soNgayNghiKhongPhep`, `soNgayTre`, `soGioTangCa`, `luongThuong`, `phuCap`, `khoanTruBaoHiem`, `khoanTruKhac`, `thue`, `thucLanh`) VALUES ('$manv','$thang','$nam','$songaylamviec','$songaynghikhongphep','$songaytre','$sogiotangca','$luongthuong','$phucap','$khoantrubaohiem','$khoantrukhac','$thue','$thuclanh')");
                             if ($result) {
                                 echo "<script>
-                                window.location.href = 'http://localhost/HTTT-DN/index.php?page=chamcong'
+                                window.location.href = 'http://localhost:8888/HTTT-DN/index.php?page=chamcong'
                                 </script>";
                             }
                         }
@@ -139,16 +139,16 @@ $getNgayNghiTheoMa = $nv->executeQuery("select nv.maNhanVien, SUM(soNgayNghi) so
         </main> <!-- main -->
     </div> <!-- .wrapper -->
     <?php
-    ob_start();
-    if (isset($_POST['btn_submit'])) {
-        $ngayKetThuc = $_POST['ngayKetThuc'];
-        $nv->insert_update_delete("update hopdong set ngayKetThuc = '$ngayKetThuc' where maNhanVien = $manv");
-        echo "<script>
-            window.location.href = 'http://localhost/HTTT-DN/index.php?page=nhanvien'
-            </script>";
-        // header("location:../../index.php?page=nhanvien");
-    }
-    ob_end_flush();
+    // ob_start();
+    // if (isset($_POST['btn_submit'])) {
+    //     $ngayKetThuc = $_POST['ngayKetThuc'];
+    //     $nv->insert_update_delete("update hopdong set ngayKetThuc = '$ngayKetThuc' where maNhanVien = $manv");
+    //     echo "<script>
+    //         window.location.href = 'http://localhost:8888/HTTT-DN/index.php?page=nhanvien'
+    //         </script>";
+    //     // header("location:../../index.php?page=nhanvien");
+    // }
+    // ob_end_flush();
     ?>
     <script src="js/jquery.min.js"></script>
     <script src="js/popper.min.js"></script>

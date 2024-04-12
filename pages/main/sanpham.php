@@ -279,7 +279,9 @@ function hienThiSanPham()
     <tr>
       <td>' . $product->getMaSanPham() . '</td>' .
       '<td>' .
-      '<img src="' . $product->getHinhAnh() . '" alt="" style="width: 50px; height: 50px; border-radius: 1000px;">' .
+        '<div class="product-img" style="background-color:#EDEAEB; width: 100px; height: 80px;  border-radius: 5px;">
+      <img src="' . $product->getHinhAnh() . '" alt="" style="width:100%; height:100%; object-fit:contain;">
+        </div>'.
       '</td>' .
       '<td>' . $product->getTenSanPham() . '</td>' .
       '<td>' . changeMoney($product->getGiaCu()) . '₫</td>' .

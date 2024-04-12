@@ -21,6 +21,6 @@ if (isset($_POST['btn_submit'])) {
     $nv->insert_update_delete("UPDATE `nhanvien` SET `cmnd`='$cmnd',`hoTen`='$hoten',`gioiTinh`='$gioitinh',`ngaySinh`='$ngaysinh',`diaChi`='$diachi',`sdt`='$sdt',`danToc`='$dantoc',`email`='$email' WHERE maNhanVien = $maNhanVien");
 
     echo "<script>
-          window.location.href = 'http://localhost/HTTT-DN/index.php?page=profile-settings';
+          window.location.href = 'http://localhost:8888/HTTT-DN/index.php?page=profile-settings';
           </script>";
 }

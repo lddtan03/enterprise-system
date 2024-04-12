@@ -101,7 +101,7 @@ function getChiTietSoLuong($maSanPham)
 function getNhaCungCapList()
 {
 	$db = new Database();
-	$kq = mysqli_query($db->getConnection(), "SELECT * FROM `nhacungcap`");
+	$kq = mysqli_query($db->getConnection(), "SELECT * FROM `nhacungcap` Where tinhTrang=1");
 	$nhaCungCapArr = array();
 	while ($row = mysqli_fetch_assoc($kq)) {
 		$nhaCungCap = new NhaCungCap(

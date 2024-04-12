@@ -6,7 +6,7 @@ $row = new Database;
 $arr = $row->executeQuery("select * from chamcong cc join nhanvien nv on cc.maNhanVien = nv.maNhanVien join hopdong hd on hd.maNhanVien = nv.maNhanVien where nv.maNhanVien = $manv and thangChamCong = 3 and namChamCong = 2024");
 $getNgayNghiTheoMa = $row->executeQuery("select nv.maNhanVien, SUM(soNgayNghi) soNgayNghiCoPhep from nhanvien nv join donnghiphep dnp on nv.maNhanVien = dnp.maNhanVien where nv.maNhanVien = $manv and MONTH(ngayBatDauNghi) = 3  group by nv.maNhanVien");
 
-print_r($getNgayNghiTheoMa)
+// print_r($getNgayNghiTheoMa)
 ?>
 
 <main role="main" class="main-content">

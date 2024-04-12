@@ -175,7 +175,7 @@ $getNhanVienTheoMa = $nv->executeQuery("select nv.maNhanVien, avatar, hoTen, gio
                                     }
                                     $nv->insert_update_delete("update nhanvien set maPhong = '$phong', maChucVu = '$chucvu' where maNhanVien = '$manv'");
                                     echo "<script>
-                                    window.location.href = 'http://localhost/HTTT-DN/index.php?page=nhanvien'
+                                    window.location.href = 'http://localhost:8888/HTTT-DN/index.php?page=nhanvien'
                                     </script>";
                                 }
                             }

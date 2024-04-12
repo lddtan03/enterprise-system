@@ -124,7 +124,7 @@ $getNhanVienTheoMa = $nv->executeQuery("select nv.maNhanVien, avatar, hoTen, gio
         $ngayKetThuc = $_POST['ngayKetThuc'];
         $nv->insert_update_delete("update hopdong set ngayKetThuc = '$ngayKetThuc' where maNhanVien = $manv");
         echo "<script>
-            window.location.href = 'http://localhost/HTTT-DN/index.php?page=nhanvien'
+            window.location.href = 'http://localhost:8888/HTTT-DN/index.php?page=nhanvien'
             </script>";
         // header("location:../../index.php?page=nhanvien");
     }

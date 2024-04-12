@@ -59,12 +59,14 @@ $getNhanVienChamCong = $row->executeQuery("SELECT c.maNhanVien  FROM `chamcong` 
                           <td>
                             <?php
                             $str = "<span style='color: red;'>Chưa chấm công</span>";
+                            if(isset($getNhanVienChamCong) && is_array($getNhanVienChamCong)) {
                             foreach ($getNhanVienChamCong as $nvcc) {
                             ?>
                               <?php if ($nvcc['maNhanVien'] == $element['maNhanVien']) $str = "<span style='color: green; font-weight: 900;'>Đã chấm công</span>";
                               ?>
                             <?php
                             }
+                          }
                             echo $str
                             ?>
                           </td>
@@ -76,12 +78,14 @@ $getNhanVienChamCong = $row->executeQuery("SELECT c.maNhanVien  FROM `chamcong` 
                           <div class='dropdown-menu dropdown-menu-right'>
                             <a class='dropdown-item' href='index.php?page=chamcongnhanvien&manv=$maNV'>Chấm công</a>
                           </div>";
+                          if(isset($getNhanVienChamCong) && is_array($getNhanVienChamCong)) {
                             foreach ($getNhanVienChamCong as $nvcc) {
                             ?>
                               <?php if ($nvcc['maNhanVien'] == $element['maNhanVien']) $str = "";
                               ?>
                             <?php
                             }
+                          }
                             echo $str
                             ?>
                           </td>
