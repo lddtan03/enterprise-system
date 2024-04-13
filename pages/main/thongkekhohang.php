@@ -1,7 +1,9 @@
 <?php
-$con = new mysqli('localhost', 'root', '11111111', 'htttdn');
+$con = new mysqli('localhost', 'root', '', 'htttdn');
 
-$query = $con->query("
+$data = [];
+
+$sql = "
 SELECT
     s.maSanPham,
     s.tenSanPham,
@@ -19,7 +21,34 @@ SELECT
               WHERE cx.maSanPham = s.maSanPham), 0) AS tonKho
 FROM sanpham s
 ORDER BY s.maSanPham;
-");
+";
+
+$result = $con->query($sql);
+
+while ($row = $result->fetch_assoc()) {
+    $data[] = [
+        'maSanPham' => $row['maSanPham'],
+        'tenSanPham' => $row['tenSanPham'],
+        'tongSoLuongNhap' => $row['tongSoLuongNhap'],
+        'tongSoLuongXuat' => $row['tongSoLuongXuat'],
+        'tonKho' => $row['tonKho']
+    ];
+};
+
+// Ghi file CSV
+$file = fopen('output.csv', 'w');
+
+// Ghi dòng tiêu đề
+$header = array('Mã Sản Phẩm', 'Tên Sản Phẩm', 'Tổng Số Lượng Nhập', 'Tổng Số Lượng Xuất', 'Tồn Kho');
+fputcsv($file, $header);
+
+// Ghi dữ liệu từ mảng $data vào file
+foreach ($data as $row) {
+    fputcsv($file, $row);
+}
+
+// Đóng file
+fclose($file)
 ?>
 
 <main role="main" class="main-content">
@@ -28,7 +57,9 @@ ORDER BY s.maSanPham;
             <div class="col-12">
                 <div class="row" style="justify-content: space-between;">
                     <h2 class="mb-2 page-title">Kho hàng</h2>
-                    <button type="button" class="btn mb-2 btn-primary">In báo cáo</button>
+                    <a href="output.csv">
+                        <button type="button" class="btn mb-2 btn-primary">In báo cáo</button>
+                    </a>
                 </div>
                 <div class="row my-4">
                     <!-- Small table -->
@@ -48,16 +79,20 @@ ORDER BY s.maSanPham;
                                     </thead>
                                     <tbody>
                                         <?php
-                                        while ($row = $query->fetch_assoc()) {
-                                            echo "<tr>";
-                                            echo "<td>" . $row['maSanPham'] . "</td>";
-                                            echo "<td>" . $row['tenSanPham'] . "</td>";
-                                            echo "<td>" . $row['tongSoLuongNhap'] . "</td>";
-                                            echo "<td>" . $row['tongSoLuongXuat'] . "</td>";
-                                            echo "<td>" . $row['tonKho'] . "</td>";
-                                            echo "</tr>";
-                                          }
-                                          ?>
+                                        if ($result != null) {
+                                            foreach ($result as $row) {
+                                                echo "<tr>";
+                                                echo "<td>" . $row['maSanPham'] . "</td>";
+                                                echo "<td>" . $row['tenSanPham'] . "</td>";
+                                                echo "<td>" . $row['tongSoLuongNhap'] . "</td>";
+                                                echo "<td>" . $row['tongSoLuongXuat'] . "</td>";
+                                                echo "<td>" . $row['tonKho'] . "</td>";
+                                                echo "</tr>";
+                                            }
+                                        } else {
+                                            echo "Vui lòng kiểm tra dữ liệu!";
+                                        }
+                                        ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -68,6 +103,7 @@ ORDER BY s.maSanPham;
         </div> <!-- .row -->
     </div> <!-- .container-fluid -->
 </main>
+
 
 <script src="js/jquery.min.js"></script>
 <script src="js/popper.min.js"></script>

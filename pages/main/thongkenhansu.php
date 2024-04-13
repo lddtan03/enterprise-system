@@ -1,5 +1,5 @@
 <?php
-$con = new mysqli('localhost', 'root', '11111111', 'htttdn');
+$con = new mysqli('localhost', 'root', '', 'htttdn');
 
 $selectedTime = null;
 

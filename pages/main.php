@@ -49,9 +49,12 @@
             case 'thongkenhansu':
                 require_once 'pages/main/thongkenhansu.php';
                 break;
-            case 'thongkekinhdoanh':
-                require_once 'pages/main/thongkekinhdoanh.php';
+            case 'thongkexuat':
+                require_once 'pages/main/thongkexuat.php';
                 break;    
+            case 'thongkeloinhuan':
+                require_once 'pages/main/thongkeloinhuan.php';
+                break; 
             case 'admin-phanquyen':
                 require_once 'pages/main/admin-phanquyen.php';
                 break;
