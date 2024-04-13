@@ -1,3 +1,11 @@
+<style>
+  .none{
+    display: none;
+  }
+  .block{
+    display: block;
+  }
+</style>
 <main role="main" class="main-content">
   <div class="container-fluid">
     <div class="row justify-content-center">
@@ -144,8 +152,20 @@
                 </div> <!-- /.form-row -->
                 <div class="form-group mb-3">
                   <label for="validationTextarea1">Lý do</label>
-                  <textarea class="form-control" id="validationTextarea1" placeholder="Nhập lý do ở dây" name="lyDo" required="" rows="3"></textarea>
-                  <div class="invalid-feedback"> Vui lòng điền lý do. </div>
+                  <div class="radio-container">
+                    
+                      <input type="radio" id="radio3" name="radios" checked>
+                      <label style="padding-right:20px;" for="radio3">Lý do khác</label>
+
+                      <input type="radio" id="radio1" name="radios">
+                      <label style="padding-right:20px;" for="radio1">Ốm</label>
+
+                      <input type="radio" id="radio2" name="radios">
+                      <label style="padding-right:20px;" for="radio2">Thai sản</label>
+
+                    </div>
+                  <textarea class="form-control" id="validationTextarea3" placeholder="Nhập lý do ở dây" name="lyDo" required="" rows="3"></textarea>
+                  <!-- <div class="invalid-feedback"> Vui lòng điền lý do. </div> -->
                 </div>
                 <input class="btn btn-primary" name="NopDonNghiPhep" type="submit" value="Nộp"></input>
               </form>
@@ -212,6 +232,33 @@
   </div>
 
 </main> <!-- main -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    var radioInputs = document.querySelectorAll('input[name="radios"]');
+    radioInputs.forEach(radio =>{
+      radio.addEventListener('change', function() {
+        var radio3 = document.getElementById('radio3');
+        var radio2 = document.getElementById('radio2');
+        var radio1 = document.getElementById('radio1');
+        var text = document.getElementById('validationTextarea3');
+        if (radio3.checked) {
+          text.style.opacity=1;
+        }
+        if (radio2.checked) {
+          text.style.opacity=0;
+          text.textContent="Thai sản";
+        }
+        if (radio1.checked) {
+          text.style.opacity=0;
+          text.textContent="Ốm";
+
+        }
+    });
+
+    });
+   
+});
+</script>
 <script src="js/jquery.min.js"></script>
 <script src="js/popper.min.js"></script>
 <script src="js/moment.min.js"></script>

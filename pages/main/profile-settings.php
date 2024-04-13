@@ -10,6 +10,10 @@ $result = $nv->executeQuery("select nv.maNhanVien, cmnd, trangthai, avatar, sdt,
 // print_r($result);
 // echo "</pre>";
 
+if(isset($_SESSION['alert_message'])) {
+    echo "<script>alert('" . $_SESSION['alert_message'] . "')</script>";
+    unset($_SESSION['alert_message']);
+}
 ?>
 
 
@@ -101,8 +105,21 @@ $result = $nv->executeQuery("select nv.maNhanVien, cmnd, trangthai, avatar, sdt,
                   <input class="form-control input-placeholder" id="ngaybatdauhopdong" type="text" placeholder="25/02/2025" name="placeholder" value="<?php echo $nhanvien['ngayBatDau']; ?>" readonly>
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="ngayketthuchopdong">Ngày kêt thúc hợp đồng</label>
+                  <label for="matkhaumoi">Ngày kêt thúc hợp đồng</label>
                   <input class="form-control input-placeholder" placeholder="25-02-2025" id="ngayketthuchopdong" type="text" name="placeholder" value="<?php echo $nhanvien['ngayKetThuc']; ?>" readonly>
+
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-12">
+                  <label for="matkhaucu">Mật khẩu cũ</label>
+                  <input class="form-control input-placeholder" id="matkhaucu" type="password"  name="matkhaucu">
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-12">
+                  <label for="matkhaumoi">Mật khẩu mới</label>
+                  <input class="form-control input-placeholder" id="matkhaumoi" type="password" name="matkhaumoi" >
 
                 </div>
               </div>

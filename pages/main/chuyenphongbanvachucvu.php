@@ -167,11 +167,13 @@ $getNhanVienTheoMa = $nv->executeQuery("select nv.maNhanVien, avatar, hoTen, gio
                                         echo "Phòng $phong đã có trưởng phòng";
                                     }
                                 }
-
+                                
                                 if (empty($error)) {
                                     // $nv->executeQuery("SELECT maNhanVien, maPhong FROM `nhanvien` join `phongban` WHERE maChucVu = 'TP'");
                                     if ($chucvu == "TP") {
                                         $nv->insert_update_delete("update phongban set maTruongPhong = '$manv' where maPhong = '$phong'");
+                                        $date = date("Y-m-d");
+                                        $nv->insert_update_delete("update phongban set ngayNhanChuc ='$date'  where maPhong = '$phong'");
                                     }
                                     $nv->insert_update_delete("update nhanvien set maPhong = '$phong', maChucVu = '$chucvu' where maNhanVien = '$manv'");
                                     echo "<script>

@@ -17,9 +17,27 @@ if (isset($_POST['btn_submit'])) {
     } else {
         $gioitinh = "Nữ";
     }
+    $dantoc = $_POST['dantoc'];
+    $dantoc = $_POST['dantoc'];
+    $matkhaucu =  $_POST['matkhaucu'];
+    $matkhaumoi =  $_POST['matkhaumoi'];
 
-    $nv->insert_update_delete("UPDATE `nhanvien` SET `cmnd`='$cmnd',`hoTen`='$hoten',`gioiTinh`='$gioitinh',`ngaySinh`='$ngaysinh',`diaChi`='$diachi',`sdt`='$sdt',`danToc`='$dantoc',`email`='$email' WHERE maNhanVien = $maNhanVien");
 
+
+    
+    $result = $nv->executeQuery("select maNhanVien from nhanvien where cmnd = '$cmnd'");
+    $maNV = $result[0]['maNhanVien'];
+    $result = $nv->executeQuery("select matKhau from taikhoan where taikhoan = '$maNV'");
+    $password= $result[0]['matKhau'];
+    if($password==$matkhaucu){
+        $nv->insert_update_delete("UPDATE `nhanvien` SET `cmnd`='$cmnd',`hoTen`='$hoten',`gioiTinh`='$gioitinh',`ngaySinh`='$ngaysinh',`diaChi`='$diachi',`sdt`='$sdt',`danToc`='$dantoc',`email`='$email' WHERE maNhanVien = $maNhanVien");
+        $nv->insert_update_delete("UPDATE `taikhoan` SET `matKhau`='$matkhaumoi' WHERE taiKhoan = $maNV");
+        $_SESSION['alert_message'] = "Cập nhật thành công";
+    }
+    else{
+        $_SESSION['alert_message'] = "Mật khâủ không đúng";
+    }
+    
     echo "<script>
           window.location.href = 'http://localhost:8888/HTTT-DN/index.php?page=profile-settings';
           </script>";
