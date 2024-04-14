@@ -237,7 +237,7 @@ if ($result->num_rows > 0) {
         echo "<div style='display: flex; align-items: center; justify-content: start; gap: 10px;'>";
         echo "<button type='button' class='btn mb-2 btn-warning'>Sửa</button>";
         // Nút "Xóa" sử dụng JavaScript để xác nhận trước khi xóa
-        echo "<button type='button' class='btn mb-2 btn-danger xoaPhongBan' data-ma-phong='" . $row["maPhong"] . "'>Xóa</button>";
+        echo "<button type='button' class='btn mb-2 btn-danger xoaPhongBan' data-ma-phong='" . $row["maPhong"] . "' data-ten-phong='" . $row["tenPhong"] . "' data-so-luong-nhan-vien='" . $row["soLuongNV"] . "'>Xóa</button>";
         echo "</div>";														
         echo "</td>";
         echo "</tr>";
@@ -255,9 +255,15 @@ document.addEventListener("DOMContentLoaded", function() {
     buttons.forEach(button => {
         button.addEventListener("click", function() {
             const maPhong = this.getAttribute("data-ma-phong");
-            if (confirm("Bạn có chắc chắn muốn xóa phòng ban này không?")) {
-                // Gọi hàm xóa phòng ban
-                deletePhongBan(maPhong);
+            const tenPhong = this.getAttribute("data-ten-phong");
+            const soLuongNhanVien = this.getAttribute("data-so-luong-nhan-vien");
+            if (confirm("Bạn có chắc chắn muốn xóa phòng ban " + tenPhong + " không?")) {
+                if (soLuongNhanVien > 0) {
+                    alert("Phòng ban " + tenPhong + " đang có " + soLuongNhanVien + " nhân viên và không thể xóa.");
+                } else {
+                    // Gọi hàm xóa phòng ban
+                    deletePhongBan(maPhong);
+                }
             }
         });
     });
@@ -289,7 +295,7 @@ function deletePhongBan(maPhong) {
     .catch(error => {
         // Xử lý lỗi nếu có
         console.error('Lỗi:', error);
-        alert('Lỗi: ' + error.message);
+        alert('Lỗi: Xóa phòng ban không thành công!');
     });
 }
 
@@ -300,6 +306,7 @@ function updateData() {
 }
 
 </script>
+
 
 
 
