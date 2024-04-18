@@ -52,9 +52,9 @@ $arr = $row->executeQuery('select * from chamcong where thangChamCong = 3');
                                     </thead>
                                     <tbody id="body_table">
                                         <?php
-                                        if(isset($arr) && is_array($arr)) {
+                                        if (isset($arr) && is_array($arr)) {
                                             foreach ($arr as $element) {
-                                            ?>
+                                        ?>
                                                 <tr>
                                                     <td><?php echo $element['maChamCong'] ?></td>
                                                     <td><?php echo $element['maNhanVien'] ?></td>
@@ -78,7 +78,7 @@ $arr = $row->executeQuery('select * from chamcong where thangChamCong = 3');
                                                         </div>
                                                     </td>
                                                 </tr>
-                                            <?php
+                                        <?php
                                             }
                                         }
                                         ?>
@@ -301,9 +301,9 @@ $arr = $row->executeQuery('select * from chamcong where thangChamCong = 3');
                 dataType: 'json',
                 success: function(result) {
                     console.log(result);
-                    let str = '';
-                    result.result.forEach(element => {
-                        str += `<tr>
+                        let str = '';
+                        result.result.forEach(element => {
+                            str += `<tr>
                                     <td>${element['maChamCong']}</td>
                                                 <td>${element['maNhanVien']}</td>
                                                 <td>${element['thangChamCong']}</td>
@@ -326,8 +326,9 @@ $arr = $row->executeQuery('select * from chamcong where thangChamCong = 3');
                                                     </div>
                                                 </td>
                                             </tr>`
-                    });
-                    $('#body_table').html(str)
+                        });
+                        $('#body_table').html(str)
+    
 
                 },
                 error: function(xhr, ajaxOptions, thrownError) {

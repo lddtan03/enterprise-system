@@ -34,7 +34,7 @@ $getNgayNghiTheoMa = $nv->executeQuery("select nv.maNhanVien, SUM(soNgayNghi) so
                                             <strong class="card-title" style="font-size: large; font-weight: bold;"><?php echo $nhanvien['hoTen'] . " - Mã nhân viên: " . $nhanvien['maNhanVien'] ?></strong>
                                         </div>
                                         <div class="card-body">
-                                            <form action="" method="POST">
+                                            <form action="" method="POST" onsubmit="checkForm(event)">
                                                 <div class="form-row">
                                                     <div class="form-group col-md-6">
                                                         <label for="inputEmail4">Tháng chấm công</label>
@@ -211,6 +211,58 @@ $getNgayNghiTheoMa = $nv->executeQuery("select nv.maNhanVien, SUM(soNgayNghi) so
                 console.log(val_thuclanh);
             })
         })
+    </script>
+
+<script>
+        function checkForm(e) {
+            var numberRegEx = /^[0-9]+$/;
+            var luongthuong = document.getElementById("luongthuong");
+            var phucap = document.getElementById("phucap");
+            var khoantrubaohiem = document.getElementById("khoantrubaohiem");
+            var khoantrukhac = document.getElementById("khoantrukhac");
+
+            if (luongthuong.value == "" || luongthuong.value == undefined || luongthuong.value == NaN) {
+                alert("Bạn chưa nhập lương thưởng!");
+                luongthuong.focus();
+                e.preventDefault();
+                return false;
+            } else if (phucap.value == "" || phucap.value == undefined || phucap.value == NaN) {
+                alert("Bạn chưa nhập phụ cấp!");
+                phucap.focus();
+                e.preventDefault();
+                return false;
+            } else if (khoantrubaohiem.value == "" || khoantrubaohiem.value == undefined || khoantrubaohiem.value == NaN) {
+                alert("Bạn chưa nhập khoản trừ bảo hiểm!");
+                khoantrubaohiem.focus();
+                e.preventDefault();
+                return false;
+            } else if (khoantrukhac.value == "" || khoantrukhac.value == undefined || khoantrukhac.value == NaN) {
+                alert("Bạn chưa nhập khoản trừ khác!");
+                khoantrukhac.focus();
+                e.preventDefault();
+                return false;
+            } else if (!numberRegEx.test(luongthuong.value) && luongthuong.value != "") {
+                alert("Lương thưởng không hợp lệ!");
+                luongthuong.focus();
+                e.preventDefault();
+                return false;
+            } else if (!numberRegEx.test(phucap.value) && phucap.value != "") {
+                alert("Phụ cấp không hợp lệ!");
+                phucap.focus();
+                e.preventDefault();
+                return false;
+            } else if (!numberRegEx.test(khoantrubaohiem.value) && khoantrubaohiem.value != "") {
+                alert("Khoản trừ bảo hiểm không hợp lệ!");
+                khoantrubaohiem.focus();
+                e.preventDefault(); 
+                return false;
+            } else if (!numberRegEx.test(khoantrukhac.value) && khoantrukhac.value != "") {
+                alert("Khoản trừ khác không hợp lệ!");
+                khoantrukhac.focus();
+                e.preventDefault();
+                return false;
+            }
+        }
     </script>
 </body>
 
