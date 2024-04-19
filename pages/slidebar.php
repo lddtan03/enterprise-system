@@ -181,7 +181,7 @@
                 <ul class="collapse list-unstyled pl-4 w-100" id="thongke">
                     <li class="nav-item">
                         <a class="nav-link pl-3" href="index.php?page=thongkexuat"><span
-                                class="ml-1 item-text">Sản phẩm đã xuất</span></a>
+                                class="ml-1 item-text">Tình hình nhập xuất</span></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link pl-3" href="index.php?page=thongkeloinhuan"><span

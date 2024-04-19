@@ -107,7 +107,7 @@ if (isset($_GET['month'])) {
         <div class="mb-3">
           <h2 class="page-title">Thống kê nhân sự</h2>
           <div class="m-2">
-            <input type="month" id="monthInput" min="2024-01" value="<?php echo $selectedTime ? $selectedTime : "2024-04" ?>"
+            <input type="month" id="monthInput" value="<?php echo $selectedTime ? $selectedTime : "2024-04" ?>"
               onchange="updateChart()">
           </div>
           <div class="shadow float-left">
