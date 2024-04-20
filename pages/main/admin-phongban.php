@@ -1,3 +1,6 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
 <?php
 
 
@@ -29,128 +32,160 @@ if (isset($_SESSION['taiKhoan'])) {
 
 
 <main role="main" class="main-content">
-<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="card-body">
-                <p class="mb-2"><strong>Chỉnh sửa phòng ban</strong></p>
+	<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="card-body">
+					<p class="mb-2"><strong>Chỉnh sửa phòng ban</strong></p>
 
-                <form method="POST" action="admin-phongban.php" id="editForm">
-                    <div class="form-group mb-3">
-                        <label for="custom-placeholder">Mã phòng</label>
-                        <input class="form-control" type="text" name="maPhong" value="" required readonly>
-                    </div>
-                    <div class="form-group mb-3">
-                        <label for="custom-zip">Tên phòng</label>
-                        <input class="form-control" type="text" name="tenPhong">
-                    </div>
-                    <div class="form-group mb-3">
-                        <label for="custom-money">Mã trưởng phòng</label>
-                        <input class="form-control" type="text" name="maTruongPhong" readonly>
-                    </div>
-                    <div class="form-group mb-3">
-                        <label for="custom-phone">Số lượng nhân viên</label>
-                        <input class="form-control" type="text" name="soLuongNhanVien" readonly>
-                    </div>
-                    <!-- Giữ nguyên các trường không muốn cập nhật -->
-                    <div class="form-group mb-3">
-                        <p class="mb-2"><strong>Ngày nhận chức</strong></p>
-                        <div class="form-row">
-                            <div class="form-group col-md-8">
-                                <div class="input-group">
-                                    <input type="text" class="form-control drgpicker" id="date-input1" name="ngayNhanChuc" value="04/24/2020" aria-describedby="button-addon2">
-                                    <div class="input-group-append">
-                                        <div class="input-group-text" id="button-addon-date"><span class="fe fe-calendar fe-16"></span></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <!-- Xóa thuộc tính data-dismiss="modal" khỏi nút Lưu -->
-                        <button type="submit" class="btn mb-2 btn-success">Lưu</button>
-                        <button type="button" class="btn mb-2 btn-danger" data-dismiss="modal">Quay lại</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+					<form method="POST" action="admin-phongban.php" id="editForm">
+						<div class="form-group mb-3">
+							<label for="custom-placeholder">Mã phòng</label>
+							<input class="form-control" type="text" name="maPhong" value="" required readonly>
+						</div>
+						<div class="form-group mb-3">
+							<label for="custom-zip">Tên phòng</label>
+							<input class="form-control" type="text" name="tenPhong">
+						</div>
+						<div class="form-group mb-3">
+							<label for="custom-money">Mã trưởng phòng</label>
+							<input class="form-control" type="text" name="maTruongPhong" readonly>
+						</div>
+						<div class="form-group mb-3">
+							<label for="custom-phone">Số lượng nhân viên</label>
+							<input class="form-control" type="text" name="soLuongNhanVien" readonly>
+						</div>
+						<script>
+							// Hàm để chuyển đổi định dạng ngày
+							function convertDateFormat(inputFormat) {
+								function pad(s) {
+									return (s < 10) ? '0' + s : s;
+								}
+								var d = new Date(inputFormat);
+								return [d.getFullYear(), pad(d.getMonth() + 1), pad(d.getDate())].join('-');
+							}
 
-<?php
-// Xử lý yêu cầu chỉnh sửa phòng ban
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['tenPhong']) && isset($_POST['ngayNhanChuc'])) {
-    // Lấy dữ liệu từ biểu mẫu
-    $maPhong = $_POST['maPhong'];
-    $tenPhong = $_POST['tenPhong'];
-    $ngayNhanChuc = $_POST['ngayNhanChuc'];
+							// Bắt sự kiện khi người dùng thay đổi giá trị ngày
+							document.getElementById('date-input1').addEventListener('change', function() {
+								var inputValue = this.value; // Lấy giá trị ngày từ input
+								var formattedDate = convertDateFormat(inputValue); // Chuyển đổi định dạng ngày
+								this.value = formattedDate; // Gán lại giá trị ngày đã được định dạng lại
+							});
+						</script>
+						<!-- Giữ nguyên các trường không muốn cập nhật -->
+						<div class="form-group mb-3">
+							<p class="mb-2"><strong>Ngày nhận chức</strong></p>
+							<div class="form-row">
+								<div class="form-group col-md-8">
+									<div class="input-group">
+									<input type="text" class="form-control " id="date-input1" name="ngayNhanChuc" value="2024-04-14" aria-describedby="button-addon2">
+										<div class="input-group-append">
+											<div class="input-group-text" id="button-addon-date"><span class="fe fe-calendar fe-16"></span></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- Thêm một script để xử lý sự kiện khi người dùng chọn ngày -->
 
-    // Kiểm tra tính hợp lệ của dữ liệu nếu cần
-    // Thực hiện truy vấn cập nhật vào cơ sở dữ liệu
-    $sql_update = "UPDATE phongban SET tenPhong = '$tenPhong', ngayNhanChuc = '$ngayNhanChuc' WHERE maPhong = '$maPhong'";
-    if ($conn->query($sql_update) === TRUE) {
-        // Xuất thông báo cập nhật thành công nếu muốn
-        echo "<script>alert('Cập nhật phòng ban thành công!');</script>";
-    } else {
-        echo "<script>alert('Lỗi: " . $conn->error . "');</script>";
-    }
-}
-?>
 
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    // Xử lý sự kiện khi người dùng nhấn nút "Cập nhật" trong modal
-    const editForm = document.getElementById("editForm");
-    editForm.addEventListener("submit", function(event) {
-        // Ngăn chặn hành động mặc định của biểu mẫu (tức là không gửi yêu cầu tải lại trang)
-        event.preventDefault();
+						<div class="modal-footer">
+							<!-- Xóa thuộc tính data-dismiss="modal" khỏi nút Lưu -->
+							<button type="submit" class="btn mb-2 btn-success">Lưu</button>
+							<button type="button" class="btn mb-2 btn-danger" data-dismiss="modal">Quay lại</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 
-        // Lấy giá trị của các trường từ biểu mẫu chỉnh sửa
-        const maPhong = editForm.querySelector("input[name='maPhong']").value;
-        const tenPhong = editForm.querySelector("input[name='tenPhong']").value;
-        const ngayNhanChuc = editForm.querySelector("input[name='ngayNhanChuc']").value;
+	<?php
+	// Xử lý yêu cầu chỉnh sửa phòng ban
+	if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['tenPhong']) && isset($_POST['ngayNhanChuc'])) {
+		// Lấy dữ liệu từ biểu mẫu
+		$maPhong = $_POST['maPhong'];
+		$tenPhong = $_POST['tenPhong'];
+		$ngayNhanChuc = $_POST['ngayNhanChuc'];
 
-        // Gửi yêu cầu cập nhật thông tin phòng ban bằng Fetch API
-        updatePhongBan(maPhong, tenPhong, ngayNhanChuc);
-    });
-});
+		// Kiểm tra tính hợp lệ của dữ liệu nếu cần
+		// Thực hiện truy vấn cập nhật vào cơ sở dữ liệu
+		$sql_update = "UPDATE phongban SET tenPhong = '$tenPhong', ngayNhanChuc = '$ngayNhanChuc' WHERE maPhong = '$maPhong'";
+		if ($conn->query($sql_update) === TRUE) {
+			// Xuất thông báo cập nhật thành công nếu muốn
+			echo "<script>alert('Cập nhật phòng ban thành công!');</script>";
+		} else {
+			echo "<script>alert('Lỗi: " . $conn->error . "');</script>";
+		}
+	}
+	?>
 
-function updatePhongBan(maPhong, tenPhong, ngayNhanChuc) {
-    // Tạo đối tượng FormData để gửi dữ liệu biểu mẫu
-    const formData = new FormData();
-    formData.append('maPhong', maPhong);
-    formData.append('tenPhong', tenPhong);
-    formData.append('ngayNhanChuc', ngayNhanChuc);
+	<script>
+		document.addEventListener("DOMContentLoaded", function() {
+			// Xử lý sự kiện khi người dùng nhấn nút "Cập nhật" trong modal
+			const editForm = document.getElementById("editForm");
+			editForm.addEventListener("submit", function(event) {
+				// Ngăn chặn hành động mặc định của biểu mẫu (tức là không gửi yêu cầu tải lại trang)
+				event.preventDefault();
 
-    // Gửi yêu cầu cập nhật thông tin phòng ban bằng Fetch API
-    fetch('pages/main/admin-phongban.php', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => {
-        // Kiểm tra trạng thái của phản hồi
-        if (!response.ok) {
-            throw new Error('Có lỗi xảy ra khi gửi yêu cầu.');
-        }
-        // Trả về phản hồi dưới dạng văn bản
-        return response.text();
-    })
-    .then(data => {
-        // Xử lý phản hồi từ server
-        alert("Cập nhật phòng ban thành công!");
-        // Đóng modal sau khi xử lý thành công
-        $('#editModal').modal('hide');
-        // Reload trang để cập nhật dữ liệu (nếu cần)
-        window.location.reload();
-    })
-    .catch(error => {
-        // Xử lý lỗi nếu có
-        console.error('Lỗi:', error);
-        alert('Lỗi: ' + error.message);
-    });
-}
-</script>
+				// Lấy giá trị của các trường từ biểu mẫu chỉnh sửa
+				const maPhong = editForm.querySelector("input[name='maPhong']").value;
+				const tenPhong = editForm.querySelector("input[name='tenPhong']").value;
+				const ngayNhanChuc = editForm.querySelector("input[name='ngayNhanChuc']").value;
 
+				// Gửi yêu cầu cập nhật thông tin phòng ban bằng Fetch API
+				updatePhongBan(maPhong, tenPhong, ngayNhanChuc);
+			});
+		});
+
+		function updatePhongBan(maPhong, tenPhong, ngayNhanChuc) {
+			// Tạo đối tượng FormData để gửi dữ liệu biểu mẫu
+			const formData = new FormData();
+			formData.append('maPhong', maPhong);
+			formData.append('tenPhong', tenPhong);
+			formData.append('ngayNhanChuc', ngayNhanChuc);
+
+			// Gửi yêu cầu cập nhật thông tin phòng ban bằng Fetch API
+			fetch('pages/main/admin-phongban.php', {
+					method: 'POST',
+					body: formData
+				})
+				.then(response => {
+					// Kiểm tra trạng thái của phản hồi
+					if (!response.ok) {
+						throw new Error('Có lỗi xảy ra khi gửi yêu cầu.');
+					}
+					// Trả về phản hồi dưới dạng văn bản
+					return response.text();
+				})
+				.then(data => {
+					// Xử lý phản hồi từ server
+					alert("Cập nhật phòng ban thành công!");
+					// Đóng modal sau khi xử lý thành công
+					$('#editModal').modal('hide');
+					// Reload trang để cập nhật dữ liệu (nếu cần)
+					window.location.reload();
+				})
+				.catch(error => {
+					// Xử lý lỗi nếu có
+					console.error('Lỗi:', error);
+					alert('Lỗi: ' + error.message);
+				});
+		}
+	</script>
+
+	<script>
+		$(document).ready(function() {
+			$('.drgpicker').datepicker({
+				format: 'dd/mm/yyyy',
+				autoclose: true,
+				todayHighlight: true
+			}).on('changeDate', function(e) {
+				var selectedDate = moment(e.date).format('YYYY-MM-DD');
+				$(this).val(selectedDate);
+			});
+		});
+	</script>
 
 
 
@@ -183,9 +218,9 @@ function updatePhongBan(maPhong, tenPhong, ngayNhanChuc) {
 										</tr>
 									</thead>
 									<tbody>
-									<?php
-// Thực hiện truy vấn để lấy dữ liệu từ bảng phongban
-$sql = "SELECT
+										<?php
+										// Thực hiện truy vấn để lấy dữ liệu từ bảng phongban
+										$sql = "SELECT
           p.maPhong,
           p.tenPhong,
           p.maTruongPhong,
@@ -194,118 +229,117 @@ $sql = "SELECT
           (SELECT nv.hoTen FROM nhanvien nv WHERE nv.maChucVu = (SELECT maChucVu FROM chucvu WHERE maChucVu = 'TP') AND nv.maPhong = p.maPhong LIMIT 1) AS tenTruongPhong
       FROM
           phongban p";
-$result = $conn->query($sql);
+										$result = $conn->query($sql);
 
-// Xử lý yêu cầu xóa phòng ban
-if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['maPhong'])) {
-    $maPhong = $_GET['maPhong'];
-    // Kiểm tra xem biến $maPhong có giá trị hợp lệ không
-    if (!empty($maPhong)) {
-        // Truy vấn DELETE để xóa phòng ban từ CSDL
-        $sql_delete = "DELETE FROM phongban WHERE maPhong = '$maPhong'";
-        // Thực hiện truy vấn DELETE nếu $sql_delete không rỗng
-		
-        if (!empty($sql_delete)) {
-            if ($conn->query($sql_delete) === TRUE) {
-                // Xuất thông báo xóa thành công và cập nhật dữ liệu trên trang
-                echo "<script>alert('Xóa phòng ban thành công!');</script>";
-            } else {
-                echo "<script>alert('Lỗi: " . $conn->error . "');</script>";
-            }
-        } else {
-            echo "<script>alert('Lỗi: Truy vấn DELETE không hợp lệ!');</script>";
-        }
-    } else {
-        echo "<script>alert('Lỗi: Mã phòng không hợp lệ!');</script>";
-    }
-}
+										// Xử lý yêu cầu xóa phòng ban
+										if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['maPhong'])) {
+											$maPhong = $_GET['maPhong'];
+											// Kiểm tra xem biến $maPhong có giá trị hợp lệ không
+											if (!empty($maPhong)) {
+												// Truy vấn DELETE để xóa phòng ban từ CSDL
+												$sql_delete = "DELETE FROM phongban WHERE maPhong = '$maPhong'";
+												// Thực hiện truy vấn DELETE nếu $sql_delete không rỗng
 
-$stt = 1;
-// Kiểm tra xem có dữ liệu được trả về không
-if ($result->num_rows > 0) {
-    // Duyệt qua từng dòng dữ liệu và đổ vào bảng HTML
-    while ($row = $result->fetch_assoc()) {
-        echo "<tr>";
-        echo "<td>" . $stt . "</td>";
-        echo "<td>" . $row["maPhong"] . "</td>"; // Tương tự với các cột khác
-        echo "<td>" . $row["tenPhong"] . "</td>";
-        echo "<td>" . $row["maTruongPhong"] . "</td>"; // Hiển thị cột maTruongPhong
-        echo "<td>" . $row["tenTruongPhong"] . "</td>";
-        echo "<td>" . $row["soLuongNV"] . "</td>";
-        echo "<td>" . date("d-m-Y", strtotime($row["ngayNhanChuc"])) . "</td>"; // Định dạng ngày tháng
-        echo "<td>";
-        echo "<div style='display: flex; align-items: center; justify-content: start; gap: 10px;'>";
-        echo "<button type='button' class='btn mb-2 btn-warning'>Sửa</button>";
-        // Nút "Xóa" sử dụng JavaScript để xác nhận trước khi xóa
-        echo "<button type='button' class='btn mb-2 btn-danger xoaPhongBan' data-ma-phong='" . $row["maPhong"] . "' data-ten-phong='" . $row["tenPhong"] . "' data-so-luong-nhan-vien='" . $row["soLuongNV"] . "'>Xóa</button>";
-        echo "</div>";														
-        echo "</td>";
-        echo "</tr>";
-        $stt++;
-    }
-} else {
-    echo "Không có dữ liệu";
-}
-?>
+												if (!empty($sql_delete)) {
+													if ($conn->query($sql_delete) === TRUE) {
+														// Xuất thông báo xóa thành công và cập nhật dữ liệu trên trang
+														echo "<script>alert('Xóa phòng ban thành công!');</script>";
+													} else {
+														echo "<script>alert('Lỗi: " . $conn->error . "');</script>";
+													}
+												} else {
+													echo "<script>alert('Lỗi: Truy vấn DELETE không hợp lệ!');</script>";
+												}
+											} else {
+												echo "<script>alert('Lỗi: Mã phòng không hợp lệ!');</script>";
+											}
+										}
 
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    // Xử lý sự kiện khi người dùng nhấn nút "Xóa"
-    const buttons = document.querySelectorAll(".xoaPhongBan");
-    buttons.forEach(button => {
-        button.addEventListener("click", function() {
-            const maPhong = this.getAttribute("data-ma-phong");
-            const tenPhong = this.getAttribute("data-ten-phong");
-            const soLuongNhanVien = this.getAttribute("data-so-luong-nhan-vien");
-            if (confirm("Bạn có chắc chắn muốn xóa phòng ban " + tenPhong + " không?")) {
-                if (soLuongNhanVien > 0) {
-                    alert("Phòng ban " + tenPhong + " đang có " + soLuongNhanVien + " nhân viên và không thể xóa.");
-                } else {
-                    // Gọi hàm xóa phòng ban
-                    deletePhongBan(maPhong);
-                }
-            }
-        });
-    });
-});
+										$stt = 1;
+										// Kiểm tra xem có dữ liệu được trả về không
+										if ($result->num_rows > 0) {
+											// Duyệt qua từng dòng dữ liệu và đổ vào bảng HTML
+											while ($row = $result->fetch_assoc()) {
+												echo "<tr>";
+												echo "<td>" . $stt . "</td>";
+												echo "<td>" . $row["maPhong"] . "</td>"; // Tương tự với các cột khác
+												echo "<td>" . $row["tenPhong"] . "</td>";
+												echo "<td>" . $row["maTruongPhong"] . "</td>"; // Hiển thị cột maTruongPhong
+												echo "<td>" . $row["tenTruongPhong"] . "</td>";
+												echo "<td>" . $row["soLuongNV"] . "</td>";
+												echo "<td>" . date("d-m-Y", strtotime($row["ngayNhanChuc"])) . "</td>"; // Định dạng ngày tháng
+												echo "<td>";
+												echo "<div style='display: flex; align-items: center; justify-content: start; gap: 10px;'>";
+												echo "<button type='button' class='btn mb-2 btn-warning'>Sửa</button>";
+												// Nút "Xóa" sử dụng JavaScript để xác nhận trước khi xóa
+												echo "<button type='button' class='btn mb-2 btn-danger xoaPhongBan' data-ma-phong='" . $row["maPhong"] . "' data-ten-phong='" . $row["tenPhong"] . "' data-so-luong-nhan-vien='" . $row["soLuongNV"] . "'>Xóa</button>";
+												echo "</div>";
+												echo "</td>";
+												echo "</tr>";
+												$stt++;
+											}
+										} else {
+											echo "Không có dữ liệu";
+										}
+										?>
 
-function deletePhongBan(maPhong) {
-    // Tạo đối tượng FormData để gửi dữ liệu mã phòng ban
-    const formData = new FormData();
-    formData.append('maPhong', maPhong);
+										<script>
+											document.addEventListener("DOMContentLoaded", function() {
+												// Xử lý sự kiện khi người dùng nhấn nút "Xóa"
+												const buttons = document.querySelectorAll(".xoaPhongBan");
+												buttons.forEach(button => {
+													button.addEventListener("click", function() {
+														const maPhong = this.getAttribute("data-ma-phong");
+														const tenPhong = this.getAttribute("data-ten-phong");
+														const soLuongNhanVien = this.getAttribute("data-so-luong-nhan-vien");
+														if (confirm("Bạn có chắc chắn muốn xóa phòng ban " + tenPhong + " không?")) {
+															if (soLuongNhanVien > 0) {
+																alert("Phòng ban " + tenPhong + " đang có " + soLuongNhanVien + " nhân viên và không thể xóa.");
+															} else {
+																// Gọi hàm xóa phòng ban
+																deletePhongBan(maPhong);
+															}
+														}
+													});
+												});
+											});
 
-    // Gửi yêu cầu xóa phòng ban bằng Fetch API
-    fetch('index.php?page=admin-phongban&maPhong=' + maPhong, {
-        method: 'GET'
-    })
-    .then(response => {
-        // Kiểm tra trạng thái của phản hồi
-        if (!response.ok) {
-            throw new Error('Có lỗi xảy ra khi gửi yêu cầu.');
-        }
-        // Trả về phản hồi dưới dạng văn bản
-        return response.text();
-    })
-    .then(data => {
-        // Hiển thị thông báo từ phản hồi
-        alert("Xóa phòng ban thành công!");
-        // Sau khi xóa thành công, cập nhật dữ liệu trên trang
-        updateData();
-    })
-    .catch(error => {
-        // Xử lý lỗi nếu có
-        console.error('Lỗi:', error);
-        alert('Lỗi: Xóa phòng ban không thành công!');
-    });
-}
+											function deletePhongBan(maPhong) {
+												// Tạo đối tượng FormData để gửi dữ liệu mã phòng ban
+												const formData = new FormData();
+												formData.append('maPhong', maPhong);
 
-// Hàm cập nhật dữ liệu trên trang
-function updateData() {
-    // Reload trang để cập nhật dữ liệu
-    window.location.reload();
-}
+												// Gửi yêu cầu xóa phòng ban bằng Fetch API
+												fetch('index.php?page=admin-phongban&maPhong=' + maPhong, {
+														method: 'GET'
+													})
+													.then(response => {
+														// Kiểm tra trạng thái của phản hồi
+														if (!response.ok) {
+															throw new Error('Có lỗi xảy ra khi gửi yêu cầu.');
+														}
+														// Trả về phản hồi dưới dạng văn bản
+														return response.text();
+													})
+													.then(data => {
+														// Hiển thị thông báo từ phản hồi
+														alert("Xóa phòng ban thành công!");
+														// Sau khi xóa thành công, cập nhật dữ liệu trên trang
+														updateData();
+													})
+													.catch(error => {
+														// Xử lý lỗi nếu có
+														console.error('Lỗi:', error);
+														alert('Lỗi: Xóa phòng ban không thành công!');
+													});
+											}
 
-</script>
+											// Hàm cập nhật dữ liệu trên trang
+											function updateData() {
+												// Reload trang để cập nhật dữ liệu
+												window.location.reload();
+											}
+										</script>
 
 
 
@@ -486,38 +520,38 @@ function updateData() {
 		</div> <!-- new event modal -->
 	</div>
 
-	
+
 
 	<?php
-// Xử lý dữ liệu từ biểu mẫu khi có yêu cầu POST
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
-    // Kiểm tra xem các trường đã được điền đầy đủ hay không
-    if (isset($_POST['maPhong']) && isset($_POST['tenPhong'])) {
-        // Lấy dữ liệu từ biểu mẫu
-        $maPhong = $_POST['maPhong'];
-        $tenPhong = $_POST['tenPhong'];
+	// Xử lý dữ liệu từ biểu mẫu khi có yêu cầu POST
+	if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
+		// Kiểm tra xem các trường đã được điền đầy đủ hay không
+		if (isset($_POST['maPhong']) && isset($_POST['tenPhong'])) {
+			// Lấy dữ liệu từ biểu mẫu
+			$maPhong = $_POST['maPhong'];
+			$tenPhong = $_POST['tenPhong'];
 
-        // Kiểm tra xem mã phòng đã tồn tại trong CSDL chưa
-        $sql_check = "SELECT * FROM phongban WHERE maPhong = '$maPhong'";
-        $result_check = $conn->query($sql_check);
-        if ($result_check->num_rows > 0) {
-            echo "<script>alert('Mã phòng đã tồn tại trong CSDL!');</script>";
-        } else {
-            // Nếu mã phòng chưa tồn tại, thêm dữ liệu vào CSDL
-            $sql_insert = "INSERT INTO phongban (maPhong, tenPhong) VALUES ('$maPhong', '$tenPhong')";
-            if ($conn->query($sql_insert) === TRUE) {
-                echo "<script>alert('Thêm phòng ban thành công!');</script>";
-            } else {
-                echo "Lỗi: " . $sql_insert . "<br>" . $conn->error;
-            }
-        }
-    } else {
-        echo "<script>alert('Vui lòng điền đầy đủ thông tin!');</script>";
-    }
-    // Sau khi xử lý xong, chuyển hướng người dùng đến một trang khác hoặc refresh lại trang
-    echo "<script>window.location.replace('index.php?page=admin-phongban');</script>";
-}
-?>
+			// Kiểm tra xem mã phòng đã tồn tại trong CSDL chưa
+			$sql_check = "SELECT * FROM phongban WHERE maPhong = '$maPhong'";
+			$result_check = $conn->query($sql_check);
+			if ($result_check->num_rows > 0) {
+				echo "<script>alert('Mã phòng đã tồn tại trong CSDL!');</script>";
+			} else {
+				// Nếu mã phòng chưa tồn tại, thêm dữ liệu vào CSDL
+				$sql_insert = "INSERT INTO phongban (maPhong, tenPhong) VALUES ('$maPhong', '$tenPhong')";
+				if ($conn->query($sql_insert) === TRUE) {
+					echo "<script>alert('Thêm phòng ban thành công!');</script>";
+				} else {
+					echo "Lỗi: " . $sql_insert . "<br>" . $conn->error;
+				}
+			}
+		} else {
+			echo "<script>alert('Vui lòng điền đầy đủ thông tin!');</script>";
+		}
+		// Sau khi xử lý xong, chuyển hướng người dùng đến một trang khác hoặc refresh lại trang
+		echo "<script>window.location.replace('index.php?page=admin-phongban');</script>";
+	}
+	?>
 
 
 
@@ -743,6 +777,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
 			console.log('Upload complete! We’ve uploaded these files:', result.successful)
 		});
 	}
+
+	flatpickr("#date-input1", {
+    dateFormat: "Y-m-d"
+});
 </script>
 <script src="js/apps.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
