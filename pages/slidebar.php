@@ -231,11 +231,21 @@ if (isset($_SESSION['taiKhoan'])) {
                 <span>Quản lý kinh doanh</span>
             </p>
             <ul class="navbar-nav flex-fill w-100 mb-2">
-                <li class="nav-item w-100">
-                    <a class="nav-link" href="index.php?page=thongkekinhdoanh">
-                        <i class="fe fe-calendar fe-16"></i>
-                        <span class="ml-3 item-text">Thống kê kinhdoanh</span>
+                <li class="nav-item dropdown">
+                    <a href="#thongke" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle nav-link">
+                        <i class="fa-regular fa-money-bill-1 fe-16"></i>
+                        <span class="ml-3 item-text">Thống kê kinh doanh</span>
                     </a>
+                    <ul class="collapse list-unstyled pl-4 w-100" id="thongke">
+                        <li class="nav-item">
+                            <a class="nav-link pl-3" href="index.php?page=thongkexuat"><span
+                                    class="ml-1 item-text">Tình hình nhập xuất</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link pl-3" href="index.php?page=thongkeloinhuan"><span
+                                    class="ml-1 item-text">Lợi nhuận</span></a>
+                        </li>
+                    </ul>
                 </li>
                 <li class="nav-item w-100">
                     <a class="nav-link" href="index.php?page=xuathang">
