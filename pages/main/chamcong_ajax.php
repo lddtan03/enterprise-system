@@ -19,9 +19,15 @@ if (isset($_POST['nam'])) {
 
 $sql = "select * from chamcong WHERE thangChamCong = $thang and namChamCong = $nam"; 
 $result = $conn->query($sql);
-while($row = $result->fetch_assoc()){
-    $arr[] = $row; 
+
+if($result->num_rows > 0){
+    while($row = $result->fetch_assoc()){
+        $arr[] = $row; 
+    }
+}else{
+    $arr = [];
 }
+
 
 $data['result']= $arr;
 

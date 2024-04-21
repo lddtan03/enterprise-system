@@ -1,5 +1,3 @@
-
-
 <?php
 require_once './object/database.php';
 $manv = $_GET['manv'];
@@ -25,11 +23,11 @@ $getNhanVienTheoMa = $nv->executeQuery("select nv.maNhanVien, avatar, hoTen, gio
                             <div class="card-deck">
                                 <div class="card shadow mb-4">
                                     <div class="card-header">
-                                    <img src="assets/avatars/<?php echo $nhanvien['avatar'] ?>" alt="" style="max-width: 200px" class="avatar-img rounded-circle mr-3">
+                                        <img src="assets/avatars/<?php echo $nhanvien['avatar'] ?>" alt="" style="max-width: 200px" class="avatar-img rounded-circle mr-3">
                                         <strong class="card-title" style="font-size: large; font-weight: bold;"><?php echo $nhanvien['hoTen'] . " - Mã nhân viên: " . $nhanvien['maNhanVien'] ?></strong>
                                     </div>
                                     <div class="card-body">
-                                        <form action="" method="POST">
+                                        <form action="" method="POST" onsubmit="return checkForm(event)">
                                             <div class="form-row">
                                                 <div class="form-group col-md-6">
                                                     <label for="inputEmail4">Ngày sinh</label>
@@ -117,6 +115,18 @@ $getNhanVienTheoMa = $nv->executeQuery("select nv.maNhanVien, avatar, hoTen, gio
                 ngayKetThuc.value = valueNgayKetThuc
             }
         })
+
+        function checkForm(e) {
+
+            var cars = document.getElementById("cars");
+
+            if (cars.value == "" || cars.value == undefined || cars.value == NaN) {
+                alert("Bạn chưa chọn thời gian gia hạn hợp đồng!");
+                cars.focus();
+                e.preventDefault();
+                return false;
+            }
+        }
     </script>
     <?php
     ob_start();
@@ -124,7 +134,7 @@ $getNhanVienTheoMa = $nv->executeQuery("select nv.maNhanVien, avatar, hoTen, gio
         $ngayKetThuc = $_POST['ngayKetThuc'];
         $nv->insert_update_delete("update hopdong set ngayKetThuc = '$ngayKetThuc' where maNhanVien = $manv");
         echo "<script>
-            window.location.href = 'http://localhost:8888/HTTT-DN/index.php?page=nhanvien'
+            window.location.href = 'http://localhost/HTTT-DN/index.php?page=nhanvien'
             </script>";
         // header("location:../../index.php?page=nhanvien");
     }

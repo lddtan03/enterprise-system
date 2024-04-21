@@ -117,10 +117,7 @@ if (isset($_GET['page'])) {
         case 'luong_theonam':
             require_once 'pages/main/luong_theonam.php';
             break;
-        case 'luong_cachtinh':
-            require_once 'pages/main/luong_cachtinh.php';
-            break;
-        case 'nhaphang':
+               case 'nhaphang':
             if ($_GET['id'] == 'taophieunhap') {
                 require_once 'pages/main/taophieunhap.php';
             } else {
