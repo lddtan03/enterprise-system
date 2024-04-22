@@ -1,3 +1,4 @@
+
 <?php
 // Kết nối đến cơ sở dữ liệu
 $servername = "localhost";
@@ -125,14 +126,13 @@ if ($conn->connect_error) {
             </div> <!-- .row -->
         </div> <!-- .container-fluid -->
     </main> <!-- main -->
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
     const btnSave = document.querySelector(".btn-save");
     btnSave.addEventListener("click", function() {
         const radioButtons = document.querySelectorAll(".radio-quyen");
         const formData = new FormData();
-
         radioButtons.forEach(function(radioButton) {
             if (radioButton.checked) {
                 formData.append(radioButton.name, radioButton.value);
@@ -150,12 +150,21 @@ if ($conn->connect_error) {
             return response.text();
         })
         .then(data => {
-            alert("Thay đổi quyền thành công!"); // Hiển thị thông báo từ server
-            window.location.reload(); // Tải lại trang sau khi cập nhật thành công (nếu cần)
+            Swal.fire({
+                icon: 'success',
+                title: 'Thành công',
+                text: 'Thay đổi quyền thành công!'
+            }).then(function() {
+                window.location.reload();
+            });
         })
         .catch(error => {
             console.error('Lỗi:', error);
-            alert('Lỗi: ' + error.message);
+            Swal.fire({
+                icon: 'error',
+                title: 'Lỗi',
+                text: 'Lỗi: ' + error.message
+            });
         });
     });
 });
