@@ -39,6 +39,6 @@ if (isset($_POST['btn_submit'])) {
     }
     
     echo "<script>
-          window.location.href = 'http://localhost/HTTT-DN/index.php?page=profile-settings';
+          window.location.href = 'http://localhost:8888/HTTT-DN/index.php?page=profile-settings';
           </script>";
 }
