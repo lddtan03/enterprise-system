@@ -101,78 +101,89 @@ if (isset($_SESSION['taiKhoan'])) {
 	</div>
 
 	<?php
-	// Xử lý yêu cầu chỉnh sửa phòng ban
-	if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['tenPhong']) && isset($_POST['ngayNhanChuc'])) {
-		// Lấy dữ liệu từ biểu mẫu
-		$maPhong = $_POST['maPhong'];
-		$tenPhong = $_POST['tenPhong'];
-		$ngayNhanChuc = $_POST['ngayNhanChuc'];
+// Xử lý yêu cầu chỉnh sửa phòng ban
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['tenPhong']) && isset($_POST['ngayNhanChuc'])) {
+    // Lấy dữ liệu từ biểu mẫu
+    $maPhong = $_POST['maPhong'];
+    $tenPhong = $_POST['tenPhong'];
+    $ngayNhanChuc = $_POST['ngayNhanChuc'];
 
-		// Kiểm tra tính hợp lệ của dữ liệu nếu cần
-		// Thực hiện truy vấn cập nhật vào cơ sở dữ liệu
-		$sql_update = "UPDATE phongban SET tenPhong = '$tenPhong', ngayNhanChuc = '$ngayNhanChuc' WHERE maPhong = '$maPhong'";
-		if ($conn->query($sql_update) === TRUE) {
-			// Xuất thông báo cập nhật thành công nếu muốn
-			echo "<script>alert('Cập nhật phòng ban thành công!');</script>";
-		} else {
-			echo "<script>alert('Lỗi: " . $conn->error . "');</script>";
-		}
-	}
-	?>
+    // Kiểm tra tính hợp lệ của dữ liệu nếu cần
 
-	<script>
-		document.addEventListener("DOMContentLoaded", function() {
-			// Xử lý sự kiện khi người dùng nhấn nút "Cập nhật" trong modal
-			const editForm = document.getElementById("editForm");
-			editForm.addEventListener("submit", function(event) {
-				// Ngăn chặn hành động mặc định của biểu mẫu (tức là không gửi yêu cầu tải lại trang)
-				event.preventDefault();
+    // Thực hiện truy vấn cập nhật vào cơ sở dữ liệu
+    $sql_update = "UPDATE phongban SET tenPhong = '$tenPhong', ngayNhanChuc = '$ngayNhanChuc' WHERE maPhong = '$maPhong'";
+    if ($conn->query($sql_update) === TRUE) {
+        // Xuất thông báo cập nhật thành công
+        echo "<script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Thành công',
+                text: 'Cập nhật phòng ban thành công!'
+            });
+        </script>";
+    } else {
+        echo "<script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Lỗi',
+                text: 'Lỗi: " . $conn->error . "'
+            });
+        </script>";
+    }
+}
+?>
 
-				// Lấy giá trị của các trường từ biểu mẫu chỉnh sửa
-				const maPhong = editForm.querySelector("input[name='maPhong']").value;
-				const tenPhong = editForm.querySelector("input[name='tenPhong']").value;
-				const ngayNhanChuc = editForm.querySelector("input[name='ngayNhanChuc']").value;
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    // Xử lý sự kiện khi người dùng nhấn nút "Cập nhật" trong modal
+    const editForm = document.getElementById("editForm");
+    editForm.addEventListener("submit", function(event) {
+        event.preventDefault();
 
-				// Gửi yêu cầu cập nhật thông tin phòng ban bằng Fetch API
-				updatePhongBan(maPhong, tenPhong, ngayNhanChuc);
-			});
-		});
+        const maPhong = editForm.querySelector("input[name='maPhong']").value;
+        const tenPhong = editForm.querySelector("input[name='tenPhong']").value;
+        const ngayNhanChuc = editForm.querySelector("input[name='ngayNhanChuc']").value;
 
-		function updatePhongBan(maPhong, tenPhong, ngayNhanChuc) {
-			// Tạo đối tượng FormData để gửi dữ liệu biểu mẫu
-			const formData = new FormData();
-			formData.append('maPhong', maPhong);
-			formData.append('tenPhong', tenPhong);
-			formData.append('ngayNhanChuc', ngayNhanChuc);
+        updatePhongBan(maPhong, tenPhong, ngayNhanChuc);
+    });
+});
 
-			// Gửi yêu cầu cập nhật thông tin phòng ban bằng Fetch API
-			fetch('pages/main/admin-phongban.php', {
-					method: 'POST',
-					body: formData
-				})
-				.then(response => {
-					// Kiểm tra trạng thái của phản hồi
-					if (!response.ok) {
-						throw new Error('Có lỗi xảy ra khi gửi yêu cầu.');
-					}
-					// Trả về phản hồi dưới dạng văn bản
-					return response.text();
-				})
-				.then(data => {
-					// Xử lý phản hồi từ server
-					alert("Cập nhật phòng ban thành công!");
-					// Đóng modal sau khi xử lý thành công
-					$('#editModal').modal('hide');
-					// Reload trang để cập nhật dữ liệu (nếu cần)
-					window.location.reload();
-				})
-				.catch(error => {
-					// Xử lý lỗi nếu có
-					console.error('Lỗi:', error);
-					alert('Lỗi: ' + error.message);
-				});
-		}
-	</script>
+function updatePhongBan(maPhong, tenPhong, ngayNhanChuc) {
+    const formData = new FormData();
+    formData.append('maPhong', maPhong);
+    formData.append('tenPhong', tenPhong);
+    formData.append('ngayNhanChuc', ngayNhanChuc);
+
+    fetch('pages/main/admin-phongban.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Có lỗi xảy ra khi gửi yêu cầu.');
+        }
+        return response.text();
+    })
+    .then(data => {
+        Swal.fire({
+            icon: 'success',
+            title: 'Thành công',
+            text: 'Cập nhật phòng ban thành công!'
+        }).then(function() {
+            $('#editModal').modal('hide');
+            window.location.reload();
+        });
+    })
+    .catch(error => {
+        console.error('Lỗi:', error);
+        Swal.fire({
+            icon: 'error',
+            title: 'Lỗi',
+            text: 'Lỗi: ' + error.message
+        });
+    });
+}
+</script>
 
 	<script>
 		$(document).ready(function() {
@@ -187,7 +198,7 @@ if (isset($_SESSION['taiKhoan'])) {
 		});
 	</script>
 
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
 	<div class="container-fluid">
@@ -243,15 +254,42 @@ if (isset($_SESSION['taiKhoan'])) {
 												if (!empty($sql_delete)) {
 													if ($conn->query($sql_delete) === TRUE) {
 														// Xuất thông báo xóa thành công và cập nhật dữ liệu trên trang
-														echo "<script>alert('Xóa phòng ban thành công!');</script>";
+														// Xuất thông báo xóa thành công và cập nhật dữ liệu trên trang
+														echo "<script>
+    Swal.fire({
+        icon: 'success',
+        title: 'Thành công',
+        text: 'Xóa phòng ban thành công!'
+    }).then(function() {
+        updateData();
+    });
+</script>";
 													} else {
-														echo "<script>alert('Lỗi: " . $conn->error . "');</script>";
+														echo "<script>
+    Swal.fire({
+        icon: 'error',
+        title: 'Lỗi',
+        text: 'Lỗi: " . $conn->error . "'
+    });
+</script>";
 													}
 												} else {
-													echo "<script>alert('Lỗi: Truy vấn DELETE không hợp lệ!');</script>";
+													echo "<script>
+    Swal.fire({
+        icon: 'error',
+        title: 'Lỗi',
+        text: 'Lỗi: Truy vấn DELETE không hợp lệ!'
+    });
+</script>";
 												}
 											} else {
-												echo "<script>alert('Lỗi: Mã phòng không hợp lệ!');</script>";
+												echo "<script>
+    Swal.fire({
+        icon: 'error',
+        title: 'Lỗi',
+        text: 'Lỗi: Mã phòng không hợp lệ!'
+    });
+</script>";
 											}
 										}
 
@@ -285,60 +323,72 @@ if (isset($_SESSION['taiKhoan'])) {
 
 										<script>
 											document.addEventListener("DOMContentLoaded", function() {
-												// Xử lý sự kiện khi người dùng nhấn nút "Xóa"
-												const buttons = document.querySelectorAll(".xoaPhongBan");
-												buttons.forEach(button => {
-													button.addEventListener("click", function() {
-														const maPhong = this.getAttribute("data-ma-phong");
-														const tenPhong = this.getAttribute("data-ten-phong");
-														const soLuongNhanVien = this.getAttribute("data-so-luong-nhan-vien");
-														if (confirm("Bạn có chắc chắn muốn xóa phòng ban " + tenPhong + " không?")) {
-															if (soLuongNhanVien > 0) {
-																alert("Phòng ban " + tenPhong + " đang có " + soLuongNhanVien + " nhân viên và không thể xóa.");
-															} else {
-																// Gọi hàm xóa phòng ban
-																deletePhongBan(maPhong);
-															}
-														}
-													});
-												});
-											});
+    // Xử lý sự kiện khi người dùng nhấn nút "Xóa"
+    const buttons = document.querySelectorAll(".xoaPhongBan");
+    buttons.forEach(button => {
+        button.addEventListener("click", function() {
+            const maPhong = this.getAttribute("data-ma-phong");
+            const tenPhong = this.getAttribute("data-ten-phong");
+            const soLuongNhanVien = this.getAttribute("data-so-luong-nhan-vien");
 
-											function deletePhongBan(maPhong) {
-												// Tạo đối tượng FormData để gửi dữ liệu mã phòng ban
-												const formData = new FormData();
-												formData.append('maPhong', maPhong);
+            Swal.fire({
+                title: 'Xác nhận xóa',
+                text: "Bạn có chắc chắn muốn xóa phòng ban " + tenPhong + " không?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Xóa',
+                cancelButtonText: 'Hủy'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    if (soLuongNhanVien > 0) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Lỗi',
+                            text: "Phòng ban " + tenPhong + " đang có " + soLuongNhanVien + " nhân viên và không thể xóa."
+                        });
+                    } else {
+                        deletePhongBan(maPhong);
+                    }
+                }
+            });
+        });
+    });
+});
 
-												// Gửi yêu cầu xóa phòng ban bằng Fetch API
-												fetch('index.php?page=admin-phongban&maPhong=' + maPhong, {
-														method: 'GET'
-													})
-													.then(response => {
-														// Kiểm tra trạng thái của phản hồi
-														if (!response.ok) {
-															throw new Error('Có lỗi xảy ra khi gửi yêu cầu.');
-														}
-														// Trả về phản hồi dưới dạng văn bản
-														return response.text();
-													})
-													.then(data => {
-														// Hiển thị thông báo từ phản hồi
-														alert("Xóa phòng ban thành công!");
-														// Sau khi xóa thành công, cập nhật dữ liệu trên trang
-														updateData();
-													})
-													.catch(error => {
-														// Xử lý lỗi nếu có
-														console.error('Lỗi:', error);
-														alert('Lỗi: Xóa phòng ban không thành công!');
-													});
-											}
+function deletePhongBan(maPhong) {
+    fetch('index.php?page=admin-phongban&maPhong=' + maPhong, {
+        method: 'GET'
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Có lỗi xảy ra khi gửi yêu cầu.');
+        }
+        return response.text();
+    })
+    .then(data => {
+        Swal.fire({
+            icon: 'success',
+            title: 'Thành công',
+            text: 'Xóa phòng ban thành công!'
+        }).then(function() {
+            updateData();
+        });
+    })
+    .catch(error => {
+        console.error('Lỗi:', error);
+        Swal.fire({
+            icon: 'error',
+            title: 'Lỗi',
+            text: 'Lỗi: Xóa phòng ban không thành công!'
+        });
+    });
+}
 
-											// Hàm cập nhật dữ liệu trên trang
-											function updateData() {
-												// Reload trang để cập nhật dữ liệu
-												window.location.reload();
-											}
+function updateData() {
+    window.location.reload();
+}
 										</script>
 
 
@@ -520,38 +570,61 @@ if (isset($_SESSION['taiKhoan'])) {
 		</div> <!-- new event modal -->
 	</div>
 
+<!-- Nhúng SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<?php
+// Xử lý dữ liệu từ biểu mẫu khi có yêu cầu POST
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
+    // Kiểm tra xem các trường đã được điền đầy đủ hay không
+    if (isset($_POST['maPhong']) && isset($_POST['tenPhong'])) {
+        // Lấy dữ liệu từ biểu mẫu
+        $maPhong = $_POST['maPhong'];
+        $tenPhong = $_POST['tenPhong'];
 
+        // Kiểm tra xem mã phòng đã tồn tại trong CSDL chưa
+        $sql_check = "SELECT * FROM phongban WHERE maPhong = '$maPhong'";
+        $result_check = $conn->query($sql_check);
 
-	<?php
-	// Xử lý dữ liệu từ biểu mẫu khi có yêu cầu POST
-	if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
-		// Kiểm tra xem các trường đã được điền đầy đủ hay không
-		if (isset($_POST['maPhong']) && isset($_POST['tenPhong'])) {
-			// Lấy dữ liệu từ biểu mẫu
-			$maPhong = $_POST['maPhong'];
-			$tenPhong = $_POST['tenPhong'];
-
-			// Kiểm tra xem mã phòng đã tồn tại trong CSDL chưa
-			$sql_check = "SELECT * FROM phongban WHERE maPhong = '$maPhong'";
-			$result_check = $conn->query($sql_check);
-			if ($result_check->num_rows > 0) {
-				echo "<script>alert('Mã phòng đã tồn tại trong CSDL!');</script>";
-			} else {
-				// Nếu mã phòng chưa tồn tại, thêm dữ liệu vào CSDL
-				$sql_insert = "INSERT INTO phongban (maPhong, tenPhong) VALUES ('$maPhong', '$tenPhong')";
-				if ($conn->query($sql_insert) === TRUE) {
-					echo "<script>alert('Thêm phòng ban thành công!');</script>";
-				} else {
-					echo "Lỗi: " . $sql_insert . "<br>" . $conn->error;
-				}
-			}
-		} else {
-			echo "<script>alert('Vui lòng điền đầy đủ thông tin!');</script>";
-		}
-		// Sau khi xử lý xong, chuyển hướng người dùng đến một trang khác hoặc refresh lại trang
-		echo "<script>window.location.replace('index.php?page=admin-phongban');</script>";
-	}
-	?>
+        if ($result_check->num_rows > 0) {
+            echo "<script>
+                async function showAlert() {
+                    await Swal.fire({
+                        icon: 'error',
+                        title: 'Lỗi',
+                        text: 'Mã phòng đã tồn tại trong CSDL!',
+                        timer: 5000
+                    });
+                }
+                showAlert();
+            </script>";
+        } else {
+            // Nếu mã phòng chưa tồn tại, thêm dữ liệu vào CSDL
+            $sql_insert = "INSERT INTO phongban (maPhong, tenPhong) VALUES ('$maPhong', '$tenPhong')";
+            if ($conn->query($sql_insert) === TRUE) {
+                echo "<script>
+                    async function showAlert() {
+                        await Swal.fire({
+                            icon: 'success',
+                            title: 'Thành công',
+                            text: 'Thêm phòng ban thành công!',
+                            timer: 2000
+                        });
+                        // Chuyển hướng trang sau khi thông báo đã hiển thị đủ thời gian
+                        setTimeout(function() {
+                            window.location.replace('index.php?page=admin-phongban');
+                        }, 500);
+                    }
+                    showAlert();
+                </script>";
+            } else {
+                echo "Lỗi: " . $sql_insert . "<br>" . $conn->error;
+            }
+        }
+    } else {
+        echo "<script>alert('Vui lòng điền đầy đủ thông tin!');</script>";
+    }
+}
+?>
 
 
 
@@ -837,7 +910,7 @@ if (isset($_SESSION['taiKhoan'])) {
 		// Điền giá trị số lượng nhân viên vào trường input
 		$('#editModal input[name="soLuongNhanVien"]').val(soLuongNhanVien);
 		// Điền giá trị ngày nhận chức vào trường input
-		$('#editModal input[name="ngayNhanChuc"]').val(ngayNhanChuc);
+		// $('#editModal input[name="ngayNhanChuc"]').val(ngayNhanChuc);
 
 		// Hiển thị modal và làm mờ trang hiện tại
 		$('#editModal').modal('show');
