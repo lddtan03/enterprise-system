@@ -116,8 +116,10 @@ function checkAlert() {
             alertMessage('info', 'Phiếu nhập đã ở trạng thái đã nhận hàng!');
         else if (sessionStorage.getItem('editTrangThaiPhieuNhap') == 'same0')
             alertMessage('info', 'Phiếu nhập đã ở trạng thái chưa nhận hàng!');
-        else
+        else if (sessionStorage.getItem('editTrangThaiPhieuNhap') == 'gail')
             alertMessage('fail', 'Đổi trạng thái phiếu nhập thất bại');
+        else if (sessionStorage.getItem('editTrangThaiPhieuNhap') == 'cannotChange') 
+            alertMessage('info', 'Không được đổi trạng thái của phiếu nhập này');
         sessionStorage.removeItem('editTrangThaiPhieuNhap');
     }
     if (sessionStorage.getItem('editTrangThaiPhieuXuat') !== null) {
