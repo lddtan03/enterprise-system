@@ -78,7 +78,7 @@ if (isset($_SESSION['taiKhoan'])) {
 							<div class="form-row">
 								<div class="form-group col-md-8">
 									<div class="input-group">
-									<input type="text" class="form-control " id="date-input1" name="ngayNhanChuc" value="2024-04-14" aria-describedby="button-addon2">
+									<input type="text" class="form-control " id="date-input1" name="ngayNhanChuc" aria-describedby="button-addon2">
 										<div class="input-group-append">
 											<div class="input-group-text" id="button-addon-date"><span class="fe fe-calendar fe-16"></span></div>
 										</div>
@@ -899,7 +899,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
 		// Lấy giá trị số lượng nhân viên từ hàng hiện tại
 		var soLuongNhanVien = $(this).closest('tr').find('td:nth-child(6)').text();
 		// Lấy giá trị ngày nhận chức từ hàng hiện tại
-		var ngayNhanChuc = $(this).closest('tr').find('td:nth-child(7)').text();
+		// var ngayNhanChuc = $(this).closest('tr').find('td:nth-child(7)').text();
 
 		// Điền giá trị mã phòng vào trường input
 		$('#editModal input[name="maPhong"]').val(maPhong);
@@ -915,6 +915,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
 		// Hiển thị modal và làm mờ trang hiện tại
 		$('#editModal').modal('show');
 	});
+
+	// Lắng nghe sự kiện khi nút "Sửa" được nhấn
+	$('.btn-warning').click(function() {
+    // Lấy giá trị ngày nhận chức từ hàng hiện tại
+    var ngayNhanChuc = $(this).closest('tr').find('td:nth-child(7)').text();
+    // console.log("Ngày nhận chức:", ngayNhanChuc);
+
+    // Chuyển đổi định dạng ngày từ dd-mm-yyyy sang yyyy-mm-dd
+    var parts = ngayNhanChuc.split('-');
+    var ngayNhanChucFormatted = parts[2] + '-' + parts[1] + '-' + parts[0];
+
+    // Điền giá trị ngày nhận chức vào trường input
+    $('#editModal input[name="ngayNhanChuc"]').val(ngayNhanChucFormatted);
+
+    // Hiển thị modal và làm mờ trang hiện tại
+    $('#editModal').modal('show');
+});
+
+
+
+
 </script>
 
 <!-- <script>
