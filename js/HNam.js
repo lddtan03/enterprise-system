@@ -133,6 +133,26 @@ function checkAlert() {
     }
 }
 
+function changeMoneyToNum(money) {
+    var arr = money.split(".");
+    var num = '';
+    for (var i = 0; i < arr.length; i++) {
+        num += arr[i];
+    }
+    return num;
+}
+
+function checkNumber(input) {
+    var price = input.value;
+    var request = "/HTTT-DN/pages/main/admin-sanpham-filter-checknumber.php?price=" + price;
+    var xml = new XMLHttpRequest();
+    xml.open("GET", request, true);
+    xml.onload = function() {
+        input.value = this.responseText;
+    }
+    xml.send();
+}
+
 // TEST ĐỪNG XÓA
 // function deleteProduct(maSanPham) {
 //     var xhr = new XMLHttpRequest();

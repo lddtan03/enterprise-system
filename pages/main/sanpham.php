@@ -77,7 +77,6 @@
               <thead>
                 <tr>
                   <th>Kích thước</th>
-                  <th>Kích thước</th>
                   <th>Số lượng</th>
                 </tr>
               </thead>
