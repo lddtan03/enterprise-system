@@ -7,7 +7,40 @@
           <!-- Small table -->
           <div class="col-md-12">
             <div class="card shadow">
-              <div class="card-body">
+              <div class="card-body" id="main-search">
+                <div class="search-container">
+                  <div class="inner">
+                    <label for="pname">Tên sản phẩm:</label>
+                    <input type="text" name="name" id="pname" value="<?php
+                                                                      if (isset($_GET['keyword']) && !empty($_GET['keyword']))
+                                                                        echo $_GET['keyword'];
+                                                                      ?>">
+                  </div>
+                  <div class="inner">
+                    <label for="pcategory">Nhãn hiệu:</label>
+                    <select name="category" id="pcategory">
+                      <?php
+                      require_once($_SERVER['DOCUMENT_ROOT'] . '/HTTT-DN/object/action.php');
+                      displayNhanHieuOption();
+                      ?>
+                    </select>
+                  </div>
+                  <div class="inner">
+                    <label for="price-filter">Khoảng giá:</label>
+                    <div class="price" id="price-filter">
+                      <input type="text" name="from" id="from" placeholder="₫ TỪ" onkeyup="checkNumber(this)">
+                      <input type="text" name="to" id="to" placeholder="₫ ĐẾN" onkeyup="checkNumber(this)">
+                    </div>
+                  </div>
+                  <div class="inner">
+                    <input type="button" value="Áp dụng" id="search-submit" onclick="checkSearch(event)">
+                  </div>
+                  <div class="inner">
+                    <button id="resetFilter">
+                      <i class="fa-solid fa-arrow-rotate-left fa-lg" onclick="resetFilter()"></i>
+                    </button>
+                  </div>
+                </div>
                 <!-- table -->
                 <table class="table datatables" id="dataTable-1">
                   <thead>
@@ -22,24 +55,10 @@
                       <th>Số lượng</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <?php                    
-                    hienThiSanPham();
+                  <tbody id="sanPhamData">
+                    <?php
+                    echo hienThiSanPhamAdmin(null);
                     ?>
-                    <!-- <tr>
-                      <td>1</td>
-                      <td>
-                        <img src="assets/products/p1.jpg" alt="" style="width: 50px; height: 50px; border-radius: 1000px;">
-                      </td>
-                      <td>Nike Air</td>
-                      <td>900.000</td>
-                      <td>800.000</td>
-                      <td>Nike</td>
-                      <td>Nam, thể thao</td>
-                      <td>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#chitietsoluong"></span>20</button>
-                      </td>
-                    </tr> -->
                   </tbody>
                 </table>
               </div>
@@ -245,41 +264,79 @@
     xml.open("GET", request, true);
     xml.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xml.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {        
+      if (this.readyState == 4 && this.status == 200) {
         document.querySelectorAll("#dataTable-1 .chiTietSoLuong")[0].innerHTML = this.responseText;
       }
     };
     xml.send();
   }
-</script>
 
-<?php
-function hienThiSanPham()
-{
-  require_once($_SERVER['DOCUMENT_ROOT'] . '/HTTT-DN/object/action.php');
-  $productList = getProductList();
-  for ($i = 0; $i < count($productList); $i++) {
-    $product = $productList[$i];
-    if ($product->getTinhTrang() == DA_XOA)
-      continue;
-    echo '<tr>' .
-      '<td>' . $product->getMaSanPham() . '</td>' .
-      '<td>' .
-        '<div class="product-img" style="background-color:#EDEAEB; width: 100px; height: 80px;  border-radius: 5px;">
-        <img src="' . $product->getHinhAnh() . '" alt="" style="width:100%; height:100%; object-fit:contain;">
-          </div>'.
-      '</td>' .
-      '<td>' . $product->getTenSanPham() . '</td>' .
-      '<td>' . changeMoney($product->getGiaCu()) . '₫</td>' .
-      '<td>' . changeMoney($product->getGiaMoi()) . '₫</td>' .
-      '<td>' . getNhanHieuById($product->getMaNhanHieu())->getTenNhanHieu() . '</td>' .
-      '<td>Nam, thể thao</td>' .
-      '<td>' .
-      '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#chitietsoluong" 
-      onclick="getChiTietSoLuong(' . $product->getMaSanPham() . ')"></span>'
-      . getSoLuongSanPham($product->getMaSanPham()) . '</button>' .
-      '</td>' .
-      '</tr>';
+  function checkSearch(e) {
+    var name = document.getElementById("pname").value.trim();
+    var category = document.getElementById("pcategory").value;
+    var minPrice = changeMoneyToNum(document.getElementById("from").value);
+    var maxPrice = changeMoneyToNum(document.getElementById("to").value);
+
+
+    if ((minPrice != "" && maxPrice != "") && (parseInt(minPrice) > parseInt(maxPrice))) {
+      e.preventDefault();
+      alertMessage("warning", "Vui lòng điền khoảng giá phù hợp");
+      return;
+    }
+    var request = "/HTTT-DN/pages/main/admin-sanpham-filter.php?";
+    if (name != "") {
+      request += "keyword=" + name;
+      if (category != "") {
+        request += "&category=" + category;
+      }
+      if (minPrice != "") {
+        request += "&minPrice=" + minPrice;
+      }
+      if (maxPrice != "") {
+        request += "&maxPrice=" + maxPrice;
+      }
+    } else {
+      if (category != "") {
+        request += "category=" + category;
+      }
+      if (minPrice != "") {
+        request += "&minPrice=" + minPrice;
+      }
+      if (maxPrice != "") {
+        request += "&maxPrice=" + maxPrice;
+      }
+    }
+
+    var xml = new XMLHttpRequest();
+    xml.open("GET", request, true);
+    xml.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xml.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("dataTable-1").innerHTML = this.responseText;
+      }
+    };
+    xml.send();
   }
-}
-?>
+
+  function resetFilter() {
+    var name = document.getElementById("pname");
+    var category = document.getElementById("pcategory");
+    var minPrice = document.getElementById("from");
+    var maxPrice = document.getElementById("to");
+    name.value = '';
+    category.value = 'all';
+    minPrice.value = '';
+    maxPrice.value = '';
+
+    var request = "/HTTT-DN/pages/main/admin-sanpham-filter.php?reset=true";
+    var xml = new XMLHttpRequest();
+    xml.open("GET", request, true);
+    xml.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xml.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("sanPhamData").innerHTML = this.responseText;
+      }
+    };
+    xml.send();
+  }
+</script>

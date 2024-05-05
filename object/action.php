@@ -73,8 +73,7 @@ function isExistMaSanPham($maSanPham)
 	if (is_null($row)) {
 		$db->disconnect();
 		return false;
-	}
-	else{
+	} else {
 		$db->disconnect();
 		return true;
 	}
@@ -344,7 +343,7 @@ function getPhieuNhapList()
 	$db = new Database();
 	$kq = mysqli_query($db->getConnection(), "SELECT * FROM `phieunhap`");
 	$phieuNhapList = array();
-	while($row = mysqli_fetch_assoc($kq)){	
+	while ($row = mysqli_fetch_assoc($kq)) {
 		$phieuNhap = new PhieuNhap(
 			$row['maPhieuNhap'],
 			$row['maNhanVien'],
@@ -355,33 +354,35 @@ function getPhieuNhapList()
 			$row['trangThai']
 		);
 		$phieuNhapList[] = $phieuNhap;
-	} 
+	}
 	$db->disconnect();
 	return $phieuNhapList;
 }
 
-function isExistMaPhieuNhap($maPhieuNhap) {
+function isExistMaPhieuNhap($maPhieuNhap)
+{
 	$db = new Database();
 	$kq = mysqli_query($db->getConnection(), "SELECT * FROM `phieunhap` WHERE maPhieuNhap = $maPhieuNhap");
 	$row = mysqli_fetch_assoc($kq);
 	if ($row) {
-		$db->disconnect();		
+		$db->disconnect();
 		return true;
 	} else {
-		$db->disconnect();		
+		$db->disconnect();
 		return false;
 	}
 }
 
-function isExistMaSizeOfMaSanPham($maSanPham, $maSize) {
+function isExistMaSizeOfMaSanPham($maSanPham, $maSize)
+{
 	$db = new Database();
 	$kq = mysqli_query($db->getConnection(), "SELECT * FROM `soluong` WHERE maSanPham = '$maSanPham' AND maSize = '$maSize'");
 	$row = mysqli_fetch_assoc($kq);
 	if ($row) {
-		$db->disconnect();		
+		$db->disconnect();
 		return true;
 	} else {
-		$db->disconnect();		
+		$db->disconnect();
 		return false;
 	}
 }
@@ -454,7 +455,7 @@ function getPhieuXuatList()
 	$db = new Database();
 	$kq = mysqli_query($db->getConnection(), "SELECT * FROM `phieuxuat`");
 	$phieuXuatList = array();
-	while($row = mysqli_fetch_assoc($kq)){	
+	while ($row = mysqli_fetch_assoc($kq)) {
 		$phieuXuat = new PhieuXuat(
 			$row['maPhieuXuat'],
 			$row['maKhachHang'],
@@ -465,7 +466,7 @@ function getPhieuXuatList()
 			$row['trangThai']
 		);
 		$phieuXuatList[] = $phieuXuat;
-	} 
+	}
 	$db->disconnect();
 	return $phieuXuatList;
 }
@@ -528,6 +529,15 @@ function getNhanHieuById($id)
 	}
 }
 
+function displayNhanHieuOption()
+{
+	echo "<option value=\"all\" selected>Mặc định</option>";
+	$nhanHieuList = getNhanHieuList();
+	for ($i = 0; $i < count($nhanHieuList); $i++) {
+		echo "<option value=\"" . $nhanHieuList[$i]->getMaNhanHieu() . "\">" . $nhanHieuList[$i]->getTenNhanHieu() . "</option>";
+	}
+}
+
 /*
 	Hàm chuyển đỗi chuỗi số thành tiền
 	VD: 3000000
@@ -557,4 +567,49 @@ function changeMoney($moneyIn)
 		$count++;
 	}
 	return $moneyOut;
+}
+
+function changeMoneyToNum($money)
+{
+	$arr = explode(".", $money);
+	$num = '';
+	for ($i = 0; $i < count($arr); $i++) {
+		$num .= $arr[$i];
+	}
+	return $num;
+}
+
+function hienThiSanPhamAdmin($list)
+{
+	$data = '';
+	$productList = null;
+	if ($list == null) {
+		$productList = getProductList();
+	} else {
+		$productList = $list;
+	}
+	for ($i = 0; $i < count($productList); $i++) {
+		$product = $productList[$i];
+		if ($product->getTinhTrang() == DA_XOA)
+			continue;
+		$data .= '<tr>' .
+			'<td>' . $product->getMaSanPham() . '</td>' .
+			'<td>' .
+			'<div class="product-img" style="background-color:#EDEAEB; width: 100px; height: 80px;  border-radius: 5px;">
+				<img src="' . $product->getHinhAnh() . '" alt="" style="width:100%; height:100%; object-fit:contain;">
+			  </div>' .
+			'</td>' .
+			'<td>' . $product->getTenSanPham() . '</td>' .
+			'<td>' . changeMoney($product->getGiaCu()) . '₫</td>' .
+			'<td>' . changeMoney($product->getGiaMoi()) . '₫</td>' .
+			'<td>' . getNhanHieuById($product->getMaNhanHieu())->getTenNhanHieu() . '</td>' .
+			'<td>Nam, thể thao</td>' .
+			'<td>' .
+			'<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#chitietsoluong" 
+  onclick="getChiTietSoLuong(' . $product->getMaSanPham() . ')"></span>'
+			. getSoLuongSanPham($product->getMaSanPham()) . '</button>' .
+			'</td>' .
+			'</tr>';
+	}
+	return $data;
 }

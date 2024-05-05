@@ -116,8 +116,10 @@ function checkAlert() {
             alertMessage('info', 'Phiếu nhập đã ở trạng thái đã nhận hàng!');
         else if (sessionStorage.getItem('editTrangThaiPhieuNhap') == 'same0')
             alertMessage('info', 'Phiếu nhập đã ở trạng thái chưa nhận hàng!');
-        else
+        else if (sessionStorage.getItem('editTrangThaiPhieuNhap') == 'gail')
             alertMessage('fail', 'Đổi trạng thái phiếu nhập thất bại');
+        else if (sessionStorage.getItem('editTrangThaiPhieuNhap') == 'cannotChange') 
+            alertMessage('info', 'Không được đổi trạng thái của phiếu nhập này');
         sessionStorage.removeItem('editTrangThaiPhieuNhap');
     }
     if (sessionStorage.getItem('editTrangThaiPhieuXuat') !== null) {
@@ -131,6 +133,26 @@ function checkAlert() {
             alertMessage('fail', 'Đổi trạng thái phiếu xuất thất bại');
         sessionStorage.removeItem('editTrangThaiPhieuXuat');
     }
+}
+
+function changeMoneyToNum(money) {
+    var arr = money.split(".");
+    var num = '';
+    for (var i = 0; i < arr.length; i++) {
+        num += arr[i];
+    }
+    return num;
+}
+
+function checkNumber(input) {
+    var price = input.value;
+    var request = "/HTTT-DN/pages/main/admin-sanpham-filter-checknumber.php?price=" + price;
+    var xml = new XMLHttpRequest();
+    xml.open("GET", request, true);
+    xml.onload = function() {
+        input.value = this.responseText;
+    }
+    xml.send();
 }
 
 // TEST ĐỪNG XÓA

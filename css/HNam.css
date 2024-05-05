@@ -279,6 +279,90 @@
     transition: .8s;
 }
 
+/* ----------------------- Search San Pham Page ---------------------- */
+#main-search .search-container {
+    width: 100%; 
+    height: auto;
+    padding: 20px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    /* background-color: rgb(0, 0, 0, 0.01); */
+    background-color: white;
+}
+
+#main-search .search-container .inner {
+    padding: 0 10px;
+}
+
+#main-search .search-container .inner label {
+    display: block;
+    font-size: 14px;
+}
+
+#main-search .search-container .inner input[type='text'] {
+    padding: 7px 15px;
+    border-radius: 5px;
+    outline: none;
+    border: solid lightblue;
+    font-size: 14px;
+}
+
+#main-search .search-container .inner .price input[type='text'] {
+    width: 120px;
+}
+
+#main-search .search-container .inner .price #from {
+    margin-right: 15px;
+}
+
+#main-search .search-container .inner select {
+    cursor: pointer;
+    border: solid lightblue;
+    padding: 7px 15px;
+    border-radius: 5px;
+    width: auto;
+    font-size: 14px;
+}
+
+#main-search .search-container .inner select:focus {
+    border-color: #4094F8;
+}
+
+#main-search .search-container .inner #pname {
+    width: 250px;
+}
+
+#main-search .search-container .inner input[type='text']:focus {
+    border-color: #4094F8;
+}
+
+#main-search .search-container .inner input[type='button'] {
+    background-color: #4094F8;
+    color: white;
+    padding: 7px 20px;
+    height: 41px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 28px;
+}
+
+#main-search .search-container .inner input[type='button']:hover {
+    background-color: dodgerblue;
+    transition: .2s;
+}
+
+#main-search .search-container .inner button#resetFilter {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    margin-top: 28px;
+}
+
 /* ----------------------- Animation ---------------------- */
 @keyframes upper {
     0% {

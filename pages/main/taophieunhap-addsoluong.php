@@ -48,13 +48,6 @@ if ($jsonData) {
             $maSize = $key;
             $soLuong = $value;
             $query = "";
-            // Tạo hoặc thêm số lượng sản phẩm
-            if (isExistMaSizeOfMaSanPham($maSanPham, $maSize)) {
-                $query = "UPDATE `soluong` SET soLuong = soLuong + $soLuong WHERE maSanPham = '$maSanPham' AND maSize = '$maSize'";
-            } else {
-                $query = "INSERT INTO `soluong` (maSanPham, soLuong, maSize) VALUES ($maSanPham, $soLuong, $maSize)";
-            }
-            $db->insert_update_delete($query);
 
             // Tạo chi tiết phiếu nhập mới
             $maChiTietPhieuNhapMoi = getNewestMaChiTietPhieuNhap();
