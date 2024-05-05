@@ -4,7 +4,10 @@ require_once './object/database.php';
 $row = new Database;
 $arr = $row->executeQuery('select distinct nv.maNhanVien, trangthai, avatar, hoTen, gioiTinh, ngaySinh, diaChi, tenPhong, tenChucVu, ngayKetThuc, luongCoBan from chucvu cv join nhanvien nv on cv.maChucVu=nv.maChucVu join phongban pb on pb.maPhong=nv.maPhong join hopdong hd on hd.maNhanVien=nv.maNhanVien order by nv.maNhanVien asc');
 
-$getPhongBanKoCoTruongPhong = $row->executeQuery("select distinct tenPhong from nhanvien nv join phongban pb on nv.maPhong = pb.maPhong where nv.maPhong not in (SELECT maPhong FROM `nhanvien` WHERE maChucVu = 'TP') group by tenPhong");
+$getPhongBanKoCoTruongPhong = $row->executeQuery(" select distinct tenPhong from nhanvien nv join phongban pb on nv.maPhong = pb.maPhong where nv.maPhong not in (SELECT maPhong FROM `nhanvien` WHERE maChucVu = 'TP') group by tenPhong
+UNION
+select pb1.maPhong from phongban pb1 WHERE pb1.maPhong not in (SELECT pb.maPhong FROM `phongban` pb join nhanvien nv on pb.maPhong = nv.maPhong)
+");
 if(isset($getPhongBanKoCoTruongPhong)){
   $soLuong = count($getPhongBanKoCoTruongPhong); 
 }

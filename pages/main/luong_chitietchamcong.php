@@ -6,8 +6,7 @@ $nam = $_GET['nam'];
 $nv = new Database;
 $getNhanVienTheoMa = $nv->executeQuery("select nv.maNhanVien, avatar, hoTen, gioiTinh, ngaySinh, diaChi, tenPhong, tenChucVu, ngayKetThuc, luongCoBan from chucvu cv join nhanvien nv on cv.maChucVu=nv.maChucVu join phongban pb on pb.maPhong=nv.maPhong join hopdong hd on hd.maNhanVien=nv.maNhanVien where nv.maNhanVien = $manv");
 $getBCCtheoMa = $nv->executeQuery("select * from chamcong where maNhanVien = $manv and thangChamCong = '$thang' and namChamCong = '$nam'");
-$getNgayNghiTheoMa = $nv->executeQuery("select nv.maNhanVien, SUM(soNgayNghi) soNgayNghiCoPhep from nhanvien nv join donnghiphep dnp on nv.maNhanVien = dnp.maNhanVien where nv.maNhanVien = $manv and MONTH(ngayBatDauNghi) = 3  group by nv.maNhanVien");
-
+$getNgayNghiTheoMa = $nv->executeQuery("select nv.maNhanVien, SUM(soNgayNghi) soNgayNghiCoPhep from nhanvien nv join donnghiphep dnp on nv.maNhanVien = dnp.maNhanVien where nv.maNhanVien = $manv and MONTH(ngayBatDauNghi) = $thang and YEAR(ngayBatDauNghi) = $nam group by nv.maNhanVien");
 // print_r($getBCCtheoMa)
 
 ?>
@@ -53,7 +52,7 @@ $getNgayNghiTheoMa = $nv->executeQuery("select nv.maNhanVien, SUM(soNgayNghi) so
                                                 <div class="form-row">
                                                     <div class="form-group col-md-6">
                                                         <label for="inputEmail4">Số ngày nghỉ không phép</label>
-                                                        <input type="number" class="form-control" id="songaynghikhongphep" name="songaynghikhongphep" value="<?php echo $bcc['soNgayNghiKhongPhep'] ?>" min="0" max="31">
+                                                        <input type="number" class="form-control" id="songaynghikhongphep" name="songaynghikhongphep" value="<?php echo $bcc['soNgayNghiKhongPhep'] ?>" min="0" max="31" disabled>
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label for="songaynghicophep">Số ngày nghỉ có phép</label>

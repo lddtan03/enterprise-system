@@ -537,13 +537,13 @@ if (isset($_POST['btn_submit'])) {
     $ngayketthuc = $_POST['ngayketthuc'];
 
 
-    $nv->insert_update_delete("INSERT INTO `nhanvien`(`cmnd`, `hoTen`, `gioiTinh`, `ngaySinh`, `diaChi`, `sdt`, `danToc`, `email`, `maChucVu`, `maPhong`, `avatar`) VALUES ('$cmnd','$hoten','$gioitinh','$ngaysinh','$diachi','$sdt','$dantoc','$email','$chucvu','$phong','$file_name')");
+    $nv->insert_update_delete("INSERT INTO `nhanvien`(`cmnd`, `hoTen`, `gioiTinh`, `ngaySinh`, `diaChi`, `sdt`, `danToc`, `email`, `maChucVu`, `maPhong`, `avatar`,`trangthai`) VALUES ('$cmnd','$hoten','$gioitinh','$ngaysinh','$diachi','$sdt','$dantoc','$email','$chucvu','$phong','$file_name','1')");
     $result = $nv->executeQuery("select maNhanVien from nhanvien where cmnd = '$cmnd'");
     $maNV = $result[0]['maNhanVien'];
     $nv->insert_update_delete("INSERT INTO `hopdong`(`ngayBatDau`, `ngayKetThuc`, `loaiHopDong`, `luongCoBan`, `maNhanVien`) VALUES ('$ngaybatdau','$ngayketthuc','$loaihopdong','$luongcoban','$maNV')");
     $nv->insert_update_delete("INSERT INTO `taikhoan`(`taikhoan`, `matkhau`, `maNhomQuyen`) VALUES ($maNV,12345,'nhanvien')");
     echo "<script>
-                                    window.location.href = 'http://localhost/HTTT-DN/index.php?page=nhanvien';
+                                    window.location.href = 'http://localhost:8888/HTTT-DN/index.php?page=nhanvien';
                                     </script>";
 }
 ?>

@@ -21,7 +21,7 @@ if (isset($_POST['nam'])) {
 $manv = $_SESSION['taiKhoan'];
 
 $sql = "select * from chamcong cc join nhanvien nv on cc.maNhanVien = nv.maNhanVien  join hopdong hd on hd.maNhanVien = nv.maNhanVien where nv.maNhanVien = $manv and thangChamCong = $thang and namChamCong = $nam"; 
-$getNgayNghiTheoMa = "select nv.maNhanVien, SUM(soNgayNghi) soNgayNghiCoPhep from nhanvien nv join donnghiphep dnp on nv.maNhanVien = dnp.maNhanVien where nv.maNhanVien = $manv and MONTH(ngayBatDauNghi) = $thang  group by nv.maNhanVien";
+$getNgayNghiTheoMa = "select nv.maNhanVien, SUM(soNgayNghi) soNgayNghiCoPhep from nhanvien nv join donnghiphep dnp on nv.maNhanVien = dnp.maNhanVien where nv.maNhanVien = $manv and MONTH(ngayBatDauNghi) = $thang and YEAR(ngayBatDauNghi) = $nam group by nv.maNhanVien";
 
 
 $result = $conn->query($sql);

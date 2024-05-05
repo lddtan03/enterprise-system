@@ -28,6 +28,9 @@ if (isset($_GET['page'])) {
         case 'admin-nhacungcap':
             require_once 'pages/main/admin-nhacungcap.php';
             break;
+        case 'luong_chitietchamcong':
+            require_once 'pages/main/luong_chitietchamcong.php';
+            break;
         case 'sanpham':
             if (isset($_GET['action'])) {
                 if ($_GET['action'] == 'add')

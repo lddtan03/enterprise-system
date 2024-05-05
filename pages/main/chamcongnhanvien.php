@@ -2,8 +2,9 @@
 require_once './object/database.php';
 $manv = $_GET['manv'];
 $nv = new Database;
+$thangChamCong = date('m', time()) - 1;
 $getNhanVienTheoMa = $nv->executeQuery("select nv.maNhanVien, avatar, hoTen, gioiTinh, ngaySinh, diaChi, tenPhong, tenChucVu, ngayKetThuc, luongCoBan from chucvu cv join nhanvien nv on cv.maChucVu=nv.maChucVu join phongban pb on pb.maPhong=nv.maPhong join hopdong hd on hd.maNhanVien=nv.maNhanVien where nv.maNhanVien = $manv");
-$getNgayNghiTheoMa = $nv->executeQuery("select nv.maNhanVien, SUM(soNgayNghi) soNgayNghiCoPhep from nhanvien nv join donnghiphep dnp on nv.maNhanVien = dnp.maNhanVien where nv.maNhanVien = $manv and MONTH(ngayBatDauNghi) = 3  AND dnp.lyDo NOT IN ('Thai sản', 'Ốm') AND dnp.trangThai NOT IN ('0') group by nv.maNhanVien");
+$getNgayNghiTheoMa = $nv->executeQuery("select nv.maNhanVien, SUM(soNgayNghi) soNgayNghiCoPhep from nhanvien nv join donnghiphep dnp on nv.maNhanVien = dnp.maNhanVien where nv.maNhanVien = $manv and MONTH(ngayBatDauNghi) = $thangChamCong  AND dnp.lyDo NOT IN ('Thai sản', 'Ốm') AND dnp.trangThai NOT IN ('0') group by nv.maNhanVien");
 ?>
 
 
@@ -46,7 +47,7 @@ $getNgayNghiTheoMa = $nv->executeQuery("select nv.maNhanVien, SUM(soNgayNghi) so
                                             <div class="form-row">
                                                 <div class="form-group col-md-6">
                                                     <label for="inputEmail4">Số ngày nghỉ không phép</label>
-                                                    <input type="number" class="form-control" id="songaynghikhongphep" name="songaynghikhongphep" value="0" min="0" max="25">
+                                                    <input type="number" class="form-control" id="songaynghikhongphep" name="songaynghikhongphep" value="0" min="0" max="25" disabled >
                                                 </div>
 
                                                 <div class="form-group col-md-6">
@@ -144,7 +145,7 @@ $getNgayNghiTheoMa = $nv->executeQuery("select nv.maNhanVien, SUM(soNgayNghi) so
     //     $ngayKetThuc = $_POST['ngayKetThuc'];
     //     $nv->insert_update_delete("update hopdong set ngayKetThuc = '$ngayKetThuc' where maNhanVien = $manv");
     //     echo "<script>
-    //         window.location.href = 'http://localhost/HTTT-DN/index.php?page=nhanvien'
+    //         window.location.href = 'http://localhost:8888/HTTT-DN/index.php?page=nhanvien'
     //         </script>";
     //     // header("location:../../index.php?page=nhanvien");
     // }

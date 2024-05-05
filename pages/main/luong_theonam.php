@@ -18,6 +18,7 @@ $tongLuongNam = $row->executeQuery("select SUM(thucLanh) as tongLuongNam from ch
                         <label for="nam">Năm</label>
                         <select name="nam" id="nam">
                             <option value="2023">2023</option>
+                            <option value="2024">2024</option>
                         </select>
                     </div>
                 </div>

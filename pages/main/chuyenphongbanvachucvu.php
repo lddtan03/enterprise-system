@@ -233,11 +233,18 @@ $getNhanVienTheoMa = $nv->executeQuery("select nv.maNhanVien, avatar, hoTen, gio
                                     $nv->insert_update_delete("update nhanvien set maPhong = '$phong', maChucVu = '$chucvu', ngayNhanChuc = '$date' where maNhanVien = '$manv'");
                                     
                                     $truongPhong = $nv->executeQuery("SELECT * FROM `phongban` pb join nhanvien nv on pb.maTruongPhong = nv.maNhanVien WHERE pb.maPhong = '$phong' and nv.maChucVu != 'TP'");
+                                    $truongPhong2 = $nv->executeQuery("select pb1.maPhong from phongban pb1 WHERE pb1.maPhong not in (SELECT pb.maPhong FROM `phongban` pb join nhanvien nv on pb.maPhong = nv.maPhong)");
+                                    if(isset($truongPhong2[0]['maPhong'])){
+                                        $maPhong2 = $truongPhong2[0]['maPhong'];
+                                    }
+
                                     if ($truongPhong) {
                                         $nv->insert_update_delete("update phongban set maTruongPhong = NULL, ngayNhanChuc = NULL where maPhong = '$phong'");
+                                    }else if(isset($maPhong2)){
+                                        $nv->insert_update_delete("update phongban set maTruongPhong = NULL, ngayNhanChuc = NULL where maPhong = '$maPhong2'");
                                     }
                                     echo "<script>
-                                    window.location.href = 'http://localhost/HTTT-DN/index.php?page=nhanvien'
+                                    window.location.href = 'http://localhost:8888/HTTT-DN/index.php?page=nhanvien'
                                     </script>";
                                 }
                             }
