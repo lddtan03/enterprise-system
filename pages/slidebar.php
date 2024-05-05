@@ -48,7 +48,7 @@ if (isset($_SESSION['taiKhoan'])) {
         <ul class="navbar-nav flex-fill w-100 mb-2">
             <li class="nav-item w-100">
                 <a class="nav-link" href="index.php?page=dashboard">
-                    <i class="fe fe-calendar fe-16"></i>
+                    <i class="fa-solid fa-gauge"></i>
                     <span class="ml-3 item-text">Dashboard</span>
                 </a>
             </li>
@@ -65,31 +65,31 @@ if (isset($_SESSION['taiKhoan'])) {
             <ul class="navbar-nav flex-fill w-100 mb-2">
                 <li class="nav-item w-100">
                     <a class="nav-link" href="index.php?page=admin-baocao">
-                        <i class="fe fe-calendar fe-16"></i>
+                        <i class="fa-solid fa-table"></i>
                         <span class="ml-3 item-text">Báo cáo</span>
                     </a>
                 </li>
                 <li class="nav-item w-100">
                     <a class="nav-link" href="index.php?page=admin-phongban">
-                        <i class="fe fe-calendar fe-16"></i>
+                        <i class="fa-solid fa-building mr-1"></i>
                         <span class="ml-3 item-text">Phòng ban</span>
                     </a>
                 </li>
                 <li class="nav-item w-100">
                     <a class="nav-link" href="index.php?page=admin-sanpham">
-                        <i class="fe fe-calendar fe-16"></i>
+                        <i class="fa-solid fa-box mr-1"></i>
                         <span class="ml-3 item-text">Sản phẩm</span>
                     </a>
                 </li>
                 <li class="nav-item w-100">
                     <a class="nav-link" href="index.php?page=admin-nhacungcap">
-                        <i class="fe fe-calendar fe-16"></i>
+                        <i class="fa-solid fa-house-chimney-crack"></i>
                         <span class="ml-3 item-text">Nhà cung cấp</span>
                     </a>
                 </li>
                 <li class="nav-item w-100">
                     <a class="nav-link" href="index.php?page=admin-phanquyen">
-                        <i class="fe fe-calendar fe-16"></i>
+                        <i class="fa-solid fa-user-group"></i>
                         <span class="ml-3 item-text">Phân quyền</span>
                     </a>
                 </li>
@@ -130,7 +130,7 @@ if (isset($_SESSION['taiKhoan'])) {
                 </li>
                 <li class="nav-item w-100">
                     <a class="nav-link" href="index.php?page=donnghiphep">
-                        <i class="fe fe-calendar fe-16"></i>
+                        <i class="fa-solid fa-newspaper"></i>
                         <span class="ml-3 item-text">Đơn nghỉ phép</span>
                     </a>
                 </li>
@@ -148,31 +148,31 @@ if (isset($_SESSION['taiKhoan'])) {
             <ul class="navbar-nav flex-fill w-100 mb-2">
                 <li class="nav-item w-100">
                     <a class="nav-link" href="index.php?page=thongkenhansu">
-                        <i class="fe fe-calendar fe-16"></i>
+                        <i class="fa-solid fa-chart-line"></i>
                         <span class="ml-3 item-text">Thống kê nhân sự</span>
                     </a>
                 </li>
                 <li class="nav-item w-100">
                     <a class="nav-link" href="index.php?page=nhanvien">
-                        <i class="fe fe-calendar fe-16"></i>
+                        <i class="fa-solid fa-users"></i>
                         <span class="ml-3 item-text">Nhân viên</span>
                     </a>
                 </li>
                 <li class="nav-item w-100">
                     <a class="nav-link" href="index.php?page=duyetdonnghiphep">
-                        <i class="fe fe-calendar fe-16"></i>
+                        <i class="fa-solid fa-elevator"></i>
                         <span class="ml-3 item-text">Duyệt đơn nghỉ phép</span>
                     </a>
                 </li>
                 <li class="nav-item w-100">
                     <a class="nav-link" href="index.php?page=chamcong">
-                        <i class="fe fe-calendar fe-16"></i>
+                        <i class="fa-solid fa-id-card-clip"></i>
                         <span class="ml-3 item-text">Chấm công</span>
                     </a>
                 </li>
                 <li class="nav-item w-100">
                     <a class="nav-link" href="index.php?page=chamcongdanhsach">
-                        <i class="fe fe-calendar fe-16"></i>
+                        <i class="fa-solid fa-address-card"></i>
                         <span class="ml-3 item-text">Danh sách chấm công</span>
                     </a>
                 </li>
@@ -192,19 +192,19 @@ if (isset($_SESSION['taiKhoan'])) {
             <ul class="navbar-nav flex-fill w-100 mb-2">
                 <li class="nav-item w-100">
                     <a class="nav-link" href="index.php?page=thongkekhohang">
-                        <i class="fe fe-calendar fe-16"></i>
+                        <i class="fa-solid fa-chart-line"></i>
                         <span class="ml-3 item-text">Thống kê kho hàng</span>
                     </a>
                 </li>
                 <li class="nav-item w-100">
                     <a class="nav-link" href="index.php?page=sanpham">
-                        <i class="fe fe-calendar fe-16"></i>
+                        <i class="fa-solid fa-box mr-1"></i>
                         <span class="ml-3 item-text">Sản phẩm</span>
                     </a>
                 </li>
                 <li class="nav-item w-100">
                     <a class="nav-link" href="index.php?page=nhacungcap">
-                        <i class="fe fe-calendar fe-16"></i>
+                        <i class="fa-solid fa-house-chimney-crack"></i>
                         <span class="ml-3 item-text">Nhà cung cấp</span>
                     </a>
                 </li>
@@ -213,9 +213,9 @@ if (isset($_SESSION['taiKhoan'])) {
                         display: block;
                     }
                 </style>
-                <li class=hover-nhaphang "nav-item dropdown">
+                <li class="hover-nhaphang nav-item dropdown">
                     <a href="#nhaphang" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle nav-link">
-                        <i class="fa-regular fa-money-bill-1 fe-16"></i>
+                        <i class="fa-solid fa-tent-arrow-down-to-line"></i>
                         <span class="ml-3 item-text">Nhập hàng</span>
                     </a>
                     <ul class="collapse list-unstyled pl-4 w-100" id="nhaphang">
@@ -248,7 +248,7 @@ if (isset($_SESSION['taiKhoan'])) {
             <ul class="navbar-nav flex-fill w-100 mb-2">
                 <li class="nav-item dropdown hover-thongkekinhdoanh">
                     <a href="#thongke" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle nav-link">
-                        <i class="fa-regular fa-money-bill-1 fe-16"></i>
+                        <i class="fa-solid fa-chart-line"></i>
                         <span class="ml-3 item-text">Thống kê kinh doanh</span>
                     </a>
                     <ul class="collapse list-unstyled pl-4 w-100" id="thongke">
@@ -264,7 +264,7 @@ if (isset($_SESSION['taiKhoan'])) {
                 </li>
                 <li class="nav-item w-100">
                     <a class="nav-link" href="index.php?page=xuathang">
-                        <i class="fe fe-calendar fe-16"></i>
+                        <i class="fa-solid fa-truck-arrow-right"></i>
                         <span class="ml-3 item-text">Xuất hàng</span>
                     </a>
                 </li>
