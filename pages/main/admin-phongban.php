@@ -78,10 +78,10 @@ if (isset($_SESSION['taiKhoan'])) {
 							<div class="form-row">
 								<div class="form-group col-md-8">
 									<div class="input-group">
-									<input type="text" class="form-control " id="date-input1" name="ngayNhanChuc" aria-describedby="button-addon2">
-										<div class="input-group-append">
+									<input type="text" class="form-control " id="" name="ngayNhanChuc" aria-describedby="button-addon2" readonly>
+										<!-- <div class="input-group-append">
 											<div class="input-group-text" id="button-addon-date"><span class="fe fe-calendar fe-16"></span></div>
-										</div>
+										</div> -->
 									</div>
 								</div>
 							</div>

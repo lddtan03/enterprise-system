@@ -260,7 +260,7 @@ $chartDataJSON = json_encode($chartData2);
 
 
 <main role="main" class="main-content">
-  
+
   <div class="container-fluid">
     <div id="chart_div" style="width: 100%; margin-bottom: 20px; height:500px"></div>
     <div class="row">
@@ -275,11 +275,11 @@ $chartDataJSON = json_encode($chartData2);
     </div>
   </div>
   <div class="container-fluid">
-    <div class="bieudophieunhap" style="margin-top: 38%;"> 
+    <div class="bieudophieunhap" style="margin-top: 38%;">
       <div class="container-fluid">
         <h2>Biểu đồ phiếu nhập</h2>
         <div style="width:100%;">
-          <canvas id="myChart1"></canvas>
+          <canvas id="myChartPhieuNhap"></canvas>
         </div>
       </div>
     </div>
@@ -381,7 +381,7 @@ $chartDataJSON = json_encode($chartData2);
       });
     }
 
-    drawChart(data1, 'myChart1');
+    drawChart(data1, 'myChartPhieuNhap');
   </script>
   </div>
   <br>
@@ -404,7 +404,7 @@ $chartDataJSON = json_encode($chartData2);
   // Truy vấn dữ liệu từ bảng phieunhap
   $sqlPhieuXuat = "SELECT ngayXuat AS ngay, tongTien, tongSoLuong FROM phieuxuat ORDER BY ngay";
 
-  $resultPhieuXuat = $conn->query($sql);
+  $resultPhieuXuat = $conn->query($sqlPhieuXuat);
 
   // Tạo mảng lưu trữ dữ liệu cho biểu đồ phiếu xuất
   $dataPhieuXuat = array();
@@ -478,22 +478,6 @@ $chartDataJSON = json_encode($chartData2);
     drawChartPhieuXuat(dataPhieuXuat);
   </script>
   </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
 
   </div> <!-- .container-fluid -->
 
@@ -1012,4 +996,3 @@ $chartDataJSON = json_encode($chartData2);
   gtag('js', new Date());
   gtag('config', 'UA-56159088-1');
 </script>
-
