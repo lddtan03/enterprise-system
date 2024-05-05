@@ -68,49 +68,51 @@ if ($conn->connect_error) {
                                             if ($result->num_rows > 0) {
                                                 // Xuất dữ liệu trên mỗi hàng
                                                 while ($row = $result->fetch_assoc()) {
-                                                    echo "<tr>";
-                                                    echo "<td>" . $row["maNhanVien"] . "</td>";
-                                                    echo "<td>" . $row["hoTen"] . "</td>";
-                                                    // Thêm radio button cho từng loại phân quyền
-                                                    echo "<td>
-                                                        <div class=''>
-                                                            <input type='radio' class='radio-quyen' name='" . $row["maNhanVien"] . "-qlk' value='nhanvien'";
-                                                    if ($row["maNhomQuyen"] == "nhanvien") {
-                                                        echo " checked";
+                                                    if($row["maNhanVien"]!=21){
+                                                        echo "<tr>";
+                                                        echo "<td>" . $row["maNhanVien"] . "</td>";
+                                                        echo "<td>" . $row["hoTen"] . "</td>";
+                                                        // Thêm radio button cho từng loại phân quyền
+                                                        echo "<td>
+                                                            <div class=''>
+                                                                <input type='radio' class='radio-quyen' name='" . $row["maNhanVien"] . "-qlk' value='nhanvien'";
+                                                        if ($row["maNhomQuyen"] == "nhanvien") {
+                                                            echo " checked";
+                                                        }
+                                                        echo ">
+                                                            </div>
+                                                        </td>";
+                                                        // Tương tự cho các radio button khác
+                                                        echo "<td>
+                                                            <div class=''>
+                                                                <input type='radio' class='radio-quyen' name='" . $row["maNhanVien"] . "-qlk' value='quanlynhansu'";
+                                                        if ($row["maNhomQuyen"] == "quanlynhansu") {
+                                                            echo " checked";
+                                                        }
+                                                        echo ">
+                                                            </div>
+                                                        </td>";
+                                                        // Tương tự cho các radio button khác
+                                                        echo "<td>
+                                                            <div class=''>
+                                                                <input type='radio' class='radio-quyen' name='" . $row["maNhanVien"] . "-qlk' value='quanlykho'";
+                                                        if ($row["maNhomQuyen"] == "quanlykho") {
+                                                            echo " checked";
+                                                        }
+                                                        echo ">
+                                                            </div>
+                                                        </td>";
+                                                        // Tương tự cho các radio button khác
+                                                        echo "<td>
+                                                            <div class=''>
+                                                                <input type='radio' class='radio-quyen' name='" . $row["maNhanVien"] . "-qlk' value='quanlykinhdoanh'";
+                                                        if ($row["maNhomQuyen"] == "quanlykinhdoanh") {
+                                                            echo " checked";
+                                                        }
+                                                        echo ">
+                                                            </div>
+                                                        </td>";
                                                     }
-                                                    echo ">
-                                                        </div>
-                                                    </td>";
-                                                    // Tương tự cho các radio button khác
-                                                    echo "<td>
-                                                        <div class=''>
-                                                            <input type='radio' class='radio-quyen' name='" . $row["maNhanVien"] . "-qlk' value='quanlynhansu'";
-                                                    if ($row["maNhomQuyen"] == "quanlynhansu") {
-                                                        echo " checked";
-                                                    }
-                                                    echo ">
-                                                        </div>
-                                                    </td>";
-                                                    // Tương tự cho các radio button khác
-                                                    echo "<td>
-                                                        <div class=''>
-                                                            <input type='radio' class='radio-quyen' name='" . $row["maNhanVien"] . "-qlk' value='quanlykho'";
-                                                    if ($row["maNhomQuyen"] == "quanlykho") {
-                                                        echo " checked";
-                                                    }
-                                                    echo ">
-                                                        </div>
-                                                    </td>";
-                                                    // Tương tự cho các radio button khác
-                                                    echo "<td>
-                                                        <div class=''>
-                                                            <input type='radio' class='radio-quyen' name='" . $row["maNhanVien"] . "-qlk' value='quanlykinhdoanh'";
-                                                    if ($row["maNhomQuyen"] == "quanlykinhdoanh") {
-                                                        echo " checked";
-                                                    }
-                                                    echo ">
-                                                        </div>
-                                                    </td>";
                                                 }
                                             } else {
                                                 echo "Không có dữ liệu";
