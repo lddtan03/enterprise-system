@@ -134,7 +134,7 @@ $getNgayNghiTheoMa = $nv->executeQuery("select nv.maNhanVien, SUM(soNgayNghi) so
                             $result = $nv->insert_update_delete("UPDATE `chamcong` SET `soNgayLamViec`='$songaylamviec',`soNgayNghiKhongPhep`='$songaynghikhongphep',`soNgayTre`='$songaytre',`soGioTangCa`='$sogiotangca',`luongThuong`='$luongthuong',`phuCap`='$phucap',`khoanTruBaoHiem`='$khoantrubaohiem',`khoanTruKhac`='$khoantrukhac',`thucLanh`='$thuclanh' WHERE maNhanVien = $manv");
                             if ($result) {
                                 echo "<script>
-                                window.location.href = 'http://localhost:8888/HTTT-DN/index.php?page=chamcongdanhsach'
+                                window.location.href = 'http://localhost/HTTT-DN/index.php?page=chamcongdanhsach'
                                 </script>";
                             }
                         }

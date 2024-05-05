@@ -2,7 +2,8 @@
 require_once './object/database.php';
 
 $row = new Database;
-$arr = $row->executeQuery('select * from chamcong where thangChamCong = 3');
+$thangChamCong = date('m', time()) - 1;
+$arr = $row->executeQuery("select * from chamcong where thangChamCong = $thangChamCong and namChamCong = 2024");
 
 ?>
 
@@ -15,9 +16,10 @@ $arr = $row->executeQuery('select * from chamcong where thangChamCong = 3');
                     <div>
                         <label for="thang">Tháng</label>
                         <select name="thang" id="thang">
+                            <option value="1">1</option>
                             <option value="2">2</option>
-                            <option value="3" selected>3</option>
-
+                            <option value="3">3</option>
+                            <option value="4" selected>4</option>
                         </select>
                         <label for="nam">Năm</label>
                         <select name="nam" id="nam">
@@ -301,9 +303,9 @@ $arr = $row->executeQuery('select * from chamcong where thangChamCong = 3');
                 dataType: 'json',
                 success: function(result) {
                     console.log(result);
-                        let str = '';
-                        result.result.forEach(element => {
-                            str += `<tr>
+                    let str = '';
+                    result.result.forEach(element => {
+                        str += `<tr>
                                     <td>${element['maChamCong']}</td>
                                                 <td>${element['maNhanVien']}</td>
                                                 <td>${element['thangChamCong']}</td>
@@ -326,9 +328,9 @@ $arr = $row->executeQuery('select * from chamcong where thangChamCong = 3');
                                                     </div>
                                                 </td>
                                             </tr>`
-                        });
-                        $('#body_table').html(str)
-    
+                    });
+                    $('#body_table').html(str)
+
 
                 },
                 error: function(xhr, ajaxOptions, thrownError) {

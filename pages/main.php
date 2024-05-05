@@ -62,10 +62,10 @@ if (isset($_GET['page'])) {
             break;
         case 'thongkexuat':
             require_once 'pages/main/thongkexuat.php';
-            break;    
+            break;
         case 'thongkeloinhuan':
             require_once 'pages/main/thongkeloinhuan.php';
-            break; 
+            break;
         case 'admin-phanquyen':
             require_once 'pages/main/admin-phanquyen.php';
             break;
@@ -108,16 +108,16 @@ if (isset($_GET['page'])) {
         case 'luong_danhsachchamcongcuanhanvien':
             require_once 'pages/main/luong_danhsachchamcongcuanhanvien.php';
             break;
-        case 'luong_chitietchamcong':
-            require_once 'pages/main/luong_chitietchamcong.php';
-            break;
         case 'luong_theothang':
             require_once 'pages/main/luong_theothang.php';
+            break;
+        case 'themnhanvien_xuly':
+            require_once 'pages/main/themnhanvien_xuly.php';
             break;
         case 'luong_theonam':
             require_once 'pages/main/luong_theonam.php';
             break;
-               case 'nhaphang':
+        case 'nhaphang':
             if ($_GET['id'] == 'taophieunhap') {
                 require_once 'pages/main/taophieunhap.php';
             } else {

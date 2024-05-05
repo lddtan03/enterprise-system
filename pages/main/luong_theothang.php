@@ -3,8 +3,9 @@ require_once './object/database.php';
 
 $manv = $_SESSION['taiKhoan'];
 $row = new Database;
-$arr = $row->executeQuery("select * from chamcong cc join nhanvien nv on cc.maNhanVien = nv.maNhanVien join hopdong hd on hd.maNhanVien = nv.maNhanVien where nv.maNhanVien = $manv and thangChamCong = 3 and namChamCong = 2024");
-$getNgayNghiTheoMa = $row->executeQuery("select nv.maNhanVien, SUM(soNgayNghi) soNgayNghiCoPhep from nhanvien nv join donnghiphep dnp on nv.maNhanVien = dnp.maNhanVien where nv.maNhanVien = $manv and MONTH(ngayBatDauNghi) = 3  group by nv.maNhanVien");
+$thangChamCong = date('m') - 1;
+$arr = $row->executeQuery("select * from chamcong cc join nhanvien nv on cc.maNhanVien = nv.maNhanVien join hopdong hd on hd.maNhanVien = nv.maNhanVien where nv.maNhanVien = $manv and thangChamCong = $thangChamCong and namChamCong = 2024");
+$getNgayNghiTheoMa = $row->executeQuery("select nv.maNhanVien, SUM(soNgayNghi) soNgayNghiCoPhep from nhanvien nv join donnghiphep dnp on nv.maNhanVien = dnp.maNhanVien where nv.maNhanVien = $manv and MONTH(ngayBatDauNghi) = $thangChamCong  group by nv.maNhanVien");
 
 // print_r($getNgayNghiTheoMa)
 ?>
@@ -19,7 +20,8 @@ $getNgayNghiTheoMa = $row->executeQuery("select nv.maNhanVien, SUM(soNgayNghi) s
                         <label for="thang">Tháng</label>
                         <select name="thang" id="thang">
                             <option value="2">2</option>
-                            <option value="3" selected>3</option>
+                            <option value="3" >3</option>
+                            <option value="4" selected>4</option>
                         </select>
                         <label for="nam">Năm</label>
                         <select name="nam" id="nam">

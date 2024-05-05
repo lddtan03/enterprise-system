@@ -26,11 +26,6 @@ if (isset($_SESSION['taiKhoan'])) {
 ?>
 
 
-
-
-
-
-
 <main role="main" class="main-content">
 	<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
@@ -852,8 +847,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
 	}
 
 	flatpickr("#date-input1", {
-    dateFormat: "Y-m-d"
-});
+		dateFormat: "Y-m-d"
+	});
 </script>
 <script src="js/apps.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
