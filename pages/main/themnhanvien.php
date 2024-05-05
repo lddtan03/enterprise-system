@@ -35,6 +35,15 @@ $nv = new Database;
         transform: scale(0.8);
         transition: all .3s;
     }
+
+    .border_red {
+        border: 1px solid red;
+        outline: 1px solid red;
+    }
+
+    .text_red {
+        color: red;
+    }
 </style>
 
 <main role="main" class="main-content">
@@ -43,7 +52,7 @@ $nv = new Database;
             <div class="col-12 col-lg-10 col-xl-8">
                 <h2 class="h3 mb-4 page-title">Thêm nhân viên</h2>
                 <div class="my-4">
-                    <form onsubmit="return checkForm(event)" enctype="multipart/form-data" class="mb-5" method="post" action="">
+                    <form enctype="multipart/form-data" class="mb-5" method="post" action="" id="formThemNhanVien">
                         <?php
                         // foreach ($result as $nhanvien) {
                         ?>
@@ -64,16 +73,19 @@ $nv = new Database;
                             <div class="form-group col-md-6">
                                 <label for="cmnd">CMND/CCCD</label>
                                 <input type="text" id="cmnd" name="cmnd" class="form-control">
+                                <input type="hidden" id="error_cmnd" name="error_cmnd" value="">
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="sdt">Số điện thoại</label>
                                 <input type="text" id="sdt" name="sdt" class="form-control">
+                                <input type="hidden" id="error_sdt" name="error_sdt" value="">
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="email">Email</label>
                                 <input type="email" class="form-control" name="email" id="email">
+                                <input type="hidden" id="error_email" name="error_email" value="">
                             </div>
                         </div>
                         <div class="form-group">
@@ -171,53 +183,11 @@ $nv = new Database;
                             </div>
                         </div>
 
-                        <input type="submit" class="btn btn-primary" value="Lưu" name="btn_submit"></input>
+                        <input type="submit" class="btn btn-primary" value="Lưu" id="btn_submit" name="btn_submit"></input>
                         <?php
                         // }
                         ?>
                     </form>
-                    <?php
-                    if (isset($_POST['btn_submit'])) {
-                        $upload_dir = 'assets/avatars/';
-                        $file_name = $_FILES['file']['name'];
-                        $upload_file = $upload_dir . $file_name;
-                        if (move_uploaded_file($_FILES['file']['tmp_name'], $upload_file)) {
-                            echo "";
-                        }
-
-                        $hoten = $_POST['hoten'];
-                        $cmnd = $_POST['cmnd'];
-                        $sdt = $_POST['sdt'];
-                        $email = $_POST['email'];
-                        $diachi = $_POST['diachi'];
-                        $ngaysinh = $_POST['ngaysinh'];
-                        $inputState5 = $_POST['inputState5'];
-                        $dantoc = $_POST['dantoc'];
-                        if ($inputState5 == 'male') {
-                            $gioitinh = "Nam";
-                        } else {
-                            $gioitinh = "Nữ";
-                        }
-
-                        $chucvu = $_POST['chucvu'];
-                        $phong = $_POST['phong'];
-                        $luongcoban = $_POST['luongcoban'];
-                        $loaihopdong = $_POST['loaihopdong'];
-                        $ngaybatdau = $_POST['ngaybatdau'];
-                        $ngayketthuc = $_POST['ngayketthuc'];
-
-
-
-                        $nv->insert_update_delete("INSERT INTO `nhanvien`(`cmnd`, `hoTen`, `gioiTinh`, `ngaySinh`, `diaChi`, `sdt`, `danToc`, `email`, `maChucVu`, `maPhong`, `avatar`) VALUES ('$cmnd','$hoten','$gioitinh','$ngaysinh','$diachi','$sdt','$dantoc','$email','$chucvu','$phong','$file_name')");
-                        $result = $nv->executeQuery("select maNhanVien from nhanvien where cmnd = '$cmnd'");
-                        $maNV = $result[0]['maNhanVien'];
-                        $nv->insert_update_delete("INSERT INTO `hopdong`(`ngayBatDau`, `ngayKetThuc`, `loaiHopDong`, `luongCoBan`, `maNhanVien`) VALUES ('$ngaybatdau','$ngayketthuc','$loaihopdong','$luongcoban','$maNV')");
-                        $nv->insert_update_delete("INSERT INTO `taikhoan`(`taikhoan`, `matkhau`, `maNhomQuyen`) VALUES ($maNV,12345,'nhanvien')");
-                        echo "<script>
-                            window.location.href = 'http://localhost/HTTT-DN/index.php?page=nhanvien';
-                            </script>";
-                    }
-                    ?>
                 </div>
 
 
@@ -345,6 +315,192 @@ $nv = new Database;
             ngayketthuchopdong.focus();
             e.preventDefault();
             return false;
+        } else if (cmnd.classList.contains('border_red')) {
+            // cmnd.focus();
+            e.preventDefault();
+            return false;
+        } else if (sdt.classList.contains('border_red')) {
+            // cmnd.focus();
+            e.preventDefault();
+            return false;
+        } else if (email.classList.contains('border_red')) {
+            // cmnd.focus();
+            e.preventDefault();
+            return false;
         }
     }
 </script>
+
+
+<script>
+    $(document).ready(function() {
+        $('#cmnd').blur(function(e) {
+            var cmnd = $('#cmnd').val();
+            var data = {
+                cmnd: cmnd,
+            }
+            $.ajax({
+                url: '/HTTT-DN/pages/main/themnhanvien_ajax.php',
+                method: 'POST',
+                data: data,
+                dataType: 'json',
+                success: function(result) {
+                    if (result.error.cmnd != "") {
+                        alert(result.error.cmnd)
+                        $('#cmnd').addClass('border_red')
+                    } else {
+                        $('#cmnd').removeClass('border_red')
+                    }
+
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status);
+                    alert(thrownError);
+                },
+            });
+        })
+        $('#sdt').blur(function(e) {
+            var sdt = $('#sdt').val();
+            var data = {
+                sdt: sdt,
+            }
+            $.ajax({
+                url: '/HTTT-DN/pages/main/themnhanvien_ajax.php',
+                method: 'POST',
+                data: data,
+                dataType: 'json',
+                success: function(result) {
+                    if (result.error.sdt != "") {
+                        alert(result.error.sdt)
+                        $('#sdt').addClass('border_red')
+                    } else {
+                        $('#sdt').removeClass('border_red')
+                    }
+
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status);
+                    alert(thrownError);
+                },
+            });
+        })
+        $('#email').blur(function(e) {
+            var email = $('#email').val();
+            var data = {
+                email: email,
+            }
+            $.ajax({
+                url: '/HTTT-DN/pages/main/themnhanvien_ajax.php',
+                method: 'POST',
+                data: data,
+                dataType: 'json',
+                success: function(result) {
+                    if (result.error.email != "") {
+                        alert(result.error.email)
+                        $('#email').addClass('border_red')
+                    } else {
+                        $('#email').removeClass('border_red')
+                    }
+
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status);
+                    alert(thrownError);
+                },
+            });
+        })
+
+
+        $('#formThemNhanVien').submit(function(e) {
+            // e.preventDefault();
+            checkForm(e)
+            var cmnd = $('#cmnd').val();
+            var sdt = $('#sdt').val();
+            var email = $('#email').val();
+            var data = {
+                cmnd: cmnd,
+                sdt: sdt,
+                email: email,
+            }
+
+            $.ajax({
+                url: '/HTTT-DN/pages/main/themnhanvien_ajax.php',
+                method: 'POST',
+                data: data,
+                dataType: 'json',
+                success: function(result) {
+                    if (result.error.cmnd != "") {
+                        alert(result.error.cmnd)
+                        e.preventDefault()
+                        return false
+                    }
+
+                    if (result.error.sdt != "") {
+                        alert(result.error.sdt)
+                        e.preventDefault()
+                        return false
+                    }
+
+                    if (result.error.email != "") {
+                        alert(result.error.email)
+                        e.preventDefault()
+                        return false
+                    }
+
+
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status);
+                    alert(thrownError);
+                },
+            });
+        })
+    })
+</script>
+
+
+<?php
+
+$error;
+if (isset($_POST['btn_submit'])) {
+    print_r($_POST);
+    $upload_dir = 'assets/avatars/';
+    $file_name = $_FILES['file']['name'];
+    $upload_file = $upload_dir . $file_name;
+    if (move_uploaded_file($_FILES['file']['tmp_name'], $upload_file)) {
+        echo "";
+    }
+
+    $hoten = $_POST['hoten'];
+    $cmnd = $_POST['cmnd'];
+    $sdt = $_POST['sdt'];
+    $email = $_POST['email'];
+    $diachi = $_POST['diachi'];
+    $ngaysinh = $_POST['ngaysinh'];
+    $inputState5 = $_POST['inputState5'];
+    $dantoc = $_POST['dantoc'];
+
+    if ($inputState5 == 'male') {
+        $gioitinh = "Nam";
+    } else {
+        $gioitinh = "Nữ";
+    }
+
+    $chucvu = $_POST['chucvu'];
+    $phong = $_POST['phong'];
+    $luongcoban = $_POST['luongcoban'];
+    $loaihopdong = $_POST['loaihopdong'];
+    $ngaybatdau = $_POST['ngaybatdau'];
+    $ngayketthuc = $_POST['ngayketthuc'];
+
+
+    $nv->insert_update_delete("INSERT INTO `nhanvien`(`cmnd`, `hoTen`, `gioiTinh`, `ngaySinh`, `diaChi`, `sdt`, `danToc`, `email`, `maChucVu`, `maPhong`, `avatar`) VALUES ('$cmnd','$hoten','$gioitinh','$ngaysinh','$diachi','$sdt','$dantoc','$email','$chucvu','$phong','$file_name')");
+    $result = $nv->executeQuery("select maNhanVien from nhanvien where cmnd = '$cmnd'");
+    $maNV = $result[0]['maNhanVien'];
+    $nv->insert_update_delete("INSERT INTO `hopdong`(`ngayBatDau`, `ngayKetThuc`, `loaiHopDong`, `luongCoBan`, `maNhanVien`) VALUES ('$ngaybatdau','$ngayketthuc','$loaihopdong','$luongcoban','$maNV')");
+    $nv->insert_update_delete("INSERT INTO `taikhoan`(`taikhoan`, `matkhau`, `maNhomQuyen`) VALUES ($maNV,12345,'nhanvien')");
+    echo "<script>
+                                    window.location.href = 'http://localhost/HTTT-DN/index.php?page=nhanvien';
+                                    </script>";
+}
+?>

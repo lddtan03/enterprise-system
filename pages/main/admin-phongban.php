@@ -26,11 +26,6 @@ if (isset($_SESSION['taiKhoan'])) {
 ?>
 
 
-
-
-
-
-
 <main role="main" class="main-content">
 	<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
@@ -78,7 +73,7 @@ if (isset($_SESSION['taiKhoan'])) {
 							<div class="form-row">
 								<div class="form-group col-md-8">
 									<div class="input-group">
-									<input type="text" class="form-control " id="date-input1" name="ngayNhanChuc" value="2024-04-14" aria-describedby="button-addon2">
+										<input type="text" class="form-control " id="date-input1" name="ngayNhanChuc" value="2024-04-14" aria-describedby="button-addon2">
 										<div class="input-group-append">
 											<div class="input-group-text" id="button-addon-date"><span class="fe fe-calendar fe-16"></span></div>
 										</div>
@@ -267,7 +262,10 @@ if (isset($_SESSION['taiKhoan'])) {
 												echo "<td>" . $row["maTruongPhong"] . "</td>"; // Hiển thị cột maTruongPhong
 												echo "<td>" . $row["tenTruongPhong"] . "</td>";
 												echo "<td>" . $row["soLuongNV"] . "</td>";
-												echo "<td>" . date("d-m-Y", strtotime($row["ngayNhanChuc"])) . "</td>"; // Định dạng ngày tháng
+												
+												if($row["ngayNhanChuc"]) echo "<td>" . date("d-m-Y", strtotime($row["ngayNhanChuc"])) . "</td>"; else echo "<td></td>"; // Định dạng ngày tháng
+												
+												
 												echo "<td>";
 												echo "<div style='display: flex; align-items: center; justify-content: start; gap: 10px;'>";
 												echo "<button type='button' class='btn mb-2 btn-warning'>Sửa</button>";
@@ -779,8 +777,8 @@ if (isset($_SESSION['taiKhoan'])) {
 	}
 
 	flatpickr("#date-input1", {
-    dateFormat: "Y-m-d"
-});
+		dateFormat: "Y-m-d"
+	});
 </script>
 <script src="js/apps.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->

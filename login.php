@@ -117,7 +117,7 @@ mysqli_close($conn); // Close the database connection after processing
                         </a>
                     <h1 class="h6 mb-3">Sign in</h1>
                     <?php
-                        echo "Nhân viên: 21".'<br>'."Admin: 25".'<br>'."Quản lý kinh doanh: 29".'<br>'."Quản lý nhân sự: 37".'<br>'."Quản lý kho: 43".'<br>';
+                        // echo "Nhân viên: 21".'<br>'."Admin: 25".'<br>'."Quản lý kinh doanh: 29".'<br>'."Quản lý nhân sự: 37".'<br>'."Quản lý kho: 43".'<br>';
                     ?>
                     <div class="form-group">
                         <label for="inputEmail" class="sr-only">Email address</label>

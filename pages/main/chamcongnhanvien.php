@@ -31,7 +31,7 @@ $getNgayNghiTheoMa = $nv->executeQuery("select nv.maNhanVien, SUM(soNgayNghi) so
                                             <div class="form-row">
                                                 <div class="form-group col-md-6">
                                                     <label for="inputEmail4">Tháng chấm công</label>
-                                                    <input type="text" class="form-control" id="thang" name="thang" placeholder="Email" readonly value="3">
+                                                    <input type="text" class="form-control" id="thang" name="thang" placeholder="Email" readonly value="<?php echo date('m', time()) - 1 ?>">
                                                 </div>
 
                                                 <div class="form-group col-md-6">
@@ -128,7 +128,7 @@ $getNgayNghiTheoMa = $nv->executeQuery("select nv.maNhanVien, SUM(soNgayNghi) so
                             $result = $nv->insert_update_delete("INSERT INTO `chamcong`(`maNhanVien`, `thangChamCong`, `namChamCong`, `soNgayLamViec`, `soNgayNghiKhongPhep`, `soNgayTre`, `soGioTangCa`, `luongThuong`, `phuCap`, `khoanTruBaoHiem`, `khoanTruKhac`, `thue`, `thucLanh`) VALUES ('$manv','$thang','$nam','$songaylamviec','$songaynghikhongphep','$songaytre','$sogiotangca','$luongthuong','$phucap','$khoantrubaohiem','$khoantrukhac','$thue','$thuclanh')");
                             if ($result) {
                                 echo "<script>
-                                window.location.href = 'http://localhost:8888/HTTT-DN/index.php?page=chamcong'
+                                 window.location.href = 'http://localhost/HTTT-DN/index.php?page=chamcong'
                                 </script>";
                             }
                         }
@@ -144,7 +144,7 @@ $getNgayNghiTheoMa = $nv->executeQuery("select nv.maNhanVien, SUM(soNgayNghi) so
     //     $ngayKetThuc = $_POST['ngayKetThuc'];
     //     $nv->insert_update_delete("update hopdong set ngayKetThuc = '$ngayKetThuc' where maNhanVien = $manv");
     //     echo "<script>
-    //         window.location.href = 'http://localhost:8888/HTTT-DN/index.php?page=nhanvien'
+    //         window.location.href = 'http://localhost/HTTT-DN/index.php?page=nhanvien'
     //         </script>";
     //     // header("location:../../index.php?page=nhanvien");
     // }

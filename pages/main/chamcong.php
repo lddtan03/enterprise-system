@@ -3,7 +3,8 @@ require_once './object/database.php';
 
 $row = new Database;
 $arr = $row->executeQuery('select distinct nv.maNhanVien, trangthai, avatar, hoTen, gioiTinh, ngaySinh, diaChi, tenPhong, tenChucVu, ngayKetThuc, luongCoBan from chucvu cv join nhanvien nv on cv.maChucVu=nv.maChucVu join phongban pb on pb.maPhong=nv.maPhong join hopdong hd on hd.maNhanVien=nv.maNhanVien order by nv.maNhanVien asc');
-$getNhanVienChamCong = $row->executeQuery("SELECT c.maNhanVien  FROM `chamcong` c JOIN nhanvien nv on c.maNhanVien = nv.maNhanVien WHERE thangChamCong = 3 and namChamCong = 2024");
+$thangChamCong = date('m', time()) - 1;
+$getNhanVienChamCong = $row->executeQuery("SELECT c.maNhanVien  FROM `chamcong` c JOIN nhanvien nv on c.maNhanVien = nv.maNhanVien WHERE thangChamCong = $thangChamCong and namChamCong = 2024");
 ?>
 
 <main role="main" class="main-content">

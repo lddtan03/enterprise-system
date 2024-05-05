@@ -55,11 +55,11 @@ if (isset($_SESSION['taiKhoan'])) {
         </ul>
 
         <!-- Admin -->
-        <?php 
-            // if ($maNhomQuyen === 'admin'):
+        <?php
+        // if ($maNhomQuyen === 'admin'):
         ?>
-            
-            <p class="text-muted nav-heading mt-4 mb-1">
+
+        <p class="text-muted nav-heading mt-4 mb-1">
                 <span>Admin</span>
             </p>
             <ul class="navbar-nav flex-fill w-100 mb-2">
@@ -95,92 +95,92 @@ if (isset($_SESSION['taiKhoan'])) {
                 </li>
             </ul>
         <?php
-            //  endif; 
+        //  endif; 
         ?>
 
         <!-- Nhân viên -->
-        <?php 
-            // if ($maNhomQuyen === 'nhanvien'):
+        <?php
+        // if ($maNhomQuyen === 'nhanvien'):
         ?>
-            <p class="text-muted nav-heading mt-4 mb-1">
-                <span>Nhân viên</span>
-            </p>
-            <ul class="navbar-nav flex-fill w-100 mb-2">
-                <li class="nav-item dropdown">
-                    <a href="#luong" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle nav-link">
-                        <i class="fa-regular fa-money-bill-1 fe-16"></i>
-                        <span class="ml-3 item-text">Lương</span>
-                    </a>
-                    <ul class="collapse list-unstyled pl-4 w-100" id="luong">
-                        <li class="nav-item">
-                            <a class="nav-link pl-3" href="index.php?page=luong_danhsachchamcongcuanhanvien"><span class="ml-1 item-text">Danh sách chấm công</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link pl-3" href="index.php?page=luong_theothang"><span class="ml-1 item-text">Lương theo tháng</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link pl-3" href="index.php?page=luong_theonam"><span class="ml-1 item-text">Lương theo năm</span></a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item w-100">
-                    <a class="nav-link" href="index.php?page=donnghiphep">
-                        <i class="fe fe-calendar fe-16"></i>
-                        <span class="ml-3 item-text">Đơn nghỉ phép</span>
-                    </a>
-                </li>
-            </ul>
-        <?php 
-            // endif; 
+        <p class="text-muted nav-heading mt-4 mb-1">
+                    <span>Nhân viên</span>
+                </p>
+                <ul class="navbar-nav flex-fill w-100 mb-2">
+                    <li class="nav-item dropdown">
+                        <a href="#luong" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle nav-link">
+                            <i class="fa-regular fa-money-bill-1 fe-16"></i>
+                            <span class="ml-3 item-text">Lương</span>
+                        </a>
+                        <ul class="collapse list-unstyled pl-4 w-100" id="luong">
+                            <li class="nav-item">
+                                <a class="nav-link pl-3" href="index.php?page=luong_danhsachchamcongcuanhanvien"><span class="ml-1 item-text">Danh sách chấm công</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link pl-3" href="index.php?page=luong_theothang"><span class="ml-1 item-text">Lương theo tháng</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link pl-3" href="index.php?page=luong_theonam"><span class="ml-1 item-text">Lương theo năm</span></a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item w-100">
+                        <a class="nav-link" href="index.php?page=donnghiphep">
+                            <i class="fe fe-calendar fe-16"></i>
+                            <span class="ml-3 item-text">Đơn nghỉ phép</span>
+                        </a>
+                    </li>
+                </ul>
+        <?php
+        // endif; 
         ?>
-        <?php 
-            // if ($maNhomQuyen === 'quanlynhansu'):
+        <?php
+        // if ($maNhomQuyen === 'quanlynhansu'):
         ?>
-           
-            <p class="text-muted nav-heading mt-4 mb-1">
-                <span>Quản lý nhân sự</span>
-            </p>
-            <ul class="navbar-nav flex-fill w-100 mb-2">
-                <li class="nav-item w-100">
-                    <a class="nav-link" href="index.php?page=thongkenhansu">
-                        <i class="fe fe-calendar fe-16"></i>
-                        <span class="ml-3 item-text">Thống kê nhân sự</span>
-                    </a>
-                </li>
-                <li class="nav-item w-100">
-                    <a class="nav-link" href="index.php?page=nhanvien">
-                        <i class="fe fe-calendar fe-16"></i>
-                        <span class="ml-3 item-text">Nhân viên</span>
-                    </a>
-                </li>
-                <li class="nav-item w-100">
-                    <a class="nav-link" href="index.php?page=duyetdonnghiphep">
-                        <i class="fe fe-calendar fe-16"></i>
-                        <span class="ml-3 item-text">Duyệt đơn nghỉ phép</span>
-                    </a>
-                </li>
-                <li class="nav-item w-100">
-                    <a class="nav-link" href="index.php?page=chamcong">
-                        <i class="fe fe-calendar fe-16"></i>
-                        <span class="ml-3 item-text">Chấm công</span>
-                    </a>
-                </li>
-                <li class="nav-item w-100">
-                    <a class="nav-link" href="index.php?page=chamcongdanhsach">
-                        <i class="fe fe-calendar fe-16"></i>
-                        <span class="ml-3 item-text">Danh sách chấm công</span>
-                    </a>
-                </li>
-            </ul>
-        <?php 
-            // endif; 
+
+        <p class="text-muted nav-heading mt-4 mb-1">
+            <span>Quản lý nhân sự</span>
+        </p>
+        <ul class="navbar-nav flex-fill w-100 mb-2">
+            <li class="nav-item w-100">
+                <a class="nav-link" href="index.php?page=thongkenhansu">
+                    <i class="fe fe-calendar fe-16"></i>
+                    <span class="ml-3 item-text">Thống kê nhân sự</span>
+                </a>
+            </li>
+            <li class="nav-item w-100">
+                <a class="nav-link" href="index.php?page=nhanvien">
+                    <i class="fe fe-calendar fe-16"></i>
+                    <span class="ml-3 item-text">Nhân viên</span>
+                </a>
+            </li>
+            <li class="nav-item w-100">
+                <a class="nav-link" href="index.php?page=duyetdonnghiphep">
+                    <i class="fe fe-calendar fe-16"></i>
+                    <span class="ml-3 item-text">Duyệt đơn nghỉ phép</span>
+                </a>
+            </li>
+            <li class="nav-item w-100">
+                <a class="nav-link" href="index.php?page=chamcong">
+                    <i class="fe fe-calendar fe-16"></i>
+                    <span class="ml-3 item-text">Chấm công</span>
+                </a>
+            </li>
+            <li class="nav-item w-100">
+                <a class="nav-link" href="index.php?page=chamcongdanhsach">
+                    <i class="fe fe-calendar fe-16"></i>
+                    <span class="ml-3 item-text">Danh sách chấm công</span>
+                </a>
+            </li>
+        </ul>
+        <?php
+        // endif; 
         ?>
 
         <!-- Quản lý kho hàng -->
-        <?php 
-            // if ($maNhomQuyen === 'quanlykho'):
+        <?php
+        // if ($maNhomQuyen === 'quanlykho'):
         ?>
-            
+                    
             <p class="text-muted nav-heading mt-4 mb-1">
                 <span>Quản lý kho hàng</span>
             </p>
@@ -218,16 +218,16 @@ if (isset($_SESSION['taiKhoan'])) {
                     </ul>
                 </li>
             </ul>
-        <?php 
+        <?php
         // endif;
-         ?>
+        ?>
 
         <!-- Quản lý kinh doanh-->
-        <?php 
-            // if ($maNhomQuyen === 'quanlykinhdoanh'):
+        <?php
+        // if ($maNhomQuyen === 'quanlykinhdoanh'):
         ?>
-           
-            <p class="text-muted nav-heading mt-4 mb-1">
+
+        <p class="text-muted nav-heading mt-4 mb-1">
                 <span>Quản lý kinh doanh</span>
             </p>
             <ul class="navbar-nav flex-fill w-100 mb-2">
@@ -254,9 +254,9 @@ if (isset($_SESSION['taiKhoan'])) {
                     </a>
                 </li>
             </ul>
-        <?php 
-            // endif; 
-            ?>
+        <?php
+        // endif; 
+        ?>
 
 
     </nav>

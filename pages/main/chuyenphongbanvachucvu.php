@@ -48,7 +48,7 @@ $getNhanVienTheoMa = $nv->executeQuery("select nv.maNhanVien, avatar, hoTen, gio
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label>Lương cơ bản</label>
-                                                    <input type="text" class="form-control" placeholder="Password" disabled value="<?php echo $nhanvien['luongCoBan'] ?>">
+                                                    <input type="text" class="form-control" placeholder="Password" id="luongCoBan" disabled value="<?php echo $nhanvien['luongCoBan'] ?>">
                                                 </div>
                                             </div>
                                             <div class="form-row">
@@ -58,7 +58,7 @@ $getNhanVienTheoMa = $nv->executeQuery("select nv.maNhanVien, avatar, hoTen, gio
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label>Tên chức vụ</label>
-                                                    <input type="text" class="form-control" placeholder="Password" disabled value="<?php echo $nhanvien['tenChucVu'] ?>">
+                                                    <input type="text" id="chucVuHienTai" class="form-control" placeholder="Password" disabled value="<?php echo $nhanvien['tenChucVu'] ?>">
                                                 </div>
                                             </div>
                                             <div class="form-row">
@@ -90,7 +90,7 @@ $getNhanVienTheoMa = $nv->executeQuery("select nv.maNhanVien, avatar, hoTen, gio
 
                                                 <div class="form-group col-md-6">
                                                     <label>Chức vụ sau khi chuyển</label>
-                                                        
+
                                                     <div>
                                                         <select id="chucvu" name="chucvu" class="form-control">
 
@@ -117,6 +117,15 @@ $getNhanVienTheoMa = $nv->executeQuery("select nv.maNhanVien, avatar, hoTen, gio
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-6">
+                                                    <label>Ngày nhận chức</label>
+                                                    <input id="ngayNhanChuc" name="ngayNhanChuc" type="date" class="form-control"  readonly="true" value="<?php echo date('Y-m-d') ?>">
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label>Lương sau khi thay đổi chức vụ</label>
+                                                    <input id="luongCoBanSauKhiChuyen" name="luongCoBanSauKhiChuyen" type="text" class="form-control" readonly="true" value="">
+                                                </div> 
                                             <input type="submit" class="btn btn-primary" name="btn_submit" value="Lưu"></input>
                                         </form>
                                     </div>
@@ -125,6 +134,41 @@ $getNhanVienTheoMa = $nv->executeQuery("select nv.maNhanVien, avatar, hoTen, gio
 
                             <script>
                                 $(document).ready(function() {
+                                    function getLuongOfChucVu(chucVuHienTai, chucVuSauKhiChuyen, luongCoBan) {
+                                        let arr = {
+                                            'Trưởng phòng': [],
+                                            'Phó phòng': [],
+                                            'Trợ lý': [],
+                                            'Nhân viên': []
+                                        };
+                                        arr['Nhân viên']['TL'] = luongCoBan * (1 + 0.1);
+                                        arr['Nhân viên']['PP'] = arr['Nhân viên']['TL'] * (1 + 0.1)
+                                        arr['Nhân viên']['TP'] = arr['Nhân viên']['PP'] * (1 + 0.1)
+                                        arr['Trợ lý']['PP'] = arr['Nhân viên']['TL']
+                                        arr['Trợ lý']['TP'] = arr['Nhân viên']['PP']
+                                        arr['Phó phòng']['TP'] = arr['Nhân viên']['TL']
+                                        arr['Trưởng phòng']['PP'] = luongCoBan * (1 - 0.1);
+                                        arr['Trưởng phòng']['TL'] = arr['Trưởng phòng']['PP'] * (1 - 0.1)
+                                        arr['Trưởng phòng']['NV'] = arr['Trưởng phòng']['TL'] * (1 - 0.1)
+                                        arr['Phó phòng']['NV'] = arr['Trưởng phòng']['TL']
+                                        arr['Phó phòng']['TL'] = arr['Trưởng phòng']['PP']
+                                        arr['Trợ lý']['NV'] = arr['Phó phòng']['TL']
+                                        arr['Nhân viên']['NV'] = luongCoBan
+                                        arr['Trưởng phòng']['TP'] = luongCoBan
+                                        arr['Trợ lý']['TL'] = luongCoBan
+                                        arr['Phó phòng']['PP'] = luongCoBan
+
+                                        return parseInt(arr[chucVuHienTai][chucVuSauKhiChuyen])
+                                    }
+
+                                    function loadLuongSauKhiChuyen() {
+                                        let chucVuHienTai = $('#chucVuHienTai').val();
+                                        let chucVuSauKhiChuyen = $('#chucvu').val();
+                                        let luongCoBan = $('#luongCoBan').val();
+                                        let luong = getLuongOfChucVu(chucVuHienTai, chucVuSauKhiChuyen, luongCoBan)
+                                        $('#luongCoBanSauKhiChuyen').attr('value', luong)
+                                    }
+
                                     $("#tenphong").change(function() {
                                         let tenphong = $('#tenphong').val();
                                         var data = {
@@ -150,6 +194,13 @@ $getNhanVienTheoMa = $nv->executeQuery("select nv.maNhanVien, avatar, hoTen, gio
                                         });
                                     })
 
+                                    loadLuongSauKhiChuyen()
+
+                                    $("#chucvu").change(function() {
+                                        loadLuongSauKhiChuyen()
+                                    })
+
+
                                 })
                             </script>
                             <?php
@@ -159,25 +210,34 @@ $getNhanVienTheoMa = $nv->executeQuery("select nv.maNhanVien, avatar, hoTen, gio
                             if (isset($_POST['btn_submit'])) {
                                 $phong = $_POST['tenphong'];
                                 $chucvu = $_POST['chucvu'];
-                                $result = $nv->executeQuery("select maPhong, maChucVu from nhanvien where maChucVu = 'TP'");
+                                $luongCoBanSauKhiChuyen = $_POST['luongCoBanSauKhiChuyen'];
+                                $date = date("Y-m-d");
+                               
+                                // $result = $nv->executeQuery("select maPhong, maChucVu from nhanvien where maChucVu = 'TP'");
 
-                                foreach ($result as $item) {
-                                    if ($item['maPhong'] == "$phong" && $item['maChucVu'] == "$chucvu") {
-                                        $error['existTP'] = "Phòng $phong đã có trưởng phòng";
-                                        echo "Phòng $phong đã có trưởng phòng";
-                                    }
-                                }
-                                
+                                // foreach ($result as $item) {     
+                                //     if ($item['maPhong'] == "$phong" && $item['maChucVu'] == "$chucvu") {
+                                //         $error['existTP'] = "Phòng $phong đã có trưởng phòng";
+                                //         echo "Phòng $phong đã có trưởng phòng";
+                                //     }
+                                // }
+
                                 if (empty($error)) {
                                     // $nv->executeQuery("SELECT maNhanVien, maPhong FROM `nhanvien` join `phongban` WHERE maChucVu = 'TP'");
                                     if ($chucvu == "TP") {
                                         $nv->insert_update_delete("update phongban set maTruongPhong = '$manv' where maPhong = '$phong'");
-                                        $date = date("Y-m-d");
-                                        $nv->insert_update_delete("update phongban set ngayNhanChuc ='$date'  where maPhong = '$phong'");
+                                       
+                                        $nv->insert_update_delete("update phongban set ngayNhanChuc ='$date' where maPhong = '$phong'");
+                                    }   
+                                    $nv->insert_update_delete("update hopdong set luongCoBan = '$luongCoBanSauKhiChuyen' where maNhanVien = '$manv'");
+                                    $nv->insert_update_delete("update nhanvien set maPhong = '$phong', maChucVu = '$chucvu', ngayNhanChuc = '$date' where maNhanVien = '$manv'");
+                                    
+                                    $truongPhong = $nv->executeQuery("SELECT * FROM `phongban` pb join nhanvien nv on pb.maTruongPhong = nv.maNhanVien WHERE pb.maPhong = '$phong' and nv.maChucVu != 'TP'");
+                                    if ($truongPhong) {
+                                        $nv->insert_update_delete("update phongban set maTruongPhong = NULL, ngayNhanChuc = NULL where maPhong = '$phong'");
                                     }
-                                    $nv->insert_update_delete("update nhanvien set maPhong = '$phong', maChucVu = '$chucvu' where maNhanVien = '$manv'");
                                     echo "<script>
-                                    window.location.href = 'http://localhost:8888/HTTT-DN/index.php?page=nhanvien'
+                                    window.location.href = 'http://localhost/HTTT-DN/index.php?page=nhanvien'
                                     </script>";
                                 }
                             }

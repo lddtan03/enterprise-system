@@ -3,8 +3,8 @@ require_once './object/database.php';
 
 $manv = $_SESSION['taiKhoan'];
 $row = new Database;
-$arr = $row->executeQuery("select * from chamcong cc join nhanvien nv on cc.maNhanVien = nv.maNhanVien join hopdong hd on hd.maNhanVien = nv.maNhanVien left join donnghiphep dnp on nv.maNhanVien = dnp.maNhanVien where nv.maNhanVien = $manv and namChamCong = 2024 ORDER BY thangChamCong ASC");
-$tongLuongNam = $row->executeQuery("select SUM(thucLanh) as tongLuongNam from chamcong WHERE namChamCong = 2024 and  maNhanVien = $manv")
+$arr = $row->executeQuery("select * from chamcong cc join nhanvien nv on cc.maNhanVien = nv.maNhanVien join hopdong hd on hd.maNhanVien = nv.maNhanVien left join donnghiphep dnp on nv.maNhanVien = dnp.maNhanVien where nv.maNhanVien = $manv and namChamCong = 2023 and dnp.trangthai = 1 ORDER BY thangChamCong ASC");
+$tongLuongNam = $row->executeQuery("select SUM(thucLanh) as tongLuongNam from chamcong WHERE namChamCong = 2023 and  maNhanVien = $manv")
 
 ?>
 
@@ -17,7 +17,7 @@ $tongLuongNam = $row->executeQuery("select SUM(thucLanh) as tongLuongNam from ch
                     <div>
                         <label for="nam">Năm</label>
                         <select name="nam" id="nam">
-                            <option value="2024">2024</option>
+                            <option value="2023">2023</option>
                         </select>
                     </div>
                 </div>
@@ -111,7 +111,7 @@ $tongLuongNam = $row->executeQuery("select SUM(thucLanh) as tongLuongNam from ch
                                     </tbody>
 
                                 </table>
-                                <h2 style="margin: 50px 10px 0px; text-align: right">Tổng lương năm: <?php echo $tongLuongNam[0]['tongLuongNam']?>đ</h2>
+                                <h2 style="margin: 50px 10px 0px; text-align: right">Tổng lương năm: <?php echo number_format($tongLuongNam[0]['tongLuongNam'])?>đ</h2>
                             </div>
                         </div>
                     </div> <!-- simple table -->
