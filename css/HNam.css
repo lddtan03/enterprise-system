@@ -299,3 +299,6 @@
         transform: translateY(0);
     }
 }
+.dropdown:hover .dropdown-menu-right{
+    display: block;
+}

@@ -305,7 +305,7 @@ function updatePhongBan(maPhong, tenPhong, ngayNhanChuc) {
 												echo "<td>" . $row["maTruongPhong"] . "</td>"; // Hiển thị cột maTruongPhong
 												echo "<td>" . $row["tenTruongPhong"] . "</td>";
 												echo "<td>" . $row["soLuongNV"] . "</td>";
-												echo "<td>" . date("d-m-Y", strtotime($row["ngayNhanChuc"])) . "</td>"; // Định dạng ngày tháng
+												echo "<td>" . $row["ngayNhanChuc"] . "</td>"; // Định dạng ngày tháng
 												echo "<td>";
 												echo "<div style='display: flex; align-items: center; justify-content: start; gap: 10px;'>";
 												echo "<button type='button' class='btn mb-2 btn-warning'>Sửa</button>";
