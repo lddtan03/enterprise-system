@@ -594,8 +594,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
                         text: 'Mã phòng đã tồn tại trong CSDL!',
                         timer: 5000
                     });
-                }
-                showAlert();
+					// Chuyển hướng trang sau khi thông báo đã hiển thị đủ thời gian
+					setTimeout(function() {
+						window.location.replace('index.php?page=admin-phongban');
+					}, 500);
+				}
+				showAlert();
             </script>";
         } else {
             // Nếu mã phòng chưa tồn tại, thêm dữ liệu vào CSDL
