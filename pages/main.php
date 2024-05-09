@@ -127,6 +127,13 @@ if (isset($_GET['page'])) {
                 require_once 'pages/main/danhsachphieunhap.php';
             }
             break;
+        case 'xuatkho':
+            if ($_GET['id'] == 'taophieuxuat') {
+                require_once 'pages/main/xuatkho-taophieuxuat.php';
+            } else {
+                require_once 'pages/main/xuatkho-danhsachphieuxuat.php';
+            }
+            break;
         default:
             require_once 'pages/dashboard.php';
             break;

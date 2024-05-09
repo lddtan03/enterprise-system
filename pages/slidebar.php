@@ -56,7 +56,7 @@ if (isset($_SESSION['taiKhoan'])) {
 
         <!-- Admin -->
         <?php
-        // if ($maNhomQuyen === 'admin'):
+        if ($maNhomQuyen === 'admin'):
         ?>
 
         <p class="text-muted nav-heading mt-4 mb-1">
@@ -95,12 +95,12 @@ if (isset($_SESSION['taiKhoan'])) {
                 </li>
             </ul>
         <?php
-        //  endif; 
+         endif; 
         ?>
 
         <!-- Nhân viên -->
         <?php
-        // if ($maNhomQuyen === 'nhanvien'):
+        if ($maNhomQuyen === 'nhanvien'):
         ?>
             <p class="text-muted nav-heading mt-4 mb-1">
                 <span>Nhân viên</span>
@@ -136,10 +136,10 @@ if (isset($_SESSION['taiKhoan'])) {
                 </li>
             </ul>
         <?php 
-            // endif; 
+            endif; 
         ?>
         <?php
-        // if ($maNhomQuyen === 'quanlynhansu'):
+        if ($maNhomQuyen === 'quanlynhansu'):
         ?>
            
             <p class="text-muted nav-heading mt-4 mb-1">
@@ -178,12 +178,12 @@ if (isset($_SESSION['taiKhoan'])) {
                 </li>
             </ul>
         <?php 
-            // endif; 
+            endif; 
         ?>
 
         <!-- Quản lý kho hàng -->
         <?php
-        // if ($maNhomQuyen === 'quanlykho'):
+        if ($maNhomQuyen === 'quanlykho'):
         ?>
                     
             <p class="text-muted nav-heading mt-4 mb-1">
@@ -227,14 +227,33 @@ if (isset($_SESSION['taiKhoan'])) {
                         </li>
                     </ul>
                 </li>
+                <style>
+                    .hover-xuatkho:hover #xuatkho{
+                        display: block;
+                    }
+                </style>
+                <li class="hover-xuatkho nav-item dropdown">
+                    <a href="#xuatkho" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle nav-link">
+                        <i class="fa-solid fa-tent-arrow-down-to-line"></i>
+                        <span class="ml-3 item-text">Xuất kho</span>
+                    </a>
+                    <ul class="collapse list-unstyled pl-4 w-100" id="xuatkho">
+                        <li class="nav-item">
+                            <a class="nav-link pl-3" href="index.php?page=xuatkho&id=taophieuxuat"><span class="ml-1 item-text">Tạo phiếu xuất</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link pl-3" href="index.php?page=xuatkho&id=danhsachphieuxuat"><span class="ml-1 item-text">Danh sách phiếu xuất</span></a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         <?php
-        // endif;
+        endif;
         ?>
 
         <!-- Quản lý kinh doanh-->
         <?php
-        // if ($maNhomQuyen === 'quanlykinhdoanh'):
+        if ($maNhomQuyen === 'quanlykinhdoanh'):
         ?>
 
         <p class="text-muted nav-heading mt-4 mb-1">
@@ -270,7 +289,7 @@ if (isset($_SESSION['taiKhoan'])) {
                 </li>
             </ul>
         <?php
-        // endif; 
+        endif; 
         ?>
 
 

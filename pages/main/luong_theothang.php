@@ -4,6 +4,8 @@ require_once './object/database.php';
 $manv = $_SESSION['taiKhoan'];
 $row = new Database;
 $thangChamCong = date('m') - 1;
+
+$nam = date('y');
 $arr = $row->executeQuery("select * from chamcong cc join nhanvien nv on cc.maNhanVien = nv.maNhanVien join hopdong hd on hd.maNhanVien = nv.maNhanVien where nv.maNhanVien = $manv and thangChamCong = $thangChamCong and namChamCong = 2024");
 $getNgayNghiTheoMa = $row->executeQuery("select nv.maNhanVien, SUM(soNgayNghi) soNgayNghiCoPhep from nhanvien nv join donnghiphep dnp on nv.maNhanVien = dnp.maNhanVien where nv.maNhanVien = $manv and MONTH(ngayBatDauNghi) = $thangChamCong  and YEAR(ngayBatDauNghi) = $nam group by nv.maNhanVien ");
 

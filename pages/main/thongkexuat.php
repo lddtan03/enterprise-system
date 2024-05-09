@@ -255,8 +255,7 @@ while ($row = $result->fetch_assoc()) {
             case 'quarter':
                 additionalInputsContainer.innerHTML = `
                     <select id="quarter" name="quarter" class="my-2 py-1">
-                    <option value="">Chọn quý</option>
-                    <option value="Q1">Qúy 1</option>
+                    <option value="Q1" selected >Qúy 1</option>
                     <option value="Q2">Qúy 2</option>
                     <option value="Q3">Qúy 3</option>
                     <option value="Q4">Qúy 4</option>

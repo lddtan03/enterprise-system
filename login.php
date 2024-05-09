@@ -115,7 +115,7 @@ mysqli_close($conn); // Close the database connection after processing
                 <form class="col-lg-5 col-md-6 col-15 mx-auto text-center" method="post">
                     <a class="navbar-brand mx-auto mt-2 flex-fill text-center" href="./index.html">
                         </a>
-                    <h1 class="h6 mb-3">Sign in</h1>
+                    <h1 class="h6 mb-3" style="font-size: 30px;">Sign in</h1>
                     <?php
                         // echo "Nhân viên: 21".'<br>'."Admin: 25".'<br>'."Quản lý kinh doanh: 29".'<br>'."Quản lý nhân sự: 37".'<br>'."Quản lý kho: 43".'<br>';
                     ?>
@@ -131,17 +131,15 @@ mysqli_close($conn); // Close the database connection after processing
                     </div>
                     <button class="btn btn-lg btn-primary btn-block" type="submit">Đăng nhập</button>
                     <br>
-                    <div class="form-row mx-auto">
+                    <!-- <div class="form-row mx-auto">
                         <div class="form-group col-md-6 mx-auto ">
-                            <!-- <button class="btn btn-lg btn-primary btn-block" formaction="index.php?page=forgetPass">Quên mật khẩu</button> -->
                             <a href="index.php?page=forgetPass" class="btn btn-lg btn-primary btn-block">Quên mật khẩu</a>
                         </div>
                         <div class="form-group col-md-4 mx-auto">
-                            <!-- <button class="btn btn-lg btn-primary btn-block" formaction="index.php?page=signup">Đăng ký</button> -->
                             <a href="index.php?page=signup" class="btn btn-lg btn-primary btn-block">Đăng ký</a>
                         </div>
-                    </div>
-                    <p class="mt-5 mb-3 text-muted">© 2024</p>
+                    </div> -->
+                    <p class="mt-5 mb-3 text-muted">Group 20 © 2024</p>
         </form>
 
         </div>
